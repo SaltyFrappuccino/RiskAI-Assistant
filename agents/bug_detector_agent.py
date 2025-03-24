@@ -6,6 +6,7 @@ import logging
 from services.gigachat_service import GigaChatService
 from agents.base_agent import CodeAnalysisAgent
 import prompts.bug_detector_agent
+from models.agent_schemas import BugDetectorResult
 
 # Настройка логирования
 logger = logging.getLogger(__name__)
@@ -23,4 +24,8 @@ class BugDetectorAgent(CodeAnalysisAgent):
         Args:
             gigachat_service: Сервис для взаимодействия с GigaChat.
         """
-        super().__init__(gigachat_service, prompts.bug_detector_agent.prompt) 
+        super().__init__(
+            gigachat_service=gigachat_service, 
+            prompt=prompts.bug_detector_agent.prompt, 
+            result_schema=BugDetectorResult
+        ) 

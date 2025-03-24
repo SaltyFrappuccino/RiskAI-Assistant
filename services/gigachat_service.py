@@ -4,7 +4,7 @@
 import json
 import logging
 import re
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Type
 
 from langchain_gigachat.chat_models import GigaChat
 from langchain_core.messages import SystemMessage, HumanMessage
@@ -146,7 +146,7 @@ class GigaChatService:
                 "error": str(e)
             }
 
-    def call_agent_with_function(self, prompt: str, data: Dict[str, Any], result_schema: BaseModel) -> Dict[str, Any]:
+    def call_agent_with_function(self, prompt: str, data: Dict[str, Any], result_schema: Type[BaseModel]) -> Dict[str, Any]:
         """
         Вызов агента с заданным промптом, данными и схемой ожидаемого результата.
         
@@ -159,34 +159,32 @@ class GigaChatService:
             Dict[str, Any]: Результат работы агента в формате JSON.
         """
         try:
+            # Используем простой текстовый запрос вместо функций, так как функции могут привести к ошибке
+            # 'properties.kwargs.properties' is missing
+            
+            # Добавим в промпт информацию о требуемой структуре ответа
+            schema_json = json.dumps(result_schema.model_json_schema(), ensure_ascii=False, indent=2)
+            schema_info = f"\n\nОтвет должен соответствовать следующей JSON-схеме:\n```json\n{schema_json}\n```\n"
+            
             # Заполнение промпта данными
-            filled_prompt = prompt.format(**data)
+            filled_prompt = prompt.format(**data) + schema_info
             
             # Создание системного сообщения
             system_message = SystemMessage(content=filled_prompt)
+            human_message = HumanMessage(content="Выполни анализ предоставленных данных и верни результат в формате JSON в соответствии с указанной схемой.")
             
-            # Определение функции для GigaChat
-            tool = GigaChatTool(
-                name="generate_analysis_result",
-                description="Функция для генерации результата анализа",
-                schema=result_schema.model_json_schema()
-            )
+            # Текстовый запрос без функций
+            logger.info(f"Вызов GigaChat в текстовом режиме, ожидаемая схема: {result_schema.__name__}")
+            response = self.giga.invoke([system_message, human_message])
             
-            # Привязка функции к модели
-            giga_with_function = self.giga.bind_tools([tool])
-            
-            # Вызов модели
-            logger.info("Вызов GigaChat для анализа с использованием функции")
-            response = giga_with_function.invoke([system_message, HumanMessage(content="Выполни анализ и верни результат.")])
-            
-            # Извлечение результата
+            # Извлечение JSON из ответа
             response_text = response.content
-            
-            # Используем улучшенный метод извлечения JSON
             result = self.extract_json_from_text(response_text)
             
             if "error" not in result:
                 logger.info("Успешно получен результат анализа в формате JSON")
+            else:
+                logger.warning(f"Ошибка при извлечении результата: {result.get('error')}")
             
             return result
         except Exception as e:

@@ -1,0 +1,408 @@
+2025-03-24 07:10:18,589 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:10:18,593 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:10:18,594 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:10:21,559 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:10:21,560 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:10:21,561 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:10:21,569 - __main__ - INFO - Запуск сервера на порту 8080
+2025-03-24 07:10:22,157 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:10:22,158 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:10:22,159 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:10:22,160 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:10:22,161 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:10:22,162 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:10:35,519 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:10:35,522 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:10:35,523 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:10:35,858 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:10:35,859 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:10:35,861 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:10:35,869 - __main__ - INFO - Запуск сервера на порту 8082
+2025-03-24 07:10:35,953 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:10:35,955 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:10:35,956 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:10:35,958 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:10:35,958 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:10:35,960 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:11:19,320 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:11:19,324 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:11:19,325 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:11:19,681 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:11:19,682 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:11:19,683 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:11:19,688 - __main__ - INFO - Запуск сервера на порту 8082
+2025-03-24 07:11:19,760 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:11:19,761 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:11:19,763 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:11:19,764 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:11:19,765 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:11:19,766 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:11:31,883 - main - INFO - Запрос на проверку работоспособности API
+2025-03-24 07:11:31,889 - main - INFO - Запрос на проверку работоспособности API
+2025-03-24 07:11:39,365 - main - INFO - Получен запрос на анализ кода
+2025-03-24 07:11:39,366 - main - INFO - Story: 1
+2025-03-24 07:11:39,368 - main - INFO - Requirements: Не предоставлены
+2025-03-24 07:11:39,369 - main - INFO - Code: Не предоставлен
+2025-03-24 07:11:39,370 - main - INFO - Test cases: Не предоставлены
+2025-03-24 07:11:39,371 - agents.analyzer - INFO - Начало анализа кода
+2025-03-24 07:11:39,373 - agents.analyzer - INFO - Запуск агента проверки соответствия кода требованиям
+2025-03-24 07:11:39,374 - agents.base_agent - INFO - Запуск агента CodeRequirementsAgent
+2025-03-24 07:11:39,446 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:11:40,825 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-03-24 07:11:44,638 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:11:44,641 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:11:44,642 - agents.base_agent - INFO - Агент CodeRequirementsAgent завершил работу
+2025-03-24 07:11:44,644 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов требованиям
+2025-03-24 07:11:44,645 - agents.base_agent - INFO - Запуск агента TestRequirementsAgent
+2025-03-24 07:11:44,647 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:11:48,009 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:11:48,012 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:11:48,013 - agents.base_agent - INFO - Агент TestRequirementsAgent завершил работу
+2025-03-24 07:11:48,014 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов коду
+2025-03-24 07:11:48,014 - agents.base_agent - INFO - Запуск агента TestCodeAgent
+2025-03-24 07:11:48,016 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:11:51,175 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:11:51,178 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:11:51,180 - agents.base_agent - INFO - Агент TestCodeAgent завершил работу
+2025-03-24 07:11:51,181 - agents.analyzer - INFO - Запуск агента проверки кода на соответствие лучшим практикам
+2025-03-24 07:11:51,182 - agents.base_agent - INFO - Запуск агента BestPracticesAgent
+2025-03-24 07:11:51,183 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:11:52,715 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:11:52,717 - services.gigachat_service - ERROR - Не удалось распарсить JSON из ответа: {
+  "story": "Описание задачи",
+ 說明"code": "Код, который требуется проанализировать"
+}
+2025-03-24 07:11:52,718 - services.gigachat_service - ERROR - Не удалось извлечь JSON из ответа: Для выполнения анализа мне необходим сам код, который ты хочешь проанализировать. Пожалуйста, предоставь его, чтобы я мог провести детальный разбор и дать конкретные рекомендации.
+
+Если у тебя есть какие-то дополнительные требования или пожелания к анализу, также сообщи их. 
+
+Пример того, как может выглядеть запрос:
+```json
+{
+  "story": "Описание задачи",
+ 說明"code": "Код, который требуется проанализировать"
+}
+```
+2025-03-24 07:11:52,721 - agents.base_agent - INFO - Агент BestPracticesAgent завершил работу
+2025-03-24 07:11:52,722 - agents.analyzer - INFO - Запуск агента обнаружения багов
+2025-03-24 07:11:52,723 - agents.base_agent - INFO - Запуск агента BugDetectorAgent
+2025-03-24 07:11:52,725 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:11:53,581 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:11:53,583 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:11:53,585 - agents.base_agent - INFO - Агент BugDetectorAgent завершил работу
+2025-03-24 07:11:53,586 - agents.analyzer - INFO - Запуск агента обнаружения уязвимостей
+2025-03-24 07:11:53,587 - agents.base_agent - INFO - Запуск агента VulnerabilityDetectorAgent
+2025-03-24 07:11:53,588 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:11:54,388 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:11:54,390 - services.gigachat_service - ERROR - Не удалось извлечь JSON из ответа: Для выполнения анализа мне нужен сам код или данные для анализа. Пожалуйста, предоставь его, чтобы я мог провести детальный анализ и предоставить отчет о возможных уязвимостях в формате JSON.
+2025-03-24 07:11:54,392 - agents.base_agent - INFO - Агент VulnerabilityDetectorAgent завершил работу
+2025-03-24 07:11:54,394 - agents.analyzer - INFO - Запуск агента формирования итогового отчета
+2025-03-24 07:11:54,395 - agents.base_agent - INFO - Запуск агента FinalReportAgent
+2025-03-24 07:11:54,396 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:12:02,665 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:12:02,668 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:12:02,669 - agents.base_agent - INFO - Агент FinalReportAgent завершил работу
+2025-03-24 07:12:02,670 - agents.analyzer - INFO - Формирование итогового результата анализа
+2025-03-24 07:12:02,671 - agents.analyzer - INFO - Анализ кода успешно завершен
+2025-03-24 07:12:02,672 - main - INFO - Анализ кода успешно выполнен
+2025-03-24 07:19:12,039 - main - INFO - Запрос на проверку работоспособности API
+2025-03-24 07:19:12,047 - main - INFO - Запрос на проверку работоспособности API
+2025-03-24 07:24:02,747 - main - INFO - Получен запрос на анализ кода
+2025-03-24 07:24:02,748 - main - INFO - Story: Нужно создать библиотеку для сортировки списка товаров по различным параметрам, которая будет исполь...
+2025-03-24 07:24:02,750 - main - INFO - Requirements: 1. Создать класс Product с атрибутами: id, name, price, rating, date_added
+2. Создать функцию sort_p...
+2025-03-24 07:24:02,751 - main - INFO - Code: from datetime import datetime
+from typing import List, Dict, Any, Literal, Union, Optional
+from copy...
+2025-03-24 07:24:02,753 - main - INFO - Test cases: import unittest
+from datetime import datetime, timedelta
+from product_sorter import Product, sort_pr...
+2025-03-24 07:24:02,755 - agents.analyzer - INFO - Начало анализа кода
+2025-03-24 07:24:02,757 - agents.analyzer - INFO - Запуск агента проверки соответствия кода требованиям
+2025-03-24 07:24:02,758 - agents.base_agent - INFO - Запуск агента CodeRequirementsAgent
+2025-03-24 07:24:02,759 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:07,684 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:07,689 - services.gigachat_service - ERROR - Не удалось распарсить JSON из ответа: {
+  "code_requirements_match": 90,
+  "missing_requirements": [],
+  "incorrect_implementations": [
+    {
+      "requirement": "Функция sort_products должна поддерживать сортировку по убыванию цены.",
+      "code_snippet": "if sort_by == 'price_desc':\n        result.sort(key=lambda p: p.price, reverse=True)",
+      "description": "Сортировка по убыванию цены корректна, но отсутствие явной проверки корректности аргумента `sort_by` может привести к ошибкам при передаче неверного значения."
+    },
+    {
+      "requirement": "Добавить валидацию входных параметров функции sort_products.",
+      "code_snippet": "if not isinstance(products, list):\n        raise ValueError(\"products должен быть списком")",
+      "description": "Валидация параметров проведена частично. Не проверяется валидность значений аргументов `sort_by`, что может вызвать ошибку во время выполнения программы."
+    },
+    {
+      "requirement": "Обрабатывать ошибки некорректного ввода.",
+      "code_snippet": "if sort_by not in valid_sort_params:\n        raise ValueError(f\"sort_by должен быть одним из {valid_sort_params}\")",
+      "description": "Некорректный ввод обрабатывается, однако отсутствуют сообщения об ошибках в случае некорректного типа данных для аргумента `sort_by`. Например, если передан не строковый тип."
+    }
+  ]
+}
+2025-03-24 07:24:07,694 - services.gigachat_service - ERROR - Не удалось извлечь JSON из ответа: ```json
+{
+  "code_requirements_match": 90,
+  "missing_requirements": [],
+  "incorrect_implementations": [
+    {
+      "requirement": "Функция sort_products должна поддерживать сортировку по убыванию цены.",
+      "code_snippet": "if sort_by == 'price_desc':\n        result.sort(key=lambda p: p.price, reverse=True)",
+      "description": "Сортировка по убыванию цены корректна, но отсутствие явной проверки корректности аргумента `sort_by` может привести к ошибкам при передаче неверного значения."
+    },
+    {
+      "requirement": "Добавить валидацию входных параметров функции sort_products.",
+      "code_snippet": "if not isinstance(products, list):\n        raise ValueError(\"products должен быть списком")",
+      "description": "Валидация параметров проведена частично. Не проверяется валидность значений аргументов `sort_by`, что может вызвать ошибку во время выполнения программы."
+    },
+    {
+      "requirement": "Обрабатывать ошибки некорректного ввода.",
+      "code_snippet": "if sort_by not in valid_sort_params:\n        raise ValueError(f\"sort_by должен быть одним из {valid_sort_params}\")",
+      "description": "Некорректный ввод обрабатывается, однако отсутствуют сообщения об ошибках в случае некорректного типа данных для аргумента `sort_by`. Например, если передан не строковый тип."
+    }
+  ]
+}
+```
+2025-03-24 07:24:07,700 - agents.base_agent - INFO - Агент CodeRequirementsAgent завершил работу
+2025-03-24 07:24:07,701 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов требованиям
+2025-03-24 07:24:07,702 - agents.base_agent - INFO - Запуск агента TestRequirementsAgent
+2025-03-24 07:24:07,703 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:10,132 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:10,135 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:24:10,136 - agents.base_agent - INFO - Агент TestRequirementsAgent завершил работу
+2025-03-24 07:24:10,137 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов коду
+2025-03-24 07:24:10,138 - agents.base_agent - INFO - Запуск агента TestCodeAgent
+2025-03-24 07:24:10,139 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:12,363 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:12,368 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:24:12,369 - agents.base_agent - INFO - Агент TestCodeAgent завершил работу
+2025-03-24 07:24:12,372 - agents.analyzer - INFO - Запуск агента проверки кода на соответствие лучшим практикам
+2025-03-24 07:24:12,375 - agents.base_agent - INFO - Запуск агента BestPracticesAgent
+2025-03-24 07:24:12,376 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:23,705 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:23,707 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:24:23,708 - agents.base_agent - INFO - Агент BestPracticesAgent завершил работу
+2025-03-24 07:24:23,710 - agents.analyzer - INFO - Запуск агента обнаружения багов
+2025-03-24 07:24:23,711 - agents.base_agent - INFO - Запуск агента BugDetectorAgent
+2025-03-24 07:24:23,712 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:35,905 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:35,908 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:24:35,909 - agents.base_agent - INFO - Агент BugDetectorAgent завершил работу
+2025-03-24 07:24:35,910 - agents.analyzer - INFO - Запуск агента обнаружения уязвимостей
+2025-03-24 07:24:35,911 - agents.base_agent - INFO - Запуск агента VulnerabilityDetectorAgent
+2025-03-24 07:24:35,913 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:39,770 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:39,774 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:24:39,775 - agents.base_agent - INFO - Агент VulnerabilityDetectorAgent завершил работу
+2025-03-24 07:24:39,776 - agents.analyzer - INFO - Запуск агента формирования итогового отчета
+2025-03-24 07:24:39,778 - agents.base_agent - INFO - Запуск агента FinalReportAgent
+2025-03-24 07:24:39,779 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:24:56,280 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:24:56,328 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:24:56,330 - agents.base_agent - INFO - Агент FinalReportAgent завершил работу
+2025-03-24 07:24:56,332 - agents.analyzer - INFO - Формирование итогового результата анализа
+2025-03-24 07:24:56,336 - agents.analyzer - ERROR - Ошибка при формировании итогового результата: 1 validation error for Metrics
+code_requirements_match
+  Input should be a valid number [type=float_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.10/v/float_type
+2025-03-24 07:24:56,338 - main - INFO - Анализ кода успешно выполнен
+2025-03-24 07:27:44,195 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:27:44,198 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:27:44,200 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:27:44,683 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:27:44,685 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:27:44,686 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:27:44,694 - __main__ - INFO - Запуск сервера на порту 8082
+2025-03-24 07:27:44,794 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:27:44,796 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:27:44,798 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:27:44,800 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:27:44,802 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:27:44,802 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:27:46,670 - main - INFO - Получен запрос на анализ кода
+2025-03-24 07:27:46,671 - main - INFO - Story: Нужно создать библиотеку для сортировки списка товаров по различным параметрам, которая будет исполь...
+2025-03-24 07:27:46,672 - main - INFO - Requirements: 1. Создать класс Product с атрибутами: id, name, price, rating, date_added
+2. Создать функцию sort_p...
+2025-03-24 07:27:46,675 - main - INFO - Code: from datetime import datetime
+from typing import List, Dict, Any, Literal, Union, Optional
+from copy...
+2025-03-24 07:27:46,677 - main - INFO - Test cases: import unittest
+from datetime import datetime, timedelta
+from product_sorter import Product, sort_pr...
+2025-03-24 07:27:46,679 - agents.analyzer - INFO - Начало анализа кода
+2025-03-24 07:27:46,680 - agents.analyzer - INFO - Запуск агента проверки соответствия кода требованиям
+2025-03-24 07:27:46,681 - agents.base_agent - INFO - Запуск агента CodeRequirementsAgent
+2025-03-24 07:27:46,682 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:27:47,084 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-03-24 07:27:51,561 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:27:51,565 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:27:51,567 - agents.base_agent - INFO - Агент CodeRequirementsAgent завершил работу
+2025-03-24 07:27:51,569 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов требованиям
+2025-03-24 07:27:51,570 - agents.base_agent - INFO - Запуск агента TestRequirementsAgent
+2025-03-24 07:27:51,572 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:27:57,598 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:27:57,601 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:27:57,604 - agents.base_agent - INFO - Агент TestRequirementsAgent завершил работу
+2025-03-24 07:27:57,605 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов коду
+2025-03-24 07:27:57,606 - agents.base_agent - INFO - Запуск агента TestCodeAgent
+2025-03-24 07:27:57,609 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:28:02,381 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:28:02,385 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:28:02,387 - agents.base_agent - INFO - Агент TestCodeAgent завершил работу
+2025-03-24 07:28:02,389 - agents.analyzer - INFO - Запуск агента проверки кода на соответствие лучшим практикам
+2025-03-24 07:28:02,390 - agents.base_agent - INFO - Запуск агента BestPracticesAgent
+2025-03-24 07:28:02,391 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:28:14,853 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:28:14,872 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:28:14,876 - agents.base_agent - INFO - Агент BestPracticesAgent завершил работу
+2025-03-24 07:28:14,877 - agents.analyzer - INFO - Запуск агента обнаружения багов
+2025-03-24 07:28:14,879 - agents.base_agent - INFO - Запуск агента BugDetectorAgent
+2025-03-24 07:28:14,880 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:28:21,112 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:28:21,117 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:28:21,120 - agents.base_agent - INFO - Агент BugDetectorAgent завершил работу
+2025-03-24 07:28:21,122 - agents.analyzer - INFO - Запуск агента обнаружения уязвимостей
+2025-03-24 07:28:21,124 - agents.base_agent - INFO - Запуск агента VulnerabilityDetectorAgent
+2025-03-24 07:28:21,126 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:28:27,154 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:28:27,158 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:28:27,161 - agents.base_agent - INFO - Агент VulnerabilityDetectorAgent завершил работу
+2025-03-24 07:28:27,162 - agents.analyzer - INFO - Запуск агента формирования итогового отчета
+2025-03-24 07:28:27,164 - agents.base_agent - INFO - Запуск агента FinalReportAgent
+2025-03-24 07:28:27,167 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:28:44,193 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:28:44,196 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:28:44,198 - agents.base_agent - INFO - Агент FinalReportAgent завершил работу
+2025-03-24 07:28:44,199 - agents.analyzer - INFO - Формирование итогового результата анализа
+2025-03-24 07:28:44,200 - agents.analyzer - INFO - Анализ кода успешно завершен
+2025-03-24 07:28:44,201 - main - INFO - Анализ кода успешно выполнен
+2025-03-24 07:34:41,477 - main - INFO - Получен запрос на анализ кода
+2025-03-24 07:34:41,478 - main - INFO - Story: Нужно создать библиотеку для сортировки списка товаров по различным параметрам, которая будет исполь...
+2025-03-24 07:34:41,479 - main - INFO - Requirements: 1. Создать класс Product с атрибутами: id, name, price, rating, date_added
+2. Создать функцию sort_p...
+2025-03-24 07:34:41,481 - main - INFO - Code: from datetime import datetime
+from typing import List, Dict, Any, Literal, Union, Optional
+from copy...
+2025-03-24 07:34:41,482 - main - INFO - Test cases: import unittest
+from datetime import datetime, timedelta
+from product_sorter import Product, sort_pr...
+2025-03-24 07:34:41,484 - agents.analyzer - INFO - Начало анализа кода
+2025-03-24 07:34:41,485 - agents.analyzer - INFO - Запуск агента проверки соответствия кода требованиям
+2025-03-24 07:34:41,487 - agents.base_agent - INFO - Запуск агента CodeRequirementsAgent
+2025-03-24 07:34:41,489 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:34:46,253 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:34:46,256 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:34:46,257 - agents.base_agent - INFO - Агент CodeRequirementsAgent завершил работу
+2025-03-24 07:34:46,258 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов требованиям
+2025-03-24 07:34:46,259 - agents.base_agent - INFO - Запуск агента TestRequirementsAgent
+2025-03-24 07:34:46,261 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:34:49,667 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:34:49,673 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:34:49,676 - agents.base_agent - INFO - Агент TestRequirementsAgent завершил работу
+2025-03-24 07:34:49,677 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов коду
+2025-03-24 07:34:49,680 - agents.base_agent - INFO - Запуск агента TestCodeAgent
+2025-03-24 07:34:49,682 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:34:53,524 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:34:53,526 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:34:53,528 - agents.base_agent - INFO - Агент TestCodeAgent завершил работу
+2025-03-24 07:34:53,529 - agents.analyzer - INFO - Запуск агента проверки кода на соответствие лучшим практикам
+2025-03-24 07:34:53,530 - agents.base_agent - INFO - Запуск агента BestPracticesAgent
+2025-03-24 07:34:53,532 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:35:07,981 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:35:07,988 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:35:07,989 - agents.base_agent - INFO - Агент BestPracticesAgent завершил работу
+2025-03-24 07:35:07,990 - agents.analyzer - INFO - Запуск агента обнаружения багов
+2025-03-24 07:35:07,991 - agents.base_agent - INFO - Запуск агента BugDetectorAgent
+2025-03-24 07:35:07,992 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:35:15,824 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:35:15,846 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:35:15,848 - agents.base_agent - INFO - Агент BugDetectorAgent завершил работу
+2025-03-24 07:35:15,849 - agents.analyzer - INFO - Запуск агента обнаружения уязвимостей
+2025-03-24 07:35:15,851 - agents.base_agent - INFO - Запуск агента VulnerabilityDetectorAgent
+2025-03-24 07:35:15,852 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:35:22,696 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:35:22,743 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:35:22,746 - agents.base_agent - INFO - Агент VulnerabilityDetectorAgent завершил работу
+2025-03-24 07:35:22,747 - agents.analyzer - INFO - Запуск агента формирования итогового отчета
+2025-03-24 07:35:22,748 - agents.base_agent - INFO - Запуск агента FinalReportAgent
+2025-03-24 07:35:22,750 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:35:45,698 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:35:45,744 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:35:45,746 - agents.base_agent - INFO - Агент FinalReportAgent завершил работу
+2025-03-24 07:35:45,746 - agents.analyzer - INFO - Формирование итогового результата анализа
+2025-03-24 07:35:45,749 - agents.analyzer - INFO - Анализ кода успешно завершен
+2025-03-24 07:35:45,750 - main - INFO - Анализ кода успешно выполнен
+2025-03-24 07:36:11,520 - main - INFO - Запрос на проверку работоспособности API
+2025-03-24 07:36:11,528 - main - INFO - Запрос на проверку работоспособности API
+2025-03-24 07:36:53,248 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:36:53,250 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:36:53,251 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:36:53,516 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:36:53,518 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:36:53,519 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:36:53,524 - __main__ - INFO - Запуск сервера на порту 8082
+2025-03-24 07:36:53,588 - root - INFO - Логирование настроено с уровнем INFO
+2025-03-24 07:36:53,589 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-03-24 07:36:53,590 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-03-24 07:36:53,592 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-03-24 07:36:53,593 - agents.analyzer - INFO - Инициализация агентов
+2025-03-24 07:36:53,593 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-03-24 07:37:08,553 - main - INFO - Получен запрос на анализ кода
+2025-03-24 07:37:08,554 - main - INFO - Story: Разрабатываем модуль для расчета скидок в системе лояльности для нашей розничной сети.
+2025-03-24 07:37:08,556 - main - INFO - Requirements: 1. Создать функцию calculate_discount, которая рассчитывает скидку на основе суммы покупки и уровня ...
+2025-03-24 07:37:08,557 - main - INFO - Code: def calculate_discount(purchase_amount, loyalty_level='standard', promo_code=None):
+    """Рассчитыв...
+2025-03-24 07:37:08,559 - main - INFO - Test cases: import unittest
+from discount_calculator import calculate_discount
+
+class TestDiscountCalculator(uni...
+2025-03-24 07:37:08,562 - agents.analyzer - INFO - Начало анализа кода
+2025-03-24 07:37:08,563 - agents.analyzer - INFO - Запуск агента проверки соответствия кода требованиям
+2025-03-24 07:37:08,564 - agents.base_agent - INFO - Запуск агента CodeRequirementsAgent
+2025-03-24 07:37:08,567 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:37:08,966 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-03-24 07:37:13,340 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:37:13,344 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:37:13,346 - agents.base_agent - INFO - Агент CodeRequirementsAgent завершил работу
+2025-03-24 07:37:13,347 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов требованиям
+2025-03-24 07:37:13,350 - agents.base_agent - INFO - Запуск агента TestRequirementsAgent
+2025-03-24 07:37:13,351 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:37:17,419 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:37:17,421 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:37:17,423 - agents.base_agent - INFO - Агент TestRequirementsAgent завершил работу
+2025-03-24 07:37:17,424 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов коду
+2025-03-24 07:37:17,426 - agents.base_agent - INFO - Запуск агента TestCodeAgent
+2025-03-24 07:37:17,427 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:37:21,880 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:37:21,882 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:37:21,884 - agents.base_agent - INFO - Агент TestCodeAgent завершил работу
+2025-03-24 07:37:21,885 - agents.analyzer - INFO - Запуск агента проверки кода на соответствие лучшим практикам
+2025-03-24 07:37:21,886 - agents.base_agent - INFO - Запуск агента BestPracticesAgent
+2025-03-24 07:37:21,887 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:37:31,831 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:37:31,833 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:37:31,834 - agents.base_agent - INFO - Агент BestPracticesAgent завершил работу
+2025-03-24 07:37:31,836 - agents.analyzer - INFO - Запуск агента обнаружения багов
+2025-03-24 07:37:31,837 - agents.base_agent - INFO - Запуск агента BugDetectorAgent
+2025-03-24 07:37:31,839 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:37:37,642 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:37:37,646 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:37:37,648 - agents.base_agent - INFO - Агент BugDetectorAgent завершил работу
+2025-03-24 07:37:37,650 - agents.analyzer - INFO - Запуск агента обнаружения уязвимостей
+2025-03-24 07:37:37,652 - agents.base_agent - INFO - Запуск агента VulnerabilityDetectorAgent
+2025-03-24 07:37:37,653 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:37:43,067 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:37:43,069 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:37:43,070 - agents.base_agent - INFO - Агент VulnerabilityDetectorAgent завершил работу
+2025-03-24 07:37:43,071 - agents.analyzer - INFO - Запуск агента формирования итогового отчета
+2025-03-24 07:37:43,072 - agents.base_agent - INFO - Запуск агента FinalReportAgent
+2025-03-24 07:37:43,074 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-03-24 07:38:02,248 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 07:38:02,252 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-03-24 07:38:02,254 - agents.base_agent - INFO - Агент FinalReportAgent завершил работу
+2025-03-24 07:38:02,255 - agents.analyzer - INFO - Формирование итогового результата анализа
+2025-03-24 07:38:02,256 - agents.analyzer - INFO - Анализ кода успешно завершен
+2025-03-24 07:38:02,258 - main - INFO - Анализ кода успешно выполнен

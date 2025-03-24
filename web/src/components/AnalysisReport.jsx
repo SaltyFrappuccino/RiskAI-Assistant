@@ -44,6 +44,12 @@ const AnalysisReport = ({ analysisResult }) => {
 - **Соответствие кода требованиям**: ${metrics.code_requirements_match}%
 - **Соответствие тест-кейсов требованиям**: ${metrics.test_requirements_match}%
 - **Соответствие тест-кейсов коду**: ${metrics.test_code_match}%
+
+${metrics.metrics_explanation ? '### Объяснение метрик\n\n' + metrics.metrics_explanation : ''}
+
+${metrics.requirements_details ? '### Информация о требованиях\n\n' + metrics.requirements_details : ''}
+
+${metrics.test_coverage_details ? '### Информация о покрытии тестами\n\n' + metrics.test_coverage_details : ''}
     `;
   };
 
@@ -59,6 +65,9 @@ const AnalysisReport = ({ analysisResult }) => {
       markdown += `### Баг ${index + 1}: ${bug.severity} приоритет\n\n`;
       markdown += `${bug.description}\n\n`;
       markdown += '```code\n' + bug.code_snippet + '\n```\n\n';
+      if (bug.fix) {
+        markdown += `**Решение проблемы**: ${bug.fix}\n\n`;
+      }
     });
     
     return markdown;
@@ -76,8 +85,47 @@ const AnalysisReport = ({ analysisResult }) => {
       markdown += `### Уязвимость ${index + 1}: ${vuln.severity} риск\n\n`;
       markdown += `${vuln.description}\n\n`;
       markdown += '```code\n' + vuln.code_snippet + '\n```\n\n';
+      
+      if (vuln.attack_vectors) {
+        markdown += `**Возможные сценарии атак**: ${vuln.attack_vectors}\n\n`;
+      }
+      
+      if (vuln.potential_impact) {
+        markdown += `**Потенциальные последствия**: ${vuln.potential_impact}\n\n`;
+      }
+      
       markdown += `**Рекомендация по устранению**: ${vuln.mitigation}\n\n`;
     });
+    
+    return markdown;
+  };
+
+  // Генерация Markdown для требований
+  const generateRequirementsMarkdown = () => {
+    const satisfied = analysisResult.satisfied_requirements || [];
+    const unsatisfied = analysisResult.unsatisfied_requirements || [];
+    
+    if (satisfied.length === 0 && unsatisfied.length === 0) {
+      return '## Требования\n\nНет информации о требованиях.';
+    }
+
+    let markdown = '## Требования\n\n';
+    
+    if (satisfied.length > 0) {
+      markdown += '### Выполненные требования\n\n';
+      satisfied.forEach((req, index) => {
+        markdown += `${index + 1}. ${req}\n`;
+      });
+      markdown += '\n';
+    }
+    
+    if (unsatisfied.length > 0) {
+      markdown += '### Невыполненные требования\n\n';
+      unsatisfied.forEach((req, index) => {
+        markdown += `${index + 1}. ${req}\n`;
+      });
+      markdown += '\n';
+    }
     
     return markdown;
   };
@@ -114,9 +162,24 @@ ${summary}
 
 ## Краткая сводка
 
+- **Соответствие кода требованиям**: ${metrics.code_requirements_match}%
+- **Соответствие тест-кейсов требованиям**: ${metrics.test_requirements_match}%
+- **Соответствие тест-кейсов коду**: ${metrics.test_code_match}%
 - **Найдено багов**: ${bugs ? bugs.length : 0}
 - **Найдено уязвимостей**: ${vulnerabilities ? vulnerabilities.length : 0}
 - **Рекомендаций по улучшению**: ${recommendations ? recommendations.length : 0}
+
+${metrics.metrics_explanation ? '### Объяснение метрик\n\n' + metrics.metrics_explanation : ''}
+
+${generateRequirementsMarkdown()}
+
+${bugs && bugs.length > 0 ? '## Критические проблемы\n\n' + 
+  bugs.filter(bug => bug.severity === 'критический' || bug.severity === 'высокий')
+    .map((bug, i) => `${i + 1}. **${bug.severity}**: ${bug.description.split('.')[0]}.\n`).join('') : ''}
+
+${vulnerabilities && vulnerabilities.length > 0 ? '## Критические уязвимости\n\n' + 
+  vulnerabilities.filter(vuln => vuln.severity === 'критическая' || vuln.severity === 'высокая')
+    .map((vuln, i) => `${i + 1}. **${vuln.severity}**: ${vuln.description.split('.')[0]}.\n`).join('') : ''}
     `;
   };
 
@@ -133,6 +196,8 @@ ${summary}
         return generateVulnerabilitiesMarkdown();
       case 4:
         return generateRecommendationsMarkdown();
+      case 5:
+        return generateRequirementsMarkdown();
       default:
         return '';
     }
@@ -173,6 +238,7 @@ ${summary}
           <Tab label={`Баги (${bugs ? bugs.length : 0})`} />
           <Tab label={`Уязвимости (${vulnerabilities ? vulnerabilities.length : 0})`} />
           <Tab label={`Рекомендации (${recommendations ? recommendations.length : 0})`} />
+          <Tab label="Требования" />
         </Tabs>
 
         <Box className="markdown-content">

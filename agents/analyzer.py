@@ -121,6 +121,11 @@ class CodeAnalyzer:
                 vulnerabilities=final_report.get("vulnerabilities", []),
                 recommendations=final_report.get("recommendations", []),
                 summary=final_report.get("summary", "Не удалось сформировать итоговый отчет"),
+                satisfied_requirements=final_report.get("satisfied_requirements", []),
+                unsatisfied_requirements=final_report.get("unsatisfied_requirements", []),
+                metrics_explanation=metrics.get("metrics_explanation", ""),
+                requirements_details=metrics.get("requirements_details", ""),
+                test_coverage_details=metrics.get("test_coverage_details", ""),
             )
             logger.info("Анализ кода успешно завершен")
             return result

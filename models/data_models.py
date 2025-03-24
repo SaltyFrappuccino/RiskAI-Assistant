@@ -22,6 +22,7 @@ class Bug(BaseModel):
     description: str = Field(..., description="Описание бага")
     code_snippet: str = Field(..., description="Фрагмент кода, где обнаружен баг")
     severity: str = Field(..., description="Серьезность бага (критический, высокий, средний, низкий)")
+    fix: Optional[str] = Field(None, description="Предлагаемое исправление бага")
 
 
 class Vulnerability(BaseModel):
@@ -32,6 +33,8 @@ class Vulnerability(BaseModel):
     code_snippet: str = Field(..., description="Фрагмент кода, где обнаружена уязвимость")
     severity: str = Field(..., description="Серьезность уязвимости (критическая, высокая, средняя, низкая)")
     mitigation: str = Field(..., description="Рекомендации по устранению уязвимости")
+    attack_vectors: Optional[str] = Field(None, description="Возможные сценарии атак")
+    potential_impact: Optional[str] = Field(None, description="Потенциальные последствия уязвимости")
 
 
 class Recommendation(BaseModel):
@@ -41,6 +44,7 @@ class Recommendation(BaseModel):
     description: str = Field(..., description="Описание рекомендации")
     code_snippet: str = Field(..., description="Фрагмент кода, к которому относится рекомендация")
     improved_code: Optional[str] = Field(None, description="Улучшенный вариант кода")
+    reason: Optional[str] = Field(None, description="Причина, почему рекомендация важна")
 
 
 class Metrics(BaseModel):
@@ -60,4 +64,9 @@ class AnalysisResult(BaseModel):
     bugs: List[Bug] = Field(default_factory=list, description="Обнаруженные баги")
     vulnerabilities: List[Vulnerability] = Field(default_factory=list, description="Обнаруженные уязвимости")
     recommendations: List[Recommendation] = Field(default_factory=list, description="Рекомендации по улучшению кода")
-    summary: str = Field(..., description="Общее заключение по результатам анализа") 
+    summary: str = Field(..., description="Общее заключение по результатам анализа")
+    satisfied_requirements: List[str] = Field(default_factory=list, description="Список выполненных требований")
+    unsatisfied_requirements: List[str] = Field(default_factory=list, description="Список невыполненных требований")
+    metrics_explanation: Optional[str] = Field(None, description="Подробное объяснение метрик")
+    requirements_details: Optional[str] = Field(None, description="Подробная информация о выполненных и невыполненных требованиях")
+    test_coverage_details: Optional[str] = Field(None, description="Подробная информация о покрытии кода тестами") 

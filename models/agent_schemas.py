@@ -154,6 +154,9 @@ class FinalReportMetrics(BaseModel):
     bugs_count: int = Field(..., description="Количество обнаруженных багов")
     vulnerabilities_count: int = Field(..., description="Количество обнаруженных уязвимостей")
     recommendations_count: int = Field(..., description="Количество рекомендаций по улучшению кода")
+    requirements_details: str = Field(default="", description="Подробная информация о выполненных и невыполненных требованиях")
+    test_coverage_details: str = Field(default="", description="Подробная информация о покрытии кода тестами")
+    metrics_explanation: str = Field(default="", description="Подробное объяснение метрик и их значений")
 
 
 class FinalReportResult(BaseModel):
@@ -164,4 +167,6 @@ class FinalReportResult(BaseModel):
     bugs: List[Bug] = Field(default_factory=list, description="Список обнаруженных багов")
     vulnerabilities: List[Vulnerability] = Field(default_factory=list, description="Список обнаруженных уязвимостей")
     recommendations: List[Recommendation] = Field(default_factory=list, description="Список рекомендаций по улучшению кода")
+    satisfied_requirements: List[str] = Field(default_factory=list, description="Список выполненных требований")
+    unsatisfied_requirements: List[str] = Field(default_factory=list, description="Список невыполненных требований")
     summary: str = Field(..., description="Общее заключение о качестве кода и рекомендации по дальнейшим действиям") 

@@ -1,7 +1,7 @@
 """
 Модуль содержит модели данных для приложения.
 """
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field
 
 
@@ -13,6 +13,7 @@ class AnalysisRequest(BaseModel):
     requirements: Optional[str] = Field(None, description="Требования к продукту")
     code: Optional[str] = Field(None, description="Код, реализующий задачу")
     test_cases: Optional[str] = Field(None, description="Тест-кейсы для проверки кода")
+    extreme_mode: Optional[bool] = Field(False, description="Режим экстремальной обработки текста")
 
 
 class Bug(BaseModel):
@@ -69,4 +70,5 @@ class AnalysisResult(BaseModel):
     unsatisfied_requirements: List[str] = Field(default_factory=list, description="Список невыполненных требований")
     metrics_explanation: Optional[str] = Field(None, description="Подробное объяснение метрик")
     requirements_details: Optional[str] = Field(None, description="Подробная информация о выполненных и невыполненных требованиях")
-    test_coverage_details: Optional[str] = Field(None, description="Подробная информация о покрытии кода тестами") 
+    test_coverage_details: Optional[str] = Field(None, description="Подробная информация о покрытии кода тестами")
+    processed_data: Optional[Dict[str, Any]] = Field(None, description="Данные после предобработки") 

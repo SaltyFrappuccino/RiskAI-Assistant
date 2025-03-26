@@ -2,7 +2,7 @@
 Модуль содержит основной класс для анализа кода с использованием агентов.
 """
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 
 from models.data_models import AnalysisRequest, AnalysisResult, Metrics
 from services.gigachat_service import GigaChatService
@@ -46,12 +46,12 @@ class CodeAnalyzer:
         self.final_report_agent = FinalReportAgent(self.gigachat_service)
         logger.info("Агенты успешно инициализированы")
 
-    def analyze(self, request: AnalysisRequest) -> AnalysisResult:
+    def analyze(self, request: Union[AnalysisRequest, Dict[str, Any]]) -> AnalysisResult:
         """
         Анализ кода с использованием агентов.
         
         Args:
-            request: Запрос на анализ кода.
+            request: Запрос на анализ кода (объект AnalysisRequest или словарь).
             
         Returns:
             AnalysisResult: Результат анализа кода.
@@ -59,12 +59,22 @@ class CodeAnalyzer:
         logger.info("Начало анализа кода")
         
         # Подготовка данных для анализа
-        data = {
-            "story": request.story or config.DEFAULT_STORY,
-            "requirements": request.requirements or config.DEFAULT_REQUIREMENTS,
-            "code": request.code or config.DEFAULT_CODE,
-            "test_cases": request.test_cases or config.DEFAULT_TEST_CASES,
-        }
+        if isinstance(request, dict):
+            # Если запрос - словарь (например, из preprocessor)
+            data = {
+                "story": request.get("story") or config.DEFAULT_STORY,
+                "requirements": request.get("requirements") or config.DEFAULT_REQUIREMENTS,
+                "code": request.get("code") or config.DEFAULT_CODE,
+                "test_cases": request.get("test_cases") or config.DEFAULT_TEST_CASES,
+            }
+        else:
+            # Если запрос - объект AnalysisRequest
+            data = {
+                "story": request.story or config.DEFAULT_STORY,
+                "requirements": request.requirements or config.DEFAULT_REQUIREMENTS,
+                "code": request.code or config.DEFAULT_CODE,
+                "test_cases": request.test_cases or config.DEFAULT_TEST_CASES,
+            }
         
         # Выполнение анализа с помощью агентов
         logger.info("Запуск агента проверки соответствия кода требованиям")

@@ -101,7 +101,7 @@ class GigaChatService:
                 "error": str(e)
             }
 
-    def call_agent_with_prompt(self, prompt: str, data: Dict[str, Any]) -> Dict[str, Any]:
+    def call_agent_with_prompt(self, prompt: str, data: Dict[str, Any]) -> Any:
         """
         Вызов агента с заданным промптом и данными.
         
@@ -110,7 +110,7 @@ class GigaChatService:
             data: Данные для заполнения промпта.
             
         Returns:
-            Dict[str, Any]: Результат работы агента в формате JSON.
+            Any: Результат работы агента (текст или словарь с JSON).
         """
         try:
             # Заполнение промпта данными
@@ -119,17 +119,27 @@ class GigaChatService:
             # Создание сообщения системы
             system_message = SystemMessage(content=filled_prompt)
             
-            # Создание сообщения пользователя
-            human_message = HumanMessage(content="Выполни анализ предоставленных данных и верни результат в формате JSON.")
+            # Проверяем, является ли это запросом от препроцессора
+            is_preprocessor = 'field_type' in data and 'text' in data
+            
+            # Создание сообщения пользователя - разное для препроцессора и других агентов
+            if is_preprocessor:
+                human_message = HumanMessage(content="Обработай предоставленный текст и верни обработанный результат.")
+            else:
+                human_message = HumanMessage(content="Выполни анализ предоставленных данных и верни результат в формате JSON.")
             
             # Вызов модели
             logger.info("Вызов GigaChat для анализа")
             response = self.giga.invoke([system_message, human_message])
             
-            # Извлечение JSON из ответа
+            # Получаем текст ответа
             response_text = response.content
             
-            # Используем улучшенный метод извлечения JSON
+            # Для препроцессора возвращаем текст как есть
+            if is_preprocessor:
+                return response_text
+            
+            # Для других агентов пытаемся извлечь JSON
             result = self.extract_json_from_text(response_text)
             
             if "error" not in result:
@@ -138,6 +148,11 @@ class GigaChatService:
             return result
         except Exception as e:
             logger.error(f"Ошибка при вызове агента: {e}")
+            
+            # Для препроцессора в случае ошибки возвращаем оригинальный текст
+            if 'field_type' in data and 'text' in data:
+                return data.get('text', '')
+                
             return {
                 "metrics": {
                     "code_requirements_match": 0.0,

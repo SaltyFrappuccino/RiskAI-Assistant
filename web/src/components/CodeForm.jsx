@@ -6,7 +6,10 @@ import {
   Paper, 
   Typography, 
   Grid,
-  CircularProgress
+  CircularProgress,
+  Switch,
+  FormControlLabel,
+  Tooltip
 } from '@mui/material';
 
 /**
@@ -23,7 +26,8 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
     story: '',
     requirements: '',
     code: '',
-    test_cases: ''
+    test_cases: '',
+    extreme_mode: false
   });
 
   // Обновляем данные формы при изменении initialData
@@ -33,7 +37,8 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
         story: initialData.story || '',
         requirements: initialData.requirements || '',
         code: initialData.code || '',
-        test_cases: initialData.test_cases || ''
+        test_cases: initialData.test_cases || '',
+        extreme_mode: false
       });
     }
   }, [initialData]);
@@ -44,6 +49,15 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
     setFormData(prevData => ({
       ...prevData,
       [name]: value
+    }));
+  };
+
+  // Обработчик изменения переключателя
+  const handleSwitchChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: checked
     }));
   };
 
@@ -59,7 +73,8 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
       story: '',
       requirements: '',
       code: '',
-      test_cases: ''
+      test_cases: '',
+      extreme_mode: false
     });
   };
 
@@ -132,6 +147,33 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
                   style: { fontFamily: 'monospace' }
                 }}
               />
+            </Grid>
+            
+            <Grid item xs={12} display="flex" flexDirection="column" alignItems="center">
+              <Tooltip title="В экстремальном режиме предобработчик попытается максимально уменьшить размер текста для более эффективного анализа, сохраняя при этом смысл">
+                <FormControlLabel
+                  control={
+                    <Switch
+                      name="extreme_mode"
+                      checked={formData.extreme_mode}
+                      onChange={handleSwitchChange}
+                      color="secondary"
+                    />
+                  }
+                  label={
+                    <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+                      <span style={{ 
+                        background: '-webkit-linear-gradient(45deg, #FF007A 30%, #9C27B0 90%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontWeight: 'bold'
+                      }}>
+                        Экстремальный режим предобработки
+                      </span>
+                    </Typography>
+                  }
+                />
+              </Tooltip>
             </Grid>
             
             <Grid item xs={12} display="flex" justifyContent="center" gap={2}>

@@ -30,6 +30,7 @@ const AnalysisReport = ({ analysisResult }) => {
   }
 
   const { metrics, bugs, vulnerabilities, recommendations, summary } = analysisResult;
+  const processedData = analysisResult.processed_data || {};
 
   // Обработчик изменения вкладки
   const handleTabChange = (event, newValue) => {
@@ -153,6 +154,41 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
 
+  // Генерация Markdown для обработанных данных
+  const generateProcessedDataMarkdown = () => {
+    if (!processedData || Object.keys(processedData).length === 0) {
+      return '## Данные после предобработки\n\nНет информации о предобработанных данных.';
+    }
+
+    let markdown = '## Данные после предобработки\n\n';
+    
+    if (processedData.story) {
+      markdown += '### Story после обработки\n\n';
+      markdown += '```\n' + processedData.story + '\n```\n\n';
+    }
+    
+    if (processedData.requirements) {
+      markdown += '### Требования после обработки\n\n';
+      markdown += '```\n' + processedData.requirements + '\n```\n\n';
+    }
+    
+    if (processedData.code) {
+      markdown += '### Код после обработки\n\n';
+      markdown += '```code\n' + processedData.code + '\n```\n\n';
+    }
+    
+    if (processedData.test_cases) {
+      markdown += '### Тест-кейсы после обработки\n\n';
+      markdown += '```code\n' + processedData.test_cases + '\n```\n\n';
+    }
+    
+    if (processedData.extreme_mode !== undefined) {
+      markdown += `_Режим предобработки: ${processedData.extreme_mode ? 'Экстремальный' : 'Обычный'}_\n\n`;
+    }
+    
+    return markdown;
+  };
+
   // Генерация Markdown для общего отчета
   const generateSummaryMarkdown = () => {
     return `
@@ -198,6 +234,8 @@ ${vulnerabilities && vulnerabilities.length > 0 ? '## Критические у�
         return generateRecommendationsMarkdown();
       case 5:
         return generateRequirementsMarkdown();
+      case 6:
+        return generateProcessedDataMarkdown();
       default:
         return '';
     }
@@ -239,6 +277,7 @@ ${vulnerabilities && vulnerabilities.length > 0 ? '## Критические у�
           <Tab label={`Уязвимости (${vulnerabilities ? vulnerabilities.length : 0})`} />
           <Tab label={`Рекомендации (${recommendations ? recommendations.length : 0})`} />
           <Tab label="Требования" />
+          <Tab label="Данные после обработки" />
         </Tabs>
 
         <Box className="markdown-content">

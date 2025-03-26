@@ -8,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from models.data_models import AnalysisRequest, AnalysisResult
 from agents.analyzer import CodeAnalyzer
+from agents.preprocessor_agent import PreprocessorAgent
+from services.gigachat_service import GigaChatService
 from utils.logging_config import setup_logging
 import config
 
@@ -34,6 +36,9 @@ app.add_middleware(
 # Создание анализатора кода
 code_analyzer = CodeAnalyzer()
 
+# Создание препроцессора текста
+preprocessor = PreprocessorAgent(GigaChatService())
+
 
 @app.post("/analyze", response_model=AnalysisResult)
 async def analyze_code(request: AnalysisRequest):
@@ -54,9 +59,17 @@ async def analyze_code(request: AnalysisRequest):
         logger.info("Requirements: %s", request.requirements[:100] + "..." if request.requirements and len(request.requirements) > 100 else "Не предоставлены")
         logger.info("Code: %s", request.code[:100] + "..." if request.code and len(request.code) > 100 else "Не предоставлен")
         logger.info("Test cases: %s", request.test_cases[:100] + "..." if request.test_cases and len(request.test_cases) > 100 else "Не предоставлены")
+        logger.info("Extreme mode: %s", "Включен" if request.extreme_mode else "Выключен")
         
-        # Выполнение анализа кода
-        result = code_analyzer.analyze(request)
+        # Предобработка данных
+        logger.info("Предобработка данных перед анализом")
+        processed_data = await preprocess_data(request)
+        
+        # Выполнение анализа кода с предобработанными данными
+        result = code_analyzer.analyze(processed_data)
+        
+        # Добавляем предобработанные данные в результат
+        result.processed_data = processed_data
         
         logger.info("Анализ кода успешно выполнен")
         return result
@@ -65,6 +78,43 @@ async def analyze_code(request: AnalysisRequest):
         raise HTTPException(
             status_code=500,
             detail=f"Ошибка при анализе кода: {str(e)}",
+        )
+
+
+@app.post("/preprocess")
+async def preprocess_data(request: AnalysisRequest):
+    """
+    Предобработка данных перед анализом.
+    
+    Args:
+        request: Запрос на предобработку данных.
+        
+    Returns:
+        dict: Предобработанные данные.
+    """
+    try:
+        logger.info("Получен запрос на предобработку данных")
+        logger.info("Extreme mode: %s", "Включен" if request.extreme_mode else "Выключен")
+        
+        # Преобразуем объект Pydantic в словарь для передачи в препроцессор
+        data = {
+            "story": request.story or "",
+            "requirements": request.requirements or "",
+            "code": request.code or "",
+            "test_cases": request.test_cases or "",
+            "extreme_mode": request.extreme_mode or False
+        }
+        
+        # Выполняем предобработку данных
+        processed_data = preprocessor.analyze(data)
+        
+        logger.info("Предобработка данных успешно выполнена")
+        return processed_data
+    except Exception as e:
+        logger.error(f"Ошибка при предобработке данных: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Ошибка при предобработке данных: {str(e)}",
         )
 
 

@@ -61,7 +61,7 @@ const App = () => {
           isOnline: false,
           checking: false
         });
-        showNotification('API недоступен. Убедитесь, что сервер запущен на порту 8081.', 'error');
+        showNotification('API недоступен. Убедитесь, что сервер запущен на порту 8082.', 'error');
       }
     };
 
@@ -136,7 +136,7 @@ const App = () => {
                     animation: 'glow 2s infinite'
                   }}
                 >
-                  API недоступен. Убедитесь, что сервер запущен на порту 8081.
+                  API недоступен. Убедитесь, что сервер запущен на порту 8082.
                 </Alert>
               )}
             </Box>

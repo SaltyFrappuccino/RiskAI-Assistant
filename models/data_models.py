@@ -13,6 +13,7 @@ class AnalysisRequest(BaseModel):
     requirements: Optional[str] = Field(None, description="Требования к продукту")
     code: Optional[str] = Field(None, description="Код, реализующий задачу")
     test_cases: Optional[str] = Field(None, description="Тест-кейсы для проверки кода")
+    enable_preprocessing: Optional[bool] = Field(True, description="Включить предобработку текста")
     extreme_mode: Optional[bool] = Field(False, description="Режим экстремальной обработки текста")
 
 

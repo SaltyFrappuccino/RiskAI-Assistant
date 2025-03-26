@@ -10,14 +10,18 @@ const API_URL = 'http://localhost:8082';
  * @param {string} data.requirements - требования к продукту
  * @param {string} data.code - код, реализующий задачу
  * @param {string} data.test_cases - тест-кейсы для проверки кода
+ * @param {boolean} data.enable_preprocessing - включение предобработки текста
  * @param {boolean} data.extreme_mode - режим экстремальной обработки текста
  * @returns {Promise} результат анализа
  */
 export const analyzeCode = async (data) => {
   try {
-    // Если есть данные для предобработки, сначала обрабатываем их
-    const processedData = await preprocessData(data);
-    const response = await axios.post(`${API_URL}/analyze`, processedData);
+    // Если предобработка включена, обрабатываем данные перед отправкой
+    const dataToSend = data.enable_preprocessing 
+      ? await preprocessData(data)
+      : data;
+      
+    const response = await axios.post(`${API_URL}/analyze`, dataToSend);
     return response.data;
   } catch (error) {
     console.error('Ошибка при отправке запроса на анализ:', error);
@@ -32,6 +36,7 @@ export const analyzeCode = async (data) => {
  * @param {string} data.requirements - требования к продукту
  * @param {string} data.code - код, реализующий задачу
  * @param {string} data.test_cases - тест-кейсы для проверки кода
+ * @param {boolean} data.enable_preprocessing - включение предобработки текста
  * @param {boolean} data.extreme_mode - режим экстремальной обработки текста
  * @returns {Promise} обработанные данные
  */

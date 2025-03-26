@@ -59,17 +59,38 @@ async def analyze_code(request: AnalysisRequest):
         logger.info("Requirements: %s", request.requirements[:100] + "..." if request.requirements and len(request.requirements) > 100 else "Не предоставлены")
         logger.info("Code: %s", request.code[:100] + "..." if request.code and len(request.code) > 100 else "Не предоставлен")
         logger.info("Test cases: %s", request.test_cases[:100] + "..." if request.test_cases and len(request.test_cases) > 100 else "Не предоставлены")
-        logger.info("Extreme mode: %s", "Включен" if request.extreme_mode else "Выключен")
+        logger.info("Enable preprocessing: %s", "Включено" if request.enable_preprocessing else "Выключено")
+        if request.enable_preprocessing:
+            logger.info("Extreme mode: %s", "Включен" if request.extreme_mode else "Выключен")
         
-        # Предобработка данных
-        logger.info("Предобработка данных перед анализом")
-        processed_data = await preprocess_data(request)
+        # Если предобработка включена, выполняем её
+        if request.enable_preprocessing:
+            logger.info("Предобработка данных перед анализом")
+            processed_data = await preprocess_data(request)
+        else:
+            logger.info("Предобработка данных отключена, используем исходные данные")
+            # Создаем копию данных без предобработки
+            processed_data = {
+                "story": request.story or "",
+                "requirements": request.requirements or "",
+                "code": request.code or "",
+                "test_cases": request.test_cases or "",
+                "extreme_mode": False  # Экстремальный режим не имеет значения, когда предобработка отключена
+            }
         
         # Выполнение анализа кода с предобработанными данными
         result = code_analyzer.analyze(processed_data)
         
-        # Добавляем предобработанные данные в результат
-        result.processed_data = processed_data
+        # Добавляем данные в результат
+        if request.enable_preprocessing:
+            # Если предобработка включена, добавляем обработанные данные
+            result.processed_data = processed_data
+        else:
+            # Если предобработка отключена, помечаем это в результате
+            result.processed_data = {
+                "preprocessing_disabled": True,
+                "message": "Предобработка данных была отключена"
+            }
         
         logger.info("Анализ кода успешно выполнен")
         return result

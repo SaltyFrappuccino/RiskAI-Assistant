@@ -35,9 +35,9 @@ prompt = """
 ```json
 {{
   "metrics": {{
-    "code_requirements_match": 45,
-    "test_requirements_match": 30,
-    "test_code_match": 55,
+    "code_requirements_match": n,
+    "test_requirements_match": n,
+    "test_code_match": n,
     "bugs_count": 7,
     "vulnerabilities_count": 4,
     "recommendations_count": 8,

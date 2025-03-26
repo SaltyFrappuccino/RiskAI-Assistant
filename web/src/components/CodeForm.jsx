@@ -9,8 +9,64 @@ import {
   CircularProgress,
   Switch,
   FormControlLabel,
-  Tooltip
+  Tooltip,
+  Slide,
+  Fade,
+  styled
 } from '@mui/material';
+import { keyframes } from '@emotion/react';
+
+// Определение анимации свечения
+const glow = keyframes`
+  0% {
+    box-shadow: 0 0 5px rgba(252, 4, 116, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(252, 4, 116, 0.7), 0 0 25px rgba(109, 22, 165, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(252, 4, 116, 0.4);
+  }
+`;
+
+// Стилизованный контейнер для переключателя экстремального режима
+const ExtremeModeSwitchContainer = styled(Box)(({ theme }) => ({
+  padding: '8px 15px',
+  borderRadius: '15px',
+  marginLeft: theme.spacing(2),
+  position: 'relative',
+  overflow: 'hidden',
+  transition: 'all 0.3s ease',
+  animation: `${glow} 3s infinite ease-in-out`,
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(252, 4, 116, 0.05)',
+    borderRadius: 'inherit',
+    zIndex: -1,
+  }
+}));
+
+// Градиентный текст для переключателей
+const GradientText = styled(Typography)(({ theme, color = 'primary' }) => {
+  const gradients = {
+    primary: 'linear-gradient(45deg, #6D16A5 30%, #FC0474 90%)',
+    extreme: 'linear-gradient(45deg, #FF007A 30%, #9C27B0 90%)'
+  };
+  return {
+    background: gradients[color],
+    backgroundClip: 'text',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+  };
+});
 
 /**
  * Компонент формы для ввода данных для анализа кода
@@ -27,6 +83,7 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
     requirements: '',
     code: '',
     test_cases: '',
+    enable_preprocessing: true,
     extreme_mode: false
   });
 
@@ -38,6 +95,7 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
         requirements: initialData.requirements || '',
         code: initialData.code || '',
         test_cases: initialData.test_cases || '',
+        enable_preprocessing: true,
         extreme_mode: false
       });
     }
@@ -55,10 +113,20 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
   // Обработчик изменения переключателя
   const handleSwitchChange = (e) => {
     const { name, checked } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: checked
-    }));
+    
+    if (name === 'enable_preprocessing' && !checked) {
+      // Если отключаем предобработку, также отключаем и экстремальный режим
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: checked,
+        extreme_mode: false
+      }));
+    } else {
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: checked
+      }));
+    }
   };
 
   // Обработчик отправки формы
@@ -74,6 +142,7 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
       requirements: '',
       code: '',
       test_cases: '',
+      enable_preprocessing: true,
       extreme_mode: false
     });
   };
@@ -149,34 +218,60 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
               />
             </Grid>
             
-            <Grid item xs={12} display="flex" flexDirection="column" alignItems="center">
-              <Tooltip title="В экстремальном режиме предобработчик попытается максимально уменьшить размер текста для более эффективного анализа, сохраняя при этом смысл">
+            <Grid item xs={12} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
+              {/* Переключатель предобработки */}
+              <Tooltip title="Включить предобработку данных для улучшения форматирования и структуры текста">
                 <FormControlLabel
                   control={
                     <Switch
-                      name="extreme_mode"
-                      checked={formData.extreme_mode}
+                      name="enable_preprocessing"
+                      checked={formData.enable_preprocessing}
                       onChange={handleSwitchChange}
-                      color="secondary"
+                      color="primary"
                     />
                   }
                   label={
-                    <Typography sx={{ display: 'flex', alignItems: 'center' }}>
-                      <span style={{ 
-                        background: '-webkit-linear-gradient(45deg, #FF007A 30%, #9C27B0 90%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        fontWeight: 'bold'
-                      }}>
-                        Экстремальный режим предобработки
-                      </span>
-                    </Typography>
+                    <GradientText color="primary">
+                      Предобработка текста
+                    </GradientText>
                   }
                 />
               </Tooltip>
+              
+              {/* Переключатель экстремального режима с анимацией */}
+              <Slide 
+                direction="left" 
+                in={formData.enable_preprocessing} 
+                mountOnEnter 
+                unmountOnExit
+                timeout={{ enter: 500, exit: 300 }}
+              >
+                <Fade in={formData.enable_preprocessing} timeout={{ enter: 800, exit: 300 }}>
+                  <ExtremeModeSwitchContainer>
+                    <Tooltip title="В экстремальном режиме предобработчик попытается максимально уменьшить размер текста для более эффективного анализа, сохраняя при этом смысл">
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            name="extreme_mode"
+                            checked={formData.extreme_mode}
+                            onChange={handleSwitchChange}
+                            color="secondary"
+                            disabled={!formData.enable_preprocessing}
+                          />
+                        }
+                        label={
+                          <GradientText color="extreme">
+                            Экстремальный режим
+                          </GradientText>
+                        }
+                      />
+                    </Tooltip>
+                  </ExtremeModeSwitchContainer>
+                </Fade>
+              </Slide>
             </Grid>
             
-            <Grid item xs={12} display="flex" justifyContent="center" gap={2}>
+            <Grid item xs={12} display="flex" justifyContent="center" gap={2} mt={2}>
               <Button 
                 type="submit"
                 variant="contained" 

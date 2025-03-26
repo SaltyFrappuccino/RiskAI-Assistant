@@ -1,8 +1,9 @@
 """
 Модуль содержит модели данных для приложения.
 """
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Set
 from pydantic import BaseModel, Field
+from datetime import datetime
 
 
 class AnalysisRequest(BaseModel):
@@ -15,6 +16,7 @@ class AnalysisRequest(BaseModel):
     test_cases: Optional[str] = Field(None, description="Тест-кейсы для проверки кода")
     enable_preprocessing: Optional[bool] = Field(True, description="Включить предобработку текста")
     extreme_mode: Optional[bool] = Field(False, description="Режим экстремальной обработки текста")
+    use_cache: Optional[bool] = Field(True, description="Использовать кэш для ускорения анализа")
 
 
 class Bug(BaseModel):
@@ -25,6 +27,7 @@ class Bug(BaseModel):
     code_snippet: str = Field(..., description="Фрагмент кода, где обнаружен баг")
     severity: str = Field(..., description="Серьезность бага (критический, высокий, средний, низкий)")
     fix: Optional[str] = Field(None, description="Предлагаемое исправление бага")
+    from_cache: Optional[bool] = Field(False, description="Получено из кэша")
 
 
 class Vulnerability(BaseModel):
@@ -37,6 +40,7 @@ class Vulnerability(BaseModel):
     mitigation: str = Field(..., description="Рекомендации по устранению уязвимости")
     attack_vectors: Optional[str] = Field(None, description="Возможные сценарии атак")
     potential_impact: Optional[str] = Field(None, description="Потенциальные последствия уязвимости")
+    from_cache: Optional[bool] = Field(False, description="Получено из кэша")
 
 
 class Recommendation(BaseModel):
@@ -47,6 +51,7 @@ class Recommendation(BaseModel):
     code_snippet: str = Field(..., description="Фрагмент кода, к которому относится рекомендация")
     improved_code: Optional[str] = Field(None, description="Улучшенный вариант кода")
     reason: Optional[str] = Field(None, description="Причина, почему рекомендация важна")
+    from_cache: Optional[bool] = Field(False, description="Получено из кэша")
 
 
 class Metrics(BaseModel):
@@ -56,6 +61,19 @@ class Metrics(BaseModel):
     code_requirements_match: float = Field(..., description="Процент соответствия кода требованиям")
     test_requirements_match: float = Field(..., description="Процент соответствия тест-кейсов требованиям")
     test_code_match: float = Field(..., description="Процент соответствия тест-кейсов коду")
+
+
+class CacheStatistics(BaseModel):
+    """
+    Модель для статистики использования кэша.
+    """
+    cache_hits: int = Field(0, description="Количество использований данных из кэша")
+    cache_misses: int = Field(0, description="Количество запросов, не найденных в кэше")
+    cache_saves: int = Field(0, description="Количество новых записей, добавленных в кэш")
+    cache_usage_summary: Optional[str] = Field(None, description="Сводная информация об использовании кэша")
+    cached_bugs: List[str] = Field(default_factory=list, description="Идентификаторы найденных в кэше багов")
+    cached_vulnerabilities: List[str] = Field(default_factory=list, description="Идентификаторы найденных в кэше уязвимостей")
+    cached_recommendations: List[str] = Field(default_factory=list, description="Идентификаторы найденных в кэше рекомендаций")
 
 
 class AnalysisResult(BaseModel):
@@ -72,4 +90,50 @@ class AnalysisResult(BaseModel):
     metrics_explanation: Optional[str] = Field(None, description="Подробное объяснение метрик")
     requirements_details: Optional[str] = Field(None, description="Подробная информация о выполненных и невыполненных требованиях")
     test_coverage_details: Optional[str] = Field(None, description="Подробная информация о покрытии кода тестами")
-    processed_data: Optional[Dict[str, Any]] = Field(None, description="Данные после предобработки") 
+    processed_data: Optional[Dict[str, Any]] = Field(None, description="Данные после предобработки")
+    cache_stats: Optional[CacheStatistics] = Field(None, description="Статистика использования кэша")
+
+
+class CachedItem(BaseModel):
+    """
+    Базовая модель для кэшированных элементов.
+    """
+    item_id: str = Field(..., description="Уникальный идентификатор элемента")
+    content_hash: str = Field(..., description="Хэш содержимого для быстрого сравнения")
+    creation_date: datetime = Field(default_factory=datetime.now, description="Дата создания записи в кэше")
+    last_used: datetime = Field(default_factory=datetime.now, description="Дата последнего использования")
+    use_count: int = Field(1, description="Счетчик использований")
+    tags: Set[str] = Field(default_factory=set, description="Теги для категоризации и поиска")
+
+
+class CachedBug(CachedItem):
+    """
+    Модель для кэширования обнаруженного бага.
+    """
+    bug_data: Bug = Field(..., description="Данные обнаруженного бага")
+    related_code_pattern: str = Field(..., description="Паттерн кода, связанный с багом")
+
+
+class CachedVulnerability(CachedItem):
+    """
+    Модель для кэширования обнаруженной уязвимости.
+    """
+    vulnerability_data: Vulnerability = Field(..., description="Данные обнаруженной уязвимости")
+    related_code_pattern: str = Field(..., description="Паттерн кода, связанный с уязвимостью")
+
+
+class CachedRecommendation(CachedItem):
+    """
+    Модель для кэширования рекомендации по улучшению кода.
+    """
+    recommendation_data: Recommendation = Field(..., description="Данные рекомендации")
+    related_code_pattern: str = Field(..., description="Паттерн кода, связанный с рекомендацией")
+
+
+class CachedRequirement(CachedItem):
+    """
+    Модель для кэширования требования.
+    """
+    requirement_text: str = Field(..., description="Текст требования")
+    satisfied: bool = Field(..., description="Статус выполнения требования")
+    related_code_pattern: Optional[str] = Field(None, description="Связанный паттерн кода, если есть") 

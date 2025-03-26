@@ -15,7 +15,7 @@ import Header from './components/Header';
 import CodeForm from './components/CodeForm';
 import ExamplesSelector from './components/ExamplesSelector';
 import AnalysisReport from './components/AnalysisReport';
-import { analyzeCode, checkApiHealth } from './api/api';
+import { analyzeCode, checkApiHealth, getCacheStats } from './api/api';
 import './styles/globalStyles.css';
 
 /**
@@ -44,6 +44,9 @@ const App = () => {
 
   // Состояние для хранения выбранного примера
   const [selectedExample, setSelectedExample] = useState(null);
+  
+  // Состояние для хранения статистики кэша
+  const [cacheStats, setCacheStats] = useState(null);
 
   // Проверка работоспособности API при загрузке приложения
   useEffect(() => {
@@ -55,6 +58,11 @@ const App = () => {
           isOnline: response.status === 'ok',
           checking: false
         });
+        
+        // Если API доступно, получаем статистику кэша
+        if (response.status === 'ok') {
+          fetchCacheStats();
+        }
       } catch (error) {
         setApiStatus({
           checked: true,
@@ -67,6 +75,17 @@ const App = () => {
 
     checkApiStatus();
   }, []);
+  
+  // Получение статистики кэша
+  const fetchCacheStats = async () => {
+    try {
+      const stats = await getCacheStats();
+      setCacheStats(stats);
+    } catch (error) {
+      console.error('Ошибка при получении статистики кэша:', error);
+      // Не показываем уведомление, чтобы не беспокоить пользователя
+    }
+  };
 
   // Функция для отображения уведомлений
   const showNotification = (message, severity = 'info') => {
@@ -105,7 +124,17 @@ const App = () => {
     try {
       const result = await analyzeCode(formData);
       setAnalysisResult(result);
-      showNotification('Анализ успешно завершен', 'success');
+      
+      // Проверяем, есть ли результаты из кэша
+      const cacheHits = result.cache_stats?.cache_hits || 0;
+      const cacheMessage = cacheHits > 0 
+        ? `Анализ завершен. Найдено ${cacheHits} элемент(ов) в кэше.` 
+        : 'Анализ успешно завершен';
+      
+      showNotification(cacheMessage, 'success');
+      
+      // Обновляем статистику кэша
+      fetchCacheStats();
     } catch (error) {
       console.error('Ошибка при анализе кода:', error);
       showNotification(
@@ -168,6 +197,7 @@ const App = () => {
                     loading={loading}
                     disabled={!apiStatus.isOnline}
                     initialData={selectedExample}
+                    cacheStats={cacheStats}
                   />
                 </div>
               </Grow>

@@ -12,9 +12,13 @@ import {
   Tooltip,
   Slide,
   Fade,
-  styled
+  styled,
+  Divider,
+  IconButton,
+  Badge
 } from '@mui/material';
 import { keyframes } from '@emotion/react';
+import { clearCache } from '../api/api';
 
 // Определение анимации свечения
 const glow = keyframes`
@@ -26,6 +30,19 @@ const glow = keyframes`
   }
   100% {
     box-shadow: 0 0 5px rgba(252, 4, 116, 0.4);
+  }
+`;
+
+// Анимация пульсации для иконки кэша
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 `;
 
@@ -51,14 +68,48 @@ const ExtremeModeSwitchContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
+// Стилизованный контейнер для переключателя кэша
+const CacheSwitchContainer = styled(Box)(({ theme }) => ({
+  padding: '8px 15px',
+  borderRadius: '15px',
+  marginLeft: theme.spacing(2),
+  position: 'relative',
+  overflow: 'hidden',
+  transition: 'all 0.3s ease',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(25, 118, 210, 0.05)',
+    borderRadius: 'inherit',
+    zIndex: -1,
+  }
+}));
+
+// Анимированная иконка кэша (используем юникод вместо иконки)
+const AnimatedCacheIcon = styled('span')(({ theme, active }) => ({
+  animation: active ? `${pulse} 2s infinite ease-in-out` : 'none',
+  color: active ? theme.palette.primary.main : theme.palette.text.secondary,
+  marginLeft: theme.spacing(1),
+  fontFamily: 'monospace',
+  fontSize: '18px',
+  verticalAlign: 'middle',
+  position: 'relative',
+  top: -1
+}));
+
 // Градиентный текст для переключателей
 const GradientText = styled(Typography)(({ theme, color = 'primary' }) => {
   const gradients = {
     primary: 'linear-gradient(45deg, #6D16A5 30%, #FC0474 90%)',
-    extreme: 'linear-gradient(45deg, #FF007A 30%, #9C27B0 90%)'
+    extreme: 'linear-gradient(45deg, #FF007A 30%, #9C27B0 90%)',
+    cache: 'linear-gradient(45deg, #1976D2 30%, #64B5F6 90%)'
   };
   return {
-    background: gradients[color],
+    background: gradients[color] || gradients.primary,
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -75,8 +126,9 @@ const GradientText = styled(Typography)(({ theme, color = 'primary' }) => {
  * @param {boolean} props.loading - флаг загрузки
  * @param {boolean} props.disabled - флаг отключения формы
  * @param {Object} props.initialData - начальные данные для формы (опционально)
+ * @param {Object} props.cacheStats - статистика использования кэша (опционально)
  */
-const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
+const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats }) => {
   // Состояние формы
   const [formData, setFormData] = useState({
     story: '',
@@ -84,8 +136,12 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
     code: '',
     test_cases: '',
     enable_preprocessing: true,
-    extreme_mode: false
+    extreme_mode: false,
+    use_cache: true
   });
+  
+  // Состояние очистки кэша
+  const [clearingCache, setClearingCache] = useState(false);
 
   // Обновляем данные формы при изменении initialData
   useEffect(() => {
@@ -96,7 +152,8 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
         code: initialData.code || '',
         test_cases: initialData.test_cases || '',
         enable_preprocessing: true,
-        extreme_mode: false
+        extreme_mode: false,
+        use_cache: true
       });
     }
   }, [initialData]);
@@ -143,9 +200,26 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
       code: '',
       test_cases: '',
       enable_preprocessing: true,
-      extreme_mode: false
+      extreme_mode: false,
+      use_cache: true
     });
   };
+  
+  // Обработчик очистки кэша
+  const handleClearCache = async () => {
+    try {
+      setClearingCache(true);
+      await clearCache();
+      // После очистки кэша можно обновить статистику, если это необходимо
+      setClearingCache(false);
+    } catch (error) {
+      console.error('Ошибка при очистке кэша:', error);
+      setClearingCache(false);
+    }
+  };
+  
+  // Расчет счетчика для бейджа кэша
+  const cacheHitCount = cacheStats?.cache_hits || 0;
 
   return (
     <Paper elevation={3}>
@@ -218,57 +292,112 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData }) => {
               />
             </Grid>
             
-            <Grid item xs={12} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
-              {/* Переключатель предобработки */}
-              <Tooltip title="Включить предобработку данных для улучшения форматирования и структуры текста">
-                <FormControlLabel
-                  control={
-                    <Switch
-                      name="enable_preprocessing"
-                      checked={formData.enable_preprocessing}
-                      onChange={handleSwitchChange}
-                      color="primary"
-                    />
-                  }
-                  label={
-                    <GradientText color="primary">
-                      Предобработка текста
-                    </GradientText>
-                  }
-                />
-              </Tooltip>
-              
-              {/* Переключатель экстремального режима с анимацией */}
-              <Slide 
-                direction="left" 
-                in={formData.enable_preprocessing} 
-                mountOnEnter 
-                unmountOnExit
-                timeout={{ enter: 500, exit: 300 }}
+            <Grid item xs={12}>
+              <Box 
+                display="flex" 
+                flexDirection={{ xs: 'column', sm: 'row' }} 
+                alignItems="center" 
+                justifyContent="center"
+                gap={2}
+                flexWrap="wrap"
               >
-                <Fade in={formData.enable_preprocessing} timeout={{ enter: 800, exit: 300 }}>
-                  <ExtremeModeSwitchContainer>
-                    <Tooltip title="В экстремальном режиме предобработчик попытается максимально уменьшить размер текста для более эффективного анализа, сохраняя при этом смысл">
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            name="extreme_mode"
-                            checked={formData.extreme_mode}
-                            onChange={handleSwitchChange}
-                            color="secondary"
-                            disabled={!formData.enable_preprocessing}
-                          />
-                        }
-                        label={
-                          <GradientText color="extreme">
-                            Экстремальный режим
-                          </GradientText>
-                        }
+                {/* Переключатель предобработки */}
+                <Tooltip title="Включить предобработку данных для улучшения форматирования и структуры текста">
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        name="enable_preprocessing"
+                        checked={formData.enable_preprocessing}
+                        onChange={handleSwitchChange}
+                        color="primary"
                       />
-                    </Tooltip>
-                  </ExtremeModeSwitchContainer>
-                </Fade>
-              </Slide>
+                    }
+                    label={
+                      <GradientText color="primary">
+                        Предобработка текста
+                      </GradientText>
+                    }
+                  />
+                </Tooltip>
+                
+                {/* Переключатель экстремального режима с анимацией */}
+                <Slide 
+                  direction="left" 
+                  in={formData.enable_preprocessing} 
+                  mountOnEnter 
+                  unmountOnExit
+                  timeout={{ enter: 500, exit: 300 }}
+                >
+                  <Fade in={formData.enable_preprocessing} timeout={{ enter: 800, exit: 300 }}>
+                    <ExtremeModeSwitchContainer>
+                      <Tooltip title="В экстремальном режиме предобработчик попытается максимально уменьшить размер текста для более эффективного анализа, сохраняя при этом смысл">
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              name="extreme_mode"
+                              checked={formData.extreme_mode}
+                              onChange={handleSwitchChange}
+                              color="secondary"
+                              disabled={!formData.enable_preprocessing}
+                            />
+                          }
+                          label={
+                            <GradientText color="extreme">
+                              Экстремальный режим
+                            </GradientText>
+                          }
+                        />
+                      </Tooltip>
+                    </ExtremeModeSwitchContainer>
+                  </Fade>
+                </Slide>
+                
+                {/* Переключатель использования кэша */}
+                <CacheSwitchContainer>
+                  <Tooltip title="Включить использование кэша для ускорения анализа. При повторном анализе похожего кода будут использоваться сохраненные результаты">
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          name="use_cache"
+                          checked={formData.use_cache}
+                          onChange={handleSwitchChange}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <Box display="flex" alignItems="center">
+                          <GradientText color="cache">
+                            Использовать кэш
+                          </GradientText>
+                          <Badge badgeContent={cacheHitCount} color="primary" max={999} showZero={false}>
+                            <AnimatedCacheIcon active={formData.use_cache && cacheHitCount > 0}>
+                              💾
+                            </AnimatedCacheIcon>
+                          </Badge>
+                        </Box>
+                      }
+                    />
+                  </Tooltip>
+                  
+                  {/* Кнопка очистки кэша */}
+                  <Tooltip title="Очистить кэш">
+                    <span style={{ display: 'inline-block', marginLeft: '8px' }}>
+                      <IconButton 
+                        size="small" 
+                        onClick={handleClearCache} 
+                        disabled={clearingCache || !formData.use_cache}
+                        color="primary"
+                      >
+                        {clearingCache ? (
+                          <CircularProgress size={20} />
+                        ) : (
+                          <span style={{ fontSize: '16px' }}>🗑️</span>
+                        )}
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                </CacheSwitchContainer>
+              </Box>
             </Grid>
             
             <Grid item xs={12} display="flex" justifyContent="center" gap={2} mt={2}>

@@ -8,7 +8,6 @@ from agents.base_agent import CodeAnalysisAgent
 import prompts.best_practices_agent
 from models.agent_schemas import BestPracticesResult
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 

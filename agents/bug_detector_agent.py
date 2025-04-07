@@ -8,7 +8,6 @@ from agents.base_agent import CodeAnalysisAgent
 import prompts.bug_detector_agent
 from models.agent_schemas import BugDetectorResult
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 

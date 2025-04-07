@@ -16,7 +16,6 @@ from models.data_models import (
     CachedBug, CachedVulnerability, CachedRecommendation, CachedRequirement
 )
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 
@@ -37,10 +36,8 @@ class CacheService:
         self.ttl_days = ttl_days
         self.stats = CacheStatistics()
         
-        # Создание директорий для кэша
         self._create_cache_dirs()
         
-        # Загрузка кэша из файлов
         self.bugs_cache: Dict[str, CachedBug] = {}
         self.vulnerabilities_cache: Dict[str, CachedVulnerability] = {}
         self.recommendations_cache: Dict[str, CachedRecommendation] = {}
@@ -48,7 +45,6 @@ class CacheService:
         
         self._load_cache()
         
-        # Очистка устаревших записей в кэше
         self._clean_expired_items()
         
         logger.info(f"Сервис кэширования инициализирован. Директория кэша: {cache_dir}")
@@ -93,7 +89,6 @@ class CacheService:
                 with open(file_path, 'rb') as f:
                     cached_item = pickle.load(f)
                     
-                # Проверка типа и валидности
                 if isinstance(cached_item, model_class):
                     cache_dict[cached_item.item_id] = cached_item
                 else:
@@ -126,7 +121,6 @@ class CacheService:
             if item.last_used < expiry_date:
                 expired_keys.append(key)
                 
-                # Удаление файла
                 file_path = os.path.join(self.cache_dir, cache_type, f"{key}.pkl")
                 if os.path.exists(file_path):
                     try:
@@ -134,7 +128,6 @@ class CacheService:
                     except Exception as e:
                         logger.error(f"Ошибка при удалении файла кэша {file_path}: {e}")
         
-        # Удаление ключей из словаря
         for key in expired_keys:
             del cache_dict[key]
             
@@ -163,17 +156,12 @@ class CacheService:
         Returns:
             str: Хэш кода.
         """
-        # Очистка кода от несущественных элементов
-        # Это упрощенная реализация, для разных языков может потребоваться доработка
         cleaned_code = code.strip()
         
-        # Удаление многострочных комментариев
         cleaned_code = self._remove_multiline_comments(cleaned_code)
         
-        # Удаление однострочных комментариев
         cleaned_code = self._remove_singleline_comments(cleaned_code)
         
-        # Удаление лишних пробелов и переносов строк
         cleaned_code = ' '.join(cleaned_code.split())
         
         return self._compute_hash(cleaned_code)
@@ -188,8 +176,6 @@ class CacheService:
         Returns:
             str: Код без многострочных комментариев.
         """
-        # Простая реализация для типичных комментариев /* ... */
-        # Для разных языков может потребоваться доработка
         result = code
         while "/*" in result and "*/" in result:
             start = result.find("/*")
@@ -210,14 +196,10 @@ class CacheService:
         Returns:
             str: Код без однострочных комментариев.
         """
-        # Простая реализация для типичных комментариев // и #
-        # Для разных языков может потребоваться доработка
         result = []
         for line in code.split('\n'):
-            # Проверка на // комментарии
             if "//" in line:
                 line = line.split("//")[0]
-            # Проверка на # комментарии
             if "#" in line:
                 line = line.split("#")[0]
             result.append(line)
@@ -238,12 +220,10 @@ class CacheService:
         bug_ids = []
         
         for bug_id, cached_bug in self.bugs_cache.items():
-            # Поиск по хэшу или частичному совпадению кода
             if cached_bug.content_hash == code_hash or cached_bug.related_code_pattern in code:
                 cached_bug.last_used = datetime.now()
                 cached_bug.use_count += 1
                 
-                # Создаем копию бага с меткой из кэша
                 bug_copy = Bug(
                     description=cached_bug.bug_data.description,
                     code_snippet=cached_bug.bug_data.code_snippet,
@@ -255,19 +235,15 @@ class CacheService:
                 found_bugs.append(bug_copy)
                 bug_ids.append(bug_id)
                 
-                # Обновляем статистику
                 self.stats.cache_hits += 1
                 
-                # Сохраняем обновленный элемент кэша
                 self._save_cached_item(cached_bug, "bugs")
                 
                 logger.info(f"Найден баг в кэше: {bug_id}")
         
-        # Если ничего не найдено, увеличиваем счетчик промахов
         if not found_bugs:
             self.stats.cache_misses += 1
         
-        # Добавляем найденные идентификаторы в статистику
         self.stats.cached_bugs.extend(bug_ids)
         
         return found_bugs, bug_ids
@@ -287,12 +263,10 @@ class CacheService:
         vulnerability_ids = []
         
         for vuln_id, cached_vuln in self.vulnerabilities_cache.items():
-            # Поиск по хэшу или частичному совпадению кода
             if cached_vuln.content_hash == code_hash or cached_vuln.related_code_pattern in code:
                 cached_vuln.last_used = datetime.now()
                 cached_vuln.use_count += 1
                 
-                # Создаем копию уязвимости с меткой из кэша
                 vuln_copy = Vulnerability(
                     description=cached_vuln.vulnerability_data.description,
                     code_snippet=cached_vuln.vulnerability_data.code_snippet,
@@ -306,19 +280,15 @@ class CacheService:
                 found_vulnerabilities.append(vuln_copy)
                 vulnerability_ids.append(vuln_id)
                 
-                # Обновляем статистику
                 self.stats.cache_hits += 1
                 
-                # Сохраняем обновленный элемент кэша
                 self._save_cached_item(cached_vuln, "vulnerabilities")
                 
                 logger.info(f"Найдена уязвимость в кэше: {vuln_id}")
         
-        # Если ничего не найдено, увеличиваем счетчик промахов
         if not found_vulnerabilities:
             self.stats.cache_misses += 1
         
-        # Добавляем найденные идентификаторы в статистику
         self.stats.cached_vulnerabilities.extend(vulnerability_ids)
         
         return found_vulnerabilities, vulnerability_ids
@@ -338,12 +308,10 @@ class CacheService:
         recommendation_ids = []
         
         for rec_id, cached_rec in self.recommendations_cache.items():
-            # Поиск по хэшу или частичному совпадению кода
             if cached_rec.content_hash == code_hash or cached_rec.related_code_pattern in code:
                 cached_rec.last_used = datetime.now()
                 cached_rec.use_count += 1
                 
-                # Создаем копию рекомендации с меткой из кэша
                 rec_copy = Recommendation(
                     description=cached_rec.recommendation_data.description,
                     code_snippet=cached_rec.recommendation_data.code_snippet,
@@ -355,19 +323,15 @@ class CacheService:
                 found_recommendations.append(rec_copy)
                 recommendation_ids.append(rec_id)
                 
-                # Обновляем статистику
                 self.stats.cache_hits += 1
                 
-                # Сохраняем обновленный элемент кэша
                 self._save_cached_item(cached_rec, "recommendations")
                 
                 logger.info(f"Найдена рекомендация в кэше: {rec_id}")
         
-        # Если ничего не найдено, увеличиваем счетчик промахов
         if not found_recommendations:
             self.stats.cache_misses += 1
         
-        # Добавляем найденные идентификаторы в статистику
         self.stats.cached_recommendations.extend(recommendation_ids)
         
         return found_recommendations, recommendation_ids
@@ -383,18 +347,14 @@ class CacheService:
         Returns:
             str: Идентификатор кэшированного бага.
         """
-        # Генерация уникального идентификатора
         bug_hash = self._compute_hash(bug.description + bug.code_snippet)
         bug_id = f"bug_{bug_hash}"
         
-        # Проверка наличия в кэше
         if bug_id in self.bugs_cache:
             return bug_id
         
-        # Определение паттерна кода
         code_pattern = bug.code_snippet
         
-        # Создание кэшированного объекта
         cached_bug = CachedBug(
             item_id=bug_id,
             content_hash=self._compute_similarity_hash(code),
@@ -403,13 +363,10 @@ class CacheService:
             tags=set(["bug", bug.severity])
         )
         
-        # Добавление в кэш
         self.bugs_cache[bug_id] = cached_bug
         
-        # Сохранение в файл
         self._save_cached_item(cached_bug, "bugs")
         
-        # Обновление статистики
         self.stats.cache_saves += 1
         
         logger.info(f"Баг добавлен в кэш: {bug_id}")
@@ -427,18 +384,14 @@ class CacheService:
         Returns:
             str: Идентификатор кэшированной уязвимости.
         """
-        # Генерация уникального идентификатора
         vuln_hash = self._compute_hash(vulnerability.description + vulnerability.code_snippet)
         vuln_id = f"vuln_{vuln_hash}"
         
-        # Проверка наличия в кэше
         if vuln_id in self.vulnerabilities_cache:
             return vuln_id
         
-        # Определение паттерна кода
         code_pattern = vulnerability.code_snippet
         
-        # Создание кэшированного объекта
         cached_vuln = CachedVulnerability(
             item_id=vuln_id,
             content_hash=self._compute_similarity_hash(code),
@@ -447,13 +400,10 @@ class CacheService:
             tags=set(["vulnerability", vulnerability.severity])
         )
         
-        # Добавление в кэш
         self.vulnerabilities_cache[vuln_id] = cached_vuln
         
-        # Сохранение в файл
         self._save_cached_item(cached_vuln, "vulnerabilities")
         
-        # Обновление статистики
         self.stats.cache_saves += 1
         
         logger.info(f"Уязвимость добавлена в кэш: {vuln_id}")
@@ -471,18 +421,14 @@ class CacheService:
         Returns:
             str: Идентификатор кэшированной рекомендации.
         """
-        # Генерация уникального идентификатора
         rec_hash = self._compute_hash(recommendation.description + recommendation.code_snippet)
         rec_id = f"rec_{rec_hash}"
         
-        # Проверка наличия в кэше
         if rec_id in self.recommendations_cache:
             return rec_id
         
-        # Определение паттерна кода
         code_pattern = recommendation.code_snippet
         
-        # Создание кэшированного объекта
         cached_rec = CachedRecommendation(
             item_id=rec_id,
             content_hash=self._compute_similarity_hash(code),
@@ -491,13 +437,10 @@ class CacheService:
             tags=set(["recommendation"])
         )
         
-        # Добавление в кэш
         self.recommendations_cache[rec_id] = cached_rec
         
-        # Сохранение в файл
         self._save_cached_item(cached_rec, "recommendations")
         
-        # Обновление статистики
         self.stats.cache_saves += 1
         
         logger.info(f"Рекомендация добавлена в кэш: {rec_id}")
@@ -516,23 +459,18 @@ class CacheService:
         Returns:
             str: Идентификатор кэшированного требования.
         """
-        # Генерация уникального идентификатора
         req_hash = self._compute_hash(requirement)
         req_id = f"req_{req_hash}"
         
-        # Проверка наличия в кэше
         if req_id in self.requirements_cache:
             return req_id
         
-        # Определение паттерна кода, если он предоставлен
         code_pattern = None
         content_hash = self._compute_hash(requirement)
         if code:
             code_pattern = code
             content_hash = self._compute_similarity_hash(code)
-        
-        # Создание кэшированного объекта
-        cached_req = CachedRequirement(
+            cached_req = CachedRequirement(
             item_id=req_id,
             content_hash=content_hash,
             requirement_text=requirement,
@@ -541,13 +479,10 @@ class CacheService:
             tags=set(["requirement", "satisfied" if satisfied else "unsatisfied"])
         )
         
-        # Добавление в кэш
         self.requirements_cache[req_id] = cached_req
         
-        # Сохранение в файл
         self._save_cached_item(cached_req, "requirements")
         
-        # Обновление статистики
         self.stats.cache_saves += 1
         
         logger.info(f"Требование добавлено в кэш: {req_id}")
@@ -577,7 +512,6 @@ class CacheService:
         Returns:
             CacheStatistics: Статистика использования кэша.
         """
-        # Обновление сводной информации
         total_requests = self.stats.cache_hits + self.stats.cache_misses
         hit_rate = (self.stats.cache_hits / total_requests * 100) if total_requests > 0 else 0
         
@@ -602,13 +536,11 @@ class CacheService:
         """
         Полная очистка кэша.
         """
-        # Очистка словарей
         self.bugs_cache.clear()
         self.vulnerabilities_cache.clear()
         self.recommendations_cache.clear()
         self.requirements_cache.clear()
         
-        # Очистка файлов
         cache_types = ["bugs", "vulnerabilities", "recommendations", "requirements"]
         for cache_type in cache_types:
             cache_path = os.path.join(self.cache_dir, cache_type)
@@ -621,5 +553,4 @@ class CacheService:
         
         logger.info("Кэш полностью очищен")
         
-        # Сброс статистики
         self.reset_statistics() 

@@ -8,7 +8,6 @@ from agents.base_agent import CodeAnalysisAgent
 import prompts.test_requirements_agent
 from models.agent_schemas import TestRequirementsResult
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 

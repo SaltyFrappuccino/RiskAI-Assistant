@@ -16,7 +16,6 @@ from agents.vulnerability_detector_agent import VulnerabilityDetectorAgent
 from agents.final_report_agent import FinalReportAgent
 import config
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 
@@ -63,9 +62,7 @@ class CodeAnalyzer:
         """
         logger.info("Начало анализа кода")
         
-        # Подготовка данных для анализа
         if isinstance(request, dict):
-            # Если запрос - словарь (например, из preprocessor)
             data = {
                 "story": request.get("story") or config.DEFAULT_STORY,
                 "requirements": request.get("requirements") or config.DEFAULT_REQUIREMENTS,
@@ -74,7 +71,6 @@ class CodeAnalyzer:
                 "use_cache": request.get("use_cache", True)
             }
         else:
-            # Если запрос - объект AnalysisRequest
             data = {
                 "story": request.story or config.DEFAULT_STORY,
                 "requirements": request.requirements or config.DEFAULT_REQUIREMENTS,
@@ -83,13 +79,10 @@ class CodeAnalyzer:
                 "use_cache": request.use_cache if hasattr(request, 'use_cache') else True
             }
         
-        # Проверяем, включен ли кэш и доступен ли сервис кэширования
         use_cache = data.get("use_cache", True) and self.cache_service is not None
         
-        # Выполнение анализа с помощью агентов
         if use_cache:
             logger.info("Кэширование включено. Проверка наличия подобных результатов в кэше")
-            # Проверка кэша для кода
             cached_bugs, bug_ids = self.cache_service.find_cached_bugs(data["code"])
             cached_vulnerabilities, vuln_ids = self.cache_service.find_cached_vulnerabilities(data["code"])
             cached_recommendations, rec_ids = self.cache_service.find_cached_recommendations(data["code"])
@@ -104,7 +97,6 @@ class CodeAnalyzer:
             cached_vulnerabilities = []
             cached_recommendations = []
         
-        # Выполнение анализа с помощью агентов
         logger.info("Запуск агента проверки соответствия кода требованиям")
         code_requirements_result = self.code_requirements_agent.analyze(data)
         
@@ -117,20 +109,16 @@ class CodeAnalyzer:
         logger.info("Запуск агента проверки кода на соответствие лучшим практикам")
         best_practices_result = self.best_practices_agent.analyze(data)
         
-        # Если есть кэшированные результаты для багов, используем их
         if use_cache and cached_bugs:
             logger.info(f"Используем {len(cached_bugs)} кэшированных багов")
-            # Интегрируем кэшированные баги в результат
             bug_detector_result = self.bug_detector_agent.analyze(data)
             bug_detector_result["bugs"] = self._merge_bugs(bug_detector_result.get("bugs", []), cached_bugs)
         else:
             logger.info("Запуск агента обнаружения багов")
             bug_detector_result = self.bug_detector_agent.analyze(data)
         
-        # Если есть кэшированные результаты для уязвимостей, используем их
         if use_cache and cached_vulnerabilities:
             logger.info(f"Используем {len(cached_vulnerabilities)} кэшированных уязвимостей")
-            # Интегрируем кэшированные уязвимости в результат
             vulnerability_detector_result = self.vulnerability_detector_agent.analyze(data)
             vulnerability_detector_result["vulnerabilities"] = self._merge_vulnerabilities(
                 vulnerability_detector_result.get("vulnerabilities", []), 
@@ -140,7 +128,6 @@ class CodeAnalyzer:
             logger.info("Запуск агента обнаружения уязвимостей")
             vulnerability_detector_result = self.vulnerability_detector_agent.analyze(data)
         
-        # Сбор результатов анализа для формирования итогового отчета
         report_data = {
             "code_requirements_result": code_requirements_result,
             "test_requirements_result": test_requirements_result,
@@ -150,30 +137,23 @@ class CodeAnalyzer:
             "vulnerability_detector_result": vulnerability_detector_result,
         }
         
-        # Если есть кэшированные рекомендации, добавляем их
         if use_cache and cached_recommendations:
             logger.info(f"Добавляем {len(cached_recommendations)} кэшированных рекомендаций")
-            # Добавляем кэшированные рекомендации в отчет
             if "recommendations" not in report_data:
                 report_data["recommendations"] = []
             report_data["recommendations"].extend(cached_recommendations)
         
-        # Формирование итогового отчета
         logger.info("Запуск агента формирования итогового отчета")
         final_report = self.final_report_agent.analyze(report_data)
         
-        # Добавляем новые результаты в кэш, если кэширование включено
         if use_cache and self.cache_service:
             self._add_results_to_cache(final_report, data["code"])
         
-        # Преобразование отчета в модель AnalysisResult
         try:
             logger.info("Формирование итогового результата анализа")
             
-            # Убедимся, что метрики присутствуют и являются числами
             metrics = final_report.get("metrics", {})
             
-            # Проверяем наличие и тип метрик, устанавливаем значения по умолчанию, если необходимо
             code_req_match = self._get_float_value(metrics.get("code_requirements_match"), 0.0)
             test_req_match = self._get_float_value(metrics.get("test_requirements_match"), 0.0)
             test_code_match = self._get_float_value(metrics.get("test_code_match"), 0.0)
@@ -198,7 +178,6 @@ class CodeAnalyzer:
             return result
         except Exception as e:
             logger.error(f"Ошибка при формировании итогового результата: {e}")
-            # Создание результата с ошибкой
             return AnalysisResult(
                 metrics=Metrics(code_requirements_match=0.0, test_requirements_match=0.0, test_code_match=0.0),
                 summary=f"Ошибка при формировании отчета: {str(e)}",
@@ -215,7 +194,6 @@ class CodeAnalyzer:
         Returns:
             List[Dict[str, Any]]: Объединенный список багов.
         """
-        # Преобразуем объекты Bug в словари для совместимости с форматом агента
         cached_bugs_dicts = [
             {
                 "description": bug.description,
@@ -227,7 +205,6 @@ class CodeAnalyzer:
             for bug in cached_bugs
         ]
         
-        # Объединяем списки
         return detected_bugs + cached_bugs_dicts
     
     def _merge_vulnerabilities(self, detected_vulns: List[Dict[str, Any]], cached_vulns: List[Vulnerability]) -> List[Dict[str, Any]]:
@@ -241,7 +218,6 @@ class CodeAnalyzer:
         Returns:
             List[Dict[str, Any]]: Объединенный список уязвимостей.
         """
-        # Преобразуем объекты Vulnerability в словари для совместимости с форматом агента
         cached_vulns_dicts = [
             {
                 "description": vuln.description,
@@ -255,7 +231,6 @@ class CodeAnalyzer:
             for vuln in cached_vulns
         ]
         
-        # Объединяем списки
         return detected_vulns + cached_vulns_dicts
     
     def _add_results_to_cache(self, final_report: Dict[str, Any], code: str):
@@ -267,10 +242,8 @@ class CodeAnalyzer:
             code: Исходный код.
         """
         try:
-            # Добавление багов в кэш
             if "bugs" in final_report and final_report["bugs"]:
                 for bug_data in final_report["bugs"]:
-                    # Проверяем, что баг не из кэша
                     if not bug_data.get("from_cache", False):
                         bug = Bug(
                             description=bug_data["description"],
@@ -282,10 +255,8 @@ class CodeAnalyzer:
                 
                 logger.info(f"Добавлено {len(final_report['bugs'])} багов в кэш")
             
-            # Добавление уязвимостей в кэш
             if "vulnerabilities" in final_report and final_report["vulnerabilities"]:
                 for vuln_data in final_report["vulnerabilities"]:
-                    # Проверяем, что уязвимость не из кэша
                     if not vuln_data.get("from_cache", False):
                         vulnerability = Vulnerability(
                             description=vuln_data["description"],
@@ -299,10 +270,8 @@ class CodeAnalyzer:
                 
                 logger.info(f"Добавлено {len(final_report['vulnerabilities'])} уязвимостей в кэш")
             
-            # Добавление рекомендаций в кэш
             if "recommendations" in final_report and final_report["recommendations"]:
                 for rec_data in final_report["recommendations"]:
-                    # Проверяем, что рекомендация не из кэша
                     if not rec_data.get("from_cache", False):
                         recommendation = Recommendation(
                             description=rec_data["description"],
@@ -314,7 +283,6 @@ class CodeAnalyzer:
                 
                 logger.info(f"Добавлено {len(final_report['recommendations'])} рекомендаций в кэш")
             
-            # Добавление требований в кэш
             if "satisfied_requirements" in final_report:
                 for req in final_report["satisfied_requirements"]:
                     self.cache_service.add_requirement_to_cache(req, True, code)

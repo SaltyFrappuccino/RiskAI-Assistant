@@ -7,7 +7,6 @@ from typing import Dict, Any, Type
 from pydantic import BaseModel
 from services.gigachat_service import GigaChatService
 
-# Настройка логирования
 logger = logging.getLogger(__name__)
 
 
@@ -41,11 +40,9 @@ class CodeAnalysisAgent:
         """
         logger.info(f"Запуск агента {self.__class__.__name__}")
         
-        # Используем функцию для получения структурированного ответа, если задана схема результата
         if self.result_schema:
             result = self.gigachat_service.call_agent_with_function(self.prompt, data, self.result_schema)
         else:
-            # Если схема не задана, используем старый метод с текстовым запросом
             result = self.gigachat_service.call_agent_with_prompt(self.prompt, data)
             
         logger.info(f"Агент {self.__class__.__name__} завершил работу")

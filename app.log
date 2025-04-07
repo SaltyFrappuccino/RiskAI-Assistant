@@ -2136,3 +2136,264 @@ from product_sorter import Produc...
 2025-03-26 15:26:44,920 - main - INFO - Добавлено в кэш: 23 элемент(ов)
 2025-03-26 15:26:44,921 - main - INFO - Анализ кода успешно выполнен
 2025-03-26 15:26:44,941 - main - INFO - Запрос на получение статистики кэша
+2025-04-08 03:04:36,787 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:04:36,788 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:04:37,036 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:04:37,047 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:04:37,048 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:04:37,049 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:04:37,050 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:04:37,050 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:04:37,051 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:04:37,051 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:04:37,052 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:04:37,052 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:04:37,053 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:04:37,065 - __main__ - INFO - Запуск сервера на порту 8080
+2025-04-08 03:04:37,137 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:04:37,138 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:04:37,139 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:04:37,146 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:04:37,147 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:04:37,148 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:04:37,148 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:04:37,149 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:04:37,149 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:04:37,150 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:04:37,151 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:04:37,151 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:04:37,152 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:10:29,462 - main - INFO - Запрос на проверку работоспособности API
+2025-04-08 03:10:29,467 - main - INFO - Запрос на проверку работоспособности API
+2025-04-08 03:10:29,481 - main - INFO - Запрос на получение статистики кэша
+2025-04-08 03:10:29,886 - main - INFO - Запрос на получение статистики кэша
+2025-04-08 03:10:40,944 - main - INFO - Получен запрос на предобработку данных
+2025-04-08 03:10:40,944 - main - INFO - Extreme mode: Выключен
+2025-04-08 03:10:40,945 - agents.preprocessor_agent - INFO - Запуск PreprocessorAgent в режиме обычный
+2025-04-08 03:10:40,946 - agents.preprocessor_agent - INFO - Обработка поля story
+2025-04-08 03:10:40,947 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,323 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,324 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'f4237cf6-e68c-4503-87c6-820df1ad8dbd', 'x-session-id': 'ae3fff42-e4fa-4533-b896-fc0e9ff9ab24', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,326 - agents.preprocessor_agent - INFO - Поле story успешно обработано
+2025-04-08 03:10:41,326 - agents.preprocessor_agent - INFO - Обработка поля requirements
+2025-04-08 03:10:41,327 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,372 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,374 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '1f53d518-26b4-41ee-9d07-d7b97d36661a', 'x-session-id': '80f6bcfe-85a5-45f6-98b4-6f8d8719810c', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,376 - agents.preprocessor_agent - INFO - Поле requirements успешно обработано
+2025-04-08 03:10:41,377 - agents.preprocessor_agent - INFO - Обработка поля code
+2025-04-08 03:10:41,378 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,426 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,427 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'e170d440-39be-4885-be7a-38ba37e1cff3', 'x-session-id': 'a6da0190-2c18-4706-9677-96c2284d4208', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,429 - agents.preprocessor_agent - INFO - Поле code успешно обработано
+2025-04-08 03:10:41,430 - agents.preprocessor_agent - INFO - Обработка поля test_cases
+2025-04-08 03:10:41,430 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,479 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,481 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '4a232921-72f6-4660-98d2-35a05fc74919', 'x-session-id': 'd6c9edf5-9bf0-413d-b757-c55002974fbc', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,483 - agents.preprocessor_agent - INFO - Поле test_cases успешно обработано
+2025-04-08 03:10:41,484 - agents.preprocessor_agent - INFO - Агент PreprocessorAgent завершил работу
+2025-04-08 03:10:41,484 - main - INFO - Предобработка данных успешно выполнена
+2025-04-08 03:10:41,538 - main - INFO - Получен запрос на анализ кода
+2025-04-08 03:10:41,539 - main - INFO - Story: Нужно создать библиотеку для сортировки списка товаров по различным параметрам, которая будет исполь...
+2025-04-08 03:10:41,540 - main - INFO - Requirements: 1. Создать класс Product с атрибутами: id, name, price, rating, date_added
+2. Создать функцию sort_p...
+2025-04-08 03:10:41,541 - main - INFO - Code: from datetime import datetime
+from typing import List, Dict, Any, Literal, Union, Optional
+from copy...
+2025-04-08 03:10:41,542 - main - INFO - Test cases: import unittest
+from datetime import datetime, timedelta
+from product_sorter import Product, sort_pr...
+2025-04-08 03:10:41,543 - main - INFO - Enable preprocessing: Включено
+2025-04-08 03:10:41,545 - main - INFO - Use cache: Включено
+2025-04-08 03:10:41,546 - main - INFO - Extreme mode: Выключен
+2025-04-08 03:10:41,546 - main - INFO - Предобработка данных перед анализом
+2025-04-08 03:10:41,547 - main - INFO - Получен запрос на предобработку данных
+2025-04-08 03:10:41,547 - main - INFO - Extreme mode: Выключен
+2025-04-08 03:10:41,548 - agents.preprocessor_agent - INFO - Запуск PreprocessorAgent в режиме обычный
+2025-04-08 03:10:41,549 - agents.preprocessor_agent - INFO - Обработка поля story
+2025-04-08 03:10:41,549 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,597 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,599 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'faa2491b-5836-4584-9dc3-653e6d22b9cd', 'x-session-id': 'd218bab0-56f2-4f57-9277-6d84517a147c', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,600 - agents.preprocessor_agent - INFO - Поле story успешно обработано
+2025-04-08 03:10:41,601 - agents.preprocessor_agent - INFO - Обработка поля requirements
+2025-04-08 03:10:41,602 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,648 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,650 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'c211bbe6-2133-4adc-af5d-c58c9e2d3050', 'x-session-id': 'f8db1535-340b-43db-a388-3eb700b5423e', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,651 - agents.preprocessor_agent - INFO - Поле requirements успешно обработано
+2025-04-08 03:10:41,652 - agents.preprocessor_agent - INFO - Обработка поля code
+2025-04-08 03:10:41,653 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,701 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,703 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'c60e725b-0e75-45f4-8ee1-dd99292bc3fd', 'x-session-id': '7fd40e15-a128-4c2c-b677-cc9b53e6c6fd', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,705 - agents.preprocessor_agent - INFO - Поле code успешно обработано
+2025-04-08 03:10:41,706 - agents.preprocessor_agent - INFO - Обработка поля test_cases
+2025-04-08 03:10:41,707 - services.gigachat_service - INFO - Вызов GigaChat для анализа
+2025-04-08 03:10:41,755 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,757 - services.gigachat_service - ERROR - Ошибка при вызове агента: (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '27e9322d-d80f-4043-9c38-e1964948f576', 'x-session-id': '95d293f1-2792-44a0-a7e5-5f7cd025576c', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,759 - agents.preprocessor_agent - INFO - Поле test_cases успешно обработано
+2025-04-08 03:10:41,760 - agents.preprocessor_agent - INFO - Агент PreprocessorAgent завершил работу
+2025-04-08 03:10:41,761 - main - INFO - Предобработка данных успешно выполнена
+2025-04-08 03:10:41,761 - agents.analyzer - INFO - Начало анализа кода
+2025-04-08 03:10:41,762 - agents.analyzer - INFO - Кэширование включено. Проверка наличия подобных результатов в кэше
+2025-04-08 03:10:41,767 - services.cache_service - INFO - Найден баг в кэше: bug_1bc96b91d6cd35c4291936d9964c7332
+2025-04-08 03:10:41,770 - services.cache_service - INFO - Найден баг в кэше: bug_8f7436e2b349aa5008f27e59ef775ebb
+2025-04-08 03:10:41,773 - services.cache_service - INFO - Найден баг в кэше: bug_a6cbe2ef78267b77a7cd2a65a5dbea34
+2025-04-08 03:10:41,776 - services.cache_service - INFO - Найдена рекомендация в кэше: rec_15ceb8c9afdc6feb4085d236922c14db
+2025-04-08 03:10:41,778 - services.cache_service - INFO - Найдена рекомендация в кэше: rec_b1aecf0a25eebba355b31e141b579b1e
+2025-04-08 03:10:41,780 - agents.analyzer - INFO - Найдены похожие результаты в кэше: 3 багов, 0 уязвимостей, 2 рекомендаций
+2025-04-08 03:10:41,780 - agents.analyzer - INFO - Запуск агента проверки соответствия кода требованиям
+2025-04-08 03:10:41,781 - agents.base_agent - INFO - Запуск агента CodeRequirementsAgent
+2025-04-08 03:10:41,785 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: CodeRequirementsResult
+2025-04-08 03:10:41,918 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:41,919 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:41 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'a10478a7-b564-44cb-9e05-de7b3e57249a', 'x-session-id': '1e283295-6588-4693-8b15-6c656b7021b8', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:41,921 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:10:43,924 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: CodeRequirementsResult
+2025-04-08 03:10:43,963 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:43,964 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:43 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '6ab83dbb-0b7f-471c-851a-5610e1796e20', 'x-session-id': '022ad317-8b31-4693-8133-2c10b6235d03', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:43,966 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:10:47,969 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: CodeRequirementsResult
+2025-04-08 03:10:48,005 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:48,006 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:48 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'f066e44a-756c-4b55-8713-cf104e7e7e79', 'x-session-id': 'f3f34584-0a87-47f5-8346-f3066e199b3e', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:48,008 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:10:48,008 - agents.base_agent - INFO - Агент CodeRequirementsAgent завершил работу
+2025-04-08 03:10:48,009 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов требованиям
+2025-04-08 03:10:48,010 - agents.base_agent - INFO - Запуск агента TestRequirementsAgent
+2025-04-08 03:10:48,012 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: TestRequirementsResult
+2025-04-08 03:10:48,048 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:48,049 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:48 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'dc63276b-aa01-4cc0-808c-b0b2734f8972', 'x-session-id': 'c5088587-87cb-40fa-ab29-16ea6b5f553e', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:48,050 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:10:50,053 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: TestRequirementsResult
+2025-04-08 03:10:50,089 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:50,091 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:50 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'ea3497e2-214d-4953-8f27-1cc5487e1c5f', 'x-session-id': 'b2e68abe-b148-401a-acc7-244ece8806ee', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:50,092 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:10:54,096 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: TestRequirementsResult
+2025-04-08 03:10:54,139 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:54,141 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:54 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '7a52b89e-1f5c-4e83-a809-1fdcf33e1a0b', 'x-session-id': 'db4fa1c1-61af-48fa-8c83-5f1ad8cf8d16', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:54,143 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:10:54,143 - agents.base_agent - INFO - Агент TestRequirementsAgent завершил работу
+2025-04-08 03:10:54,144 - agents.analyzer - INFO - Запуск агента проверки соответствия тест-кейсов коду
+2025-04-08 03:10:54,144 - agents.base_agent - INFO - Запуск агента TestCodeAgent
+2025-04-08 03:10:54,148 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: TestCodeResult
+2025-04-08 03:10:54,198 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:54,199 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:54 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '05ba04a4-74ab-42c1-84be-4385c8beea94', 'x-session-id': '071bdd29-38b5-4136-86d6-597fcbcf0988', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:54,201 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:10:56,205 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: TestCodeResult
+2025-04-08 03:10:56,252 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:10:56,253 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:10:56 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '62940a76-e789-4719-92c2-d99142785b9c', 'x-session-id': '87a6e419-8e61-4341-b842-dc50651139f9', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:10:56,254 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:11:00,258 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: TestCodeResult
+2025-04-08 03:11:00,304 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:00,305 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:00 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '06c29639-8d34-4db6-ba73-8b7d75194a4c', 'x-session-id': '9fd30faf-cc91-48c0-ac80-5ce5a09fffca', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:00,307 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:11:00,308 - agents.base_agent - INFO - Агент TestCodeAgent завершил работу
+2025-04-08 03:11:00,308 - agents.analyzer - INFO - Запуск агента проверки кода на соответствие лучшим практикам
+2025-04-08 03:11:00,309 - agents.base_agent - INFO - Запуск агента BestPracticesAgent
+2025-04-08 03:11:00,312 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: BestPracticesResult
+2025-04-08 03:11:00,357 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:00,358 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:00 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '26fcab3d-a9e3-468f-8c0b-3b79b79c0664', 'x-session-id': 'b8e86d4c-be05-418c-9467-95962dff62e2', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:00,360 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:11:02,362 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: BestPracticesResult
+2025-04-08 03:11:02,401 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:02,403 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:02 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '622bfd0a-6813-4a1c-9682-118ad69fc71b', 'x-session-id': '43e1bd50-a146-4bba-b431-8e5589628bd4', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:02,404 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:11:06,406 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: BestPracticesResult
+2025-04-08 03:11:06,445 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:06,446 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:06 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'b3e74238-ef54-4e5f-a0af-7525cb16a560', 'x-session-id': 'e61ec119-afee-4ae2-a97d-349a91eecde0', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:06,447 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:11:06,448 - agents.base_agent - INFO - Агент BestPracticesAgent завершил работу
+2025-04-08 03:11:06,449 - agents.analyzer - INFO - Используем 3 кэшированных багов
+2025-04-08 03:11:06,449 - agents.base_agent - INFO - Запуск агента BugDetectorAgent
+2025-04-08 03:11:06,451 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: BugDetectorResult
+2025-04-08 03:11:06,493 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:06,494 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:06 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'ba433034-211b-4fb3-84ee-75c42a84bd71', 'x-session-id': 'ead75012-bd65-422b-bb58-fc673dbdaafb', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:06,495 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:11:08,498 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: BugDetectorResult
+2025-04-08 03:11:08,537 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:08,538 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:08 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '35772f6d-58af-4a02-bc3b-084017a9b518', 'x-session-id': '18350b86-ce5a-490a-a898-1878e124021b', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:08,540 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:11:12,542 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: BugDetectorResult
+2025-04-08 03:11:12,582 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:12,584 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:12 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'f45e3f04-bc7e-4012-b2e4-e9425acfd3c7', 'x-session-id': '595c3efb-1077-4f67-b339-3c62e257084d', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:12,585 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:11:12,586 - agents.base_agent - INFO - Агент BugDetectorAgent завершил работу
+2025-04-08 03:11:12,586 - agents.analyzer - INFO - Запуск агента обнаружения уязвимостей
+2025-04-08 03:11:12,587 - agents.base_agent - INFO - Запуск агента VulnerabilityDetectorAgent
+2025-04-08 03:11:12,589 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: VulnerabilityDetectorResult
+2025-04-08 03:11:12,629 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:12,631 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:12 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'b861b074-5d59-4e9b-a111-d4828c17a155', 'x-session-id': 'a7653cc0-756b-496b-945f-95793ed1a102', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:12,633 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:11:14,635 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: VulnerabilityDetectorResult
+2025-04-08 03:11:14,675 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:14,677 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:14 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'daf67a59-4660-4b8a-89d7-6cc8c0fa3301', 'x-session-id': '80ea9809-0803-4c7e-bba0-eb0b51bc5274', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:14,678 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:11:18,680 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: VulnerabilityDetectorResult
+2025-04-08 03:11:18,720 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:18,722 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:18 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '0ee2f67c-6436-497a-9fdb-5dbd8481e901', 'x-session-id': '417dfac6-3dec-42f9-adaf-8f8617c319c8', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:18,723 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:11:18,724 - agents.base_agent - INFO - Агент VulnerabilityDetectorAgent завершил работу
+2025-04-08 03:11:18,725 - agents.analyzer - INFO - Добавляем 2 кэшированных рекомендаций
+2025-04-08 03:11:18,725 - agents.analyzer - INFO - Запуск агента формирования итогового отчета
+2025-04-08 03:11:18,726 - agents.base_agent - INFO - Запуск агента FinalReportAgent
+2025-04-08 03:11:18,734 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: FinalReportResult
+2025-04-08 03:11:18,828 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:18,829 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 1/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:18 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '747c6aa5-3004-4883-a244-3541d4396232', 'x-session-id': 'f73e694e-ead3-483d-a3ba-f2727eb357da', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:18,831 - services.gigachat_service - INFO - Повторная попытка через 2 секунд...
+2025-04-08 03:11:20,837 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 2/3), ожидаемая схема: FinalReportResult
+2025-04-08 03:11:20,882 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:20,884 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 2/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:20 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': 'df872830-2f3b-4913-98e8-11a562962feb', 'x-session-id': 'f8af2eb1-a78b-4fb9-a574-f4bfaa7955cb', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:20,885 - services.gigachat_service - INFO - Повторная попытка через 4 секунд...
+2025-04-08 03:11:24,892 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 3/3), ожидаемая схема: FinalReportResult
+2025-04-08 03:11:24,936 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-04-08 03:11:24,937 - services.gigachat_service - ERROR - Ошибка при вызове агента (попытка 3/3): (URL('https://gigachat.devices.sberbank.ru/api/v1/chat/completions'), 401, b'{"status":401,"message":"Unauthorized"}\n', Headers({'server': 'SynGX', 'date': 'Mon, 07 Apr 2025 23:11:24 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '40', 'connection': 'keep-alive', 'x-request-id': '21dd4539-2311-45ae-99fa-dc88739d1f2f', 'x-session-id': '7ea9de7c-8571-43e7-b2a4-150fb24d121d', 'allow': 'GET, POST', 'strict-transport-security': 'max-age=31536000; includeSubDomains'}))
+2025-04-08 03:11:24,938 - services.gigachat_service - ERROR - Все 3 попытки вызова агента завершились неудачно
+2025-04-08 03:11:24,939 - agents.base_agent - INFO - Агент FinalReportAgent завершил работу
+2025-04-08 03:11:24,939 - agents.analyzer - INFO - Результаты анализа успешно добавлены в кэш
+2025-04-08 03:11:24,940 - agents.analyzer - INFO - Формирование итогового результата анализа
+2025-04-08 03:11:24,940 - agents.analyzer - INFO - Анализ кода успешно завершен
+2025-04-08 03:11:24,941 - main - INFO - Статистика кэширования: Количество запросов: 6, Использовано из кэша: 5, Не найдено в кэше: 1, Добавлено в кэш: 0, Процент попаданий: 83.33%
+2025-04-08 03:11:24,941 - main - INFO - Найдено в кэше: 5 элемент(ов)
+2025-04-08 03:11:24,942 - main - INFO - Найденные в кэше баги: bug_1bc96b91d6cd35c4291936d9964c7332, bug_8f7436e2b349aa5008f27e59ef775ebb, bug_a6cbe2ef78267b77a7cd2a65a5dbea34
+2025-04-08 03:11:24,943 - main - INFO - Найденные в кэше рекомендации: rec_15ceb8c9afdc6feb4085d236922c14db, rec_b1aecf0a25eebba355b31e141b579b1e
+2025-04-08 03:11:24,944 - main - INFO - Анализ кода успешно выполнен
+2025-04-08 03:11:24,958 - main - INFO - Запрос на получение статистики кэша
+2025-04-08 03:13:00,192 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:13:00,193 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:13:00,396 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:13:00,475 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:13:00,476 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:13:00,477 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:13:00,477 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:13:00,478 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:13:00,478 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:13:00,479 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:13:00,479 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:13:00,480 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:13:00,481 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:13:00,491 - __main__ - INFO - Запуск сервера на порту 8080
+2025-04-08 03:13:00,551 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:13:00,552 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:13:00,553 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:13:00,560 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:13:00,560 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:13:00,561 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:13:00,562 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:13:00,562 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:13:00,563 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:13:00,563 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:13:00,564 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:13:00,564 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:13:00,565 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:14:48,216 - main - INFO - Получен запрос на анализ требований
+2025-04-08 03:14:48,217 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:14:48,217 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:14:48,218 - agents.requirements_analyzer_agent - INFO - Запуск анализа требований
+2025-04-08 03:14:48,221 - services.gigachat_service - INFO - Вызов GigaChat в текстовом режиме (попытка 1/3), ожидаемая схема: RequirementsAnalyzerResult
+2025-04-08 03:14:48,651 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-04-08 03:14:53,600 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:14:53,603 - services.gigachat_service - INFO - Успешно получен результат анализа в формате JSON
+2025-04-08 03:14:53,604 - agents.requirements_analyzer_agent - INFO - Анализ требований успешно завершен
+2025-04-08 03:14:53,605 - main - ERROR - Ошибка при анализе требований: 2 validation errors for RequirementsAnalysisResult
+problematic_requirements.0
+  Input should be a valid dictionary [type=dict_type, input_value="FR-003: Требуетс... формата email.", input_type=str]
+    For further information visit https://errors.pydantic.dev/2.10/v/dict_type
+problematic_requirements.1
+  Input should be a valid dictionary [type=dict_type, input_value='NFR-001: Требует...ее 1 секунды).', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.10/v/dict_type

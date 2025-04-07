@@ -13,12 +13,12 @@ import {
   Slide,
   Fade,
   styled,
-  Divider,
   IconButton,
   Badge
 } from '@mui/material';
 import { keyframes } from '@emotion/react';
 import { clearCache } from '../api/api';
+import ExamplesSelector from './ExamplesSelector';
 
 const glow = keyframes`
   0% {

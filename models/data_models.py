@@ -136,4 +136,30 @@ class CachedRequirement(CachedItem):
     """
     requirement_text: str = Field(..., description="Текст требования")
     satisfied: bool = Field(..., description="Статус выполнения требования")
-    related_code_pattern: Optional[str] = Field(None, description="Связанный паттерн кода, если есть") 
+    related_code_pattern: Optional[str] = Field(None, description="Связанный паттерн кода, если есть")
+
+
+class RequirementsAnalysisRequest(BaseModel):
+    """
+    Модель запроса для анализа требований.
+    """
+    requirements: str = Field(..., description="Требования для анализа")
+    guidelines: Optional[str] = Field(None, description="Руководства и стандарты для анализа требований")
+    use_cache: Optional[bool] = Field(True, description="Использовать кэш для ускорения анализа")
+
+
+class RequirementsAnalysisResult(BaseModel):
+    """
+    Модель для представления результата анализа требований.
+    """
+    total_score: float = Field(..., description="Общий балл качества требований")
+    clarity_score: float = Field(..., description="Оценка ясности и конкретности требований")
+    completeness_score: float = Field(..., description="Оценка полноты требований")
+    consistency_score: float = Field(..., description="Оценка непротиворечивости требований")
+    testability_score: float = Field(..., description="Оценка проверяемости требований")
+    feasibility_score: float = Field(..., description="Оценка реализуемости требований")
+    problematic_requirements: List[Dict[str, str]] = Field(default_factory=list, description="Список проблемных требований с указанием проблем")
+    missing_aspects: List[str] = Field(default_factory=list, description="Список аспектов, которые не покрыты требованиями")
+    improvement_suggestions: List[str] = Field(default_factory=list, description="Список предложений по улучшению требований")
+    overall_assessment: str = Field(..., description="Общая оценка и заключение о качестве требований")
+    cache_stats: Optional[CacheStatistics] = Field(None, description="Статистика использования кэша") 

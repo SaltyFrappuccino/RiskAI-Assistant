@@ -8,4 +8,5 @@ from agents.test_code_agent import TestCodeAgent
 from agents.best_practices_agent import BestPracticesAgent
 from agents.bug_detector_agent import BugDetectorAgent
 from agents.vulnerability_detector_agent import VulnerabilityDetectorAgent
-from agents.final_report_agent import FinalReportAgent 
+from agents.final_report_agent import FinalReportAgent
+from agents.requirements_analyzer_agent import RequirementsAnalyzerAgent 

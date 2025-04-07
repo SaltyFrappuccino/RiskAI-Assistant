@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ThemeProvider, 
-  CssBaseline, 
-  Container, 
-  Alert, 
-  Snackbar, 
-  Box, 
-  Fade,
-  Grow,
-  CircularProgress
-} from '@mui/material';
+import { Container, Box, Typography, Paper, CircularProgress, Snackbar, Alert, Tabs, Tab } from '@mui/material';
 import theme from './styles/theme';
-import Header from './components/Header';
-import CodeForm from './components/CodeForm';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import Grow from '@mui/material/Grow';
 import ExamplesSelector from './components/ExamplesSelector';
 import AnalysisReport from './components/AnalysisReport';
-import { analyzeCode, checkApiHealth, getCacheStats } from './api/api';
+import RequirementsForm from './components/RequirementsForm';
+import RequirementsReport from './components/RequirementsReport';
+import Header from './components/Header';
+import { analyzeCode, checkApiHealth, getCacheStats, analyzeRequirements } from './api/api';
 import './styles/globalStyles.css';
+import CodeForm from './components/CodeForm';
 
 /**
  * Главный компонент приложения с современным дизайном и анимациями
  */
 const App = () => {
   const [analysisResult, setAnalysisResult] = useState(null);
+  const [requirementsResult, setRequirementsResult] = useState(null);
   
   const [loading, setLoading] = useState(false);
   
@@ -32,35 +28,25 @@ const App = () => {
     severity: 'info'
   });
   
-  const [apiStatus, setApiStatus] = useState({
-    checked: false,
-    isOnline: false,
-    checking: true
-  });
+  const [apiStatus, setApiStatus] = useState('checking');
 
   const [selectedExample, setSelectedExample] = useState(null);
   
   const [cacheStats, setCacheStats] = useState(null);
 
+  const [currentTab, setCurrentTab] = useState(0);
+
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
         const response = await checkApiHealth();
-        setApiStatus({
-          checked: true,
-          isOnline: response.status === 'ok',
-          checking: false
-        });
+        setApiStatus(response.status === 'ok' ? 'online' : 'error');
         
         if (response.status === 'ok') {
           fetchCacheStats();
         }
       } catch (error) {
-        setApiStatus({
-          checked: true,
-          isOnline: false,
-          checking: false
-        });
+        setApiStatus('error');
         showNotification('API недоступен. Убедитесь, что сервер запущен на порту 8082.', 'error');
       }
     };
@@ -130,93 +116,114 @@ const App = () => {
     }
   };
 
+  const handleTabChange = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
+
+  const handleRequirementsSubmit = async (formData) => {
+    setLoading(true);
+    try {
+      const result = await analyzeRequirements(formData);
+      setRequirementsResult(result);
+      showNotification('Анализ требований успешно выполнен', 'success');
+    } catch (error) {
+      showNotification(`Ошибка при анализе требований: ${error.message}`, 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="app-background">
         <Header />
         <Container maxWidth="xl">
-          <Fade in={apiStatus.checked && !apiStatus.isOnline} timeout={500}>
-            <Box sx={{ mb: 3 }}>
-              {apiStatus.checked && !apiStatus.isOnline && (
-                <Alert 
-                  severity="error" 
-                  variant="filled"
-                  sx={{ 
-                    mb: 3, 
-                    boxShadow: theme.shadows[3],
-                    animation: 'glow 2s infinite'
-                  }}
-                >
-                  API недоступен. Убедитесь, что сервер запущен на порту 8082.
-                </Alert>
-              )}
-            </Box>
-          </Fade>
+          <Paper sx={{ p: 2, mb: 2 }}>
+            <Tabs value={currentTab} onChange={handleTabChange} centered>
+              <Tab label="Анализ кода" />
+              <Tab label="Анализ требований" />
+            </Tabs>
+          </Paper>
           
-          {apiStatus.checking ? (
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '200px',
-              flexDirection: 'column'
-            }}>
-              <CircularProgress color="secondary" sx={{ mb: 2 }} />
-              <Box sx={{ color: 'text.secondary' }}>Проверка соединения с API...</Box>
+          {apiStatus === 'checking' && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+              <CircularProgress />
             </Box>
-          ) : (
-            <>
-              <Grow in={true} timeout={800}>
-                <div>
-                  <ExamplesSelector onExampleSelect={handleExampleSelect} />
-                </div>
-              </Grow>
-              
-              <Grow in={true} timeout={1000}>
-                <div>
-                  <CodeForm 
-                    onAnalyzeSubmit={handleAnalyzeSubmit} 
-                    loading={loading}
-                    disabled={!apiStatus.isOnline}
-                    initialData={selectedExample}
-                    cacheStats={cacheStats}
-                  />
-                </div>
-              </Grow>
-              
-              {loading && (
-                <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'center',
-                  my: 4,
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <CircularProgress 
-                    color="primary" 
-                    size={60} 
-                    thickness={4} 
-                    sx={{ 
-                      boxShadow: '0 0 20px rgba(252, 4, 116, 0.3)',
-                      borderRadius: '50%',
-                      p: 1
-                    }} 
-                  />
-                  <Box sx={{ mt: 2, color: 'text.secondary', fontStyle: 'italic' }}>
-                    Анализируем код с помощью ИИ...
-                  </Box>
-                </Box>
+          )}
+          
+          {apiStatus === 'error' && (
+            <Alert severity="error" sx={{ my: 2 }}>
+              Не удалось подключиться к API. Пожалуйста, убедитесь, что сервер запущен.
+            </Alert>
+          )}
+          
+          {apiStatus === 'online' && (
+            <Box>
+              {currentTab === 0 && (
+                <>
+                  <Grow in={true} timeout={800}>
+                    <div>
+                      <ExamplesSelector onExampleSelect={handleExampleSelect} />
+                    </div>
+                  </Grow>
+                  
+                  <Grow in={true} timeout={1000}>
+                    <div>
+                      <CodeForm 
+                        onAnalyzeSubmit={handleAnalyzeSubmit} 
+                        loading={loading}
+                        disabled={apiStatus !== 'online'}
+                        initialData={selectedExample}
+                        cacheStats={cacheStats}
+                      />
+                    </div>
+                  </Grow>
+                  
+                  {loading && (
+                    <Box sx={{ 
+                      display: 'flex', 
+                      justifyContent: 'center',
+                      my: 4,
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}>
+                      <CircularProgress 
+                        color="primary" 
+                        size={60} 
+                        thickness={4} 
+                        sx={{ 
+                          boxShadow: '0 0 20px rgba(252, 4, 116, 0.3)',
+                          borderRadius: '50%',
+                          p: 1
+                        }} 
+                      />
+                      <Box sx={{ mt: 2, color: 'text.secondary', fontStyle: 'italic' }}>
+                        Анализируем код с помощью ИИ...
+                      </Box>
+                    </Box>
+                  )}
+                  
+                  {analysisResult && (
+                    <Grow in={true} timeout={1200}>
+                      <div>
+                        <AnalysisReport analysisResult={analysisResult} />
+                      </div>
+                    </Grow>
+                  )}
+                </>
               )}
-              
-              {analysisResult && (
-                <Grow in={true} timeout={1200}>
-                  <div>
-                    <AnalysisReport analysisResult={analysisResult} />
-                  </div>
-                </Grow>
+              {currentTab === 1 && (
+                <>
+                  <RequirementsForm 
+                    onRequirementsSubmit={handleRequirementsSubmit} 
+                    loading={loading} 
+                    disabled={apiStatus !== 'online'} 
+                  />
+                  {requirementsResult && <RequirementsReport requirementsResult={requirementsResult} />}
+                </>
               )}
-            </>
+            </Box>
           )}
 
           <Snackbar

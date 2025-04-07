@@ -1,7 +1,16 @@
 """
 Пакет содержит модели данных для приложения.
 """
-from models.data_models import AnalysisRequest, AnalysisResult, Bug, Vulnerability, Recommendation, Metrics
+from models.data_models import (
+    AnalysisRequest, 
+    AnalysisResult, 
+    Bug, 
+    Vulnerability, 
+    Recommendation, 
+    Metrics,
+    RequirementsAnalysisRequest,
+    RequirementsAnalysisResult
+)
 from models.agent_schemas import (
     CodeRequirementsResult,
     TestRequirementsResult,
@@ -9,5 +18,6 @@ from models.agent_schemas import (
     BestPracticesResult,
     BugDetectorResult,
     VulnerabilityDetectorResult,
-    FinalReportResult
+    FinalReportResult,
+    RequirementsAnalyzerResult
 ) 

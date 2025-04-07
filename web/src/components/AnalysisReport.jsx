@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Paper, 
   Typography, 
@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 /**
  * Компонент для отображения результатов анализа кода
@@ -388,7 +388,7 @@ ${vulnerabilities && vulnerabilities.length > 0 ? '## Критические у�
       const language = className ? className.replace('language-', '') : 'javascript';
       return (
         <SyntaxHighlighter
-          style={oneDark}
+          style={dracula}
           language={language}
           showLineNumbers={true}
         >

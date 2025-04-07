@@ -1,7 +1,7 @@
 """
 Модуль содержит схемы Pydantic для агентов, которые используются при работе с GigaChat.
 """
-from typing import List, Optional
+from typing import List, Optional, Dict
 from pydantic import BaseModel, Field
 
 
@@ -169,4 +169,20 @@ class FinalReportResult(BaseModel):
     recommendations: List[Recommendation] = Field(default_factory=list, description="Список рекомендаций по улучшению кода")
     satisfied_requirements: List[str] = Field(default_factory=list, description="Список выполненных требований")
     unsatisfied_requirements: List[str] = Field(default_factory=list, description="Список невыполненных требований")
-    summary: str = Field(..., description="Общее заключение о качестве кода и рекомендации по дальнейшим действиям") 
+    summary: str = Field(..., description="Общее заключение о качестве кода и рекомендации по дальнейшим действиям")
+
+
+class RequirementsAnalyzerResult(BaseModel):
+    """
+    Модель для результата анализа требований.
+    """
+    total_score: float = Field(..., description="Общий балл качества требований от 0 до 100")
+    clarity_score: float = Field(..., description="Оценка ясности и конкретности требований от 0 до 100")
+    completeness_score: float = Field(..., description="Оценка полноты требований от 0 до 100")
+    consistency_score: float = Field(..., description="Оценка непротиворечивости требований от 0 до 100")
+    testability_score: float = Field(..., description="Оценка проверяемости требований от 0 до 100")
+    feasibility_score: float = Field(..., description="Оценка реализуемости требований от 0 до 100")
+    problematic_requirements: List[Dict[str, str]] = Field(default_factory=list, description="Список проблемных требований с указанием проблем")
+    missing_aspects: List[str] = Field(default_factory=list, description="Список аспектов, которые не покрыты требованиями")
+    improvement_suggestions: List[str] = Field(default_factory=list, description="Список предложений по улучшению требований")
+    overall_assessment: str = Field(..., description="Общая оценка и заключение о качестве требований") 

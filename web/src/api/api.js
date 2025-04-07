@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8082';
+const API_URL = 'http://localhost:8080';
 
 /**
  * Отправка запроса на анализ кода
@@ -88,6 +88,16 @@ export const checkApiHealth = async () => {
     return response.data;
   } catch (error) {
     console.error('Ошибка при проверке работоспособности API:', error);
+    throw error;
+  }
+};
+
+export const analyzeRequirements = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/analyze_requirements`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при анализе требований:", error);
     throw error;
   }
 }; 

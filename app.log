@@ -2558,3 +2558,41 @@ problematic_requirements.1
 2025-04-08 03:30:41,785 - services.gigachat_service - INFO - Успешно получен структурированный ответ
 2025-04-08 03:30:41,785 - agents.requirements_analyzer_agent - INFO - Анализ требований успешно завершен
 2025-04-08 03:30:41,786 - main - INFO - Анализ требований успешно выполнен
+2025-04-08 03:43:30,359 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:43:30,361 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:43:30,568 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:43:30,577 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:43:30,578 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:43:30,578 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:43:30,579 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:43:30,579 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:43:30,580 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:43:30,580 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:43:30,581 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:43:30,581 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:43:30,582 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:43:30,591 - __main__ - INFO - Запуск сервера на порту 8080
+2025-04-08 03:43:30,652 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:43:30,653 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:43:30,654 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:43:30,661 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:43:30,662 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:43:30,663 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:43:30,663 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:43:30,664 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:43:30,664 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:43:30,664 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:43:30,665 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:43:30,665 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:43:30,666 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:43:32,822 - main - INFO - Получен запрос на анализ требований
+2025-04-08 03:43:32,822 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:43:32,824 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:43:32,824 - agents.requirements_analyzer_agent - INFO - Запуск анализа требований
+2025-04-08 03:43:32,825 - agents.requirements_analyzer_agent - INFO - Размер текста требований (3062 символов) позволяет анализировать его целиком
+2025-04-08 03:43:32,835 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:43:33,169 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-04-08 03:43:40,348 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:43:40,350 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:43:40,351 - agents.requirements_analyzer_agent - INFO - Анализ требований успешно завершен
+2025-04-08 03:43:40,352 - main - INFO - Анализ требований успешно выполнен

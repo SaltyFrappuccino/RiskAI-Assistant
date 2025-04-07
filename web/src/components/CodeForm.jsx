@@ -20,7 +20,6 @@ import {
 import { keyframes } from '@emotion/react';
 import { clearCache } from '../api/api';
 
-// Определение анимации свечения
 const glow = keyframes`
   0% {
     box-shadow: 0 0 5px rgba(252, 4, 116, 0.4);
@@ -33,7 +32,6 @@ const glow = keyframes`
   }
 `;
 
-// Анимация пульсации для иконки кэша
 const pulse = keyframes`
   0% {
     transform: scale(1);
@@ -46,7 +44,6 @@ const pulse = keyframes`
   }
 `;
 
-// Стилизованный контейнер для переключателя экстремального режима
 const ExtremeModeSwitchContainer = styled(Box)(({ theme }) => ({
   padding: '8px 15px',
   borderRadius: '15px',
@@ -68,7 +65,6 @@ const ExtremeModeSwitchContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-// Стилизованный контейнер для переключателя кэша
 const CacheSwitchContainer = styled(Box)(({ theme }) => ({
   padding: '8px 15px',
   borderRadius: '15px',
@@ -89,7 +85,6 @@ const CacheSwitchContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-// Анимированная иконка кэша (используем юникод вместо иконки)
 const AnimatedCacheIcon = styled('span')(({ theme, active }) => ({
   animation: active ? `${pulse} 2s infinite ease-in-out` : 'none',
   color: active ? theme.palette.primary.main : theme.palette.text.secondary,
@@ -101,7 +96,6 @@ const AnimatedCacheIcon = styled('span')(({ theme, active }) => ({
   top: -1
 }));
 
-// Градиентный текст для переключателей
 const GradientText = styled(Typography)(({ theme, color = 'primary' }) => {
   const gradients = {
     primary: 'linear-gradient(45deg, #6D16A5 30%, #FC0474 90%)',
@@ -129,7 +123,6 @@ const GradientText = styled(Typography)(({ theme, color = 'primary' }) => {
  * @param {Object} props.cacheStats - статистика использования кэша (опционально)
  */
 const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats }) => {
-  // Состояние формы
   const [formData, setFormData] = useState({
     story: '',
     requirements: '',
@@ -140,10 +133,8 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     use_cache: true
   });
   
-  // Состояние очистки кэша
   const [clearingCache, setClearingCache] = useState(false);
 
-  // Обновляем данные формы при изменении initialData
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -158,7 +149,6 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     }
   }, [initialData]);
 
-  // Обработчик изменения полей формы
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -167,12 +157,10 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     }));
   };
 
-  // Обработчик изменения переключателя
   const handleSwitchChange = (e) => {
     const { name, checked } = e.target;
     
     if (name === 'enable_preprocessing' && !checked) {
-      // Если отключаем предобработку, также отключаем и экстремальный режим
       setFormData(prevData => ({
         ...prevData,
         [name]: checked,
@@ -186,13 +174,11 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     }
   };
 
-  // Обработчик отправки формы
   const handleSubmit = (e) => {
     e.preventDefault();
     onAnalyzeSubmit(formData);
   };
 
-  // Обработчик очистки формы
   const handleClear = () => {
     setFormData({
       story: '',
@@ -205,12 +191,10 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     });
   };
   
-  // Обработчик очистки кэша
   const handleClearCache = async () => {
     try {
       setClearingCache(true);
       await clearCache();
-      // После очистки кэша можно обновить статистику, если это необходимо
       setClearingCache(false);
     } catch (error) {
       console.error('Ошибка при очистке кэша:', error);
@@ -218,7 +202,6 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     }
   };
   
-  // Расчет счетчика для бейджа кэша
   const cacheHitCount = cacheStats?.cache_hits || 0;
 
   return (

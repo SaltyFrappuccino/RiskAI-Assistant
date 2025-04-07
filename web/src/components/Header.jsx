@@ -2,7 +2,6 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Box, useTheme, useMediaQuery, Container } from '@mui/material';
 import { keyframes } from '@emotion/react';
 
-// Определение анимации для текста заголовка
 const pulseGlow = keyframes`
   0% {
     text-shadow: 0 0 5px rgba(252, 4, 116, 0.3);
@@ -15,9 +14,6 @@ const pulseGlow = keyframes`
   }
 `;
 
-/**
- * Компонент заголовка приложения с современными визуальными эффектами
- */
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

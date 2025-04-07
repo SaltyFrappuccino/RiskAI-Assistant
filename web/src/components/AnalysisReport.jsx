@@ -34,19 +34,16 @@ const AnalysisReport = ({ analysisResult }) => {
   const processedData = analysisResult.processed_data || {};
   const cacheStats = analysisResult.cache_stats || null;
 
-  // Проверка наличия элементов из кэша
   const hasCachedItems = Boolean(
     (bugs && bugs.some(bug => bug.from_cache)) ||
     (vulnerabilities && vulnerabilities.some(vuln => vuln.from_cache)) ||
     (recommendations && recommendations.some(rec => rec.from_cache))
   );
 
-  // Обработчик изменения вкладки
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
 
-  // Генерация Markdown для метрик
   const generateMetricsMarkdown = () => {
     return `
 ## Метрики анализа
@@ -63,7 +60,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     `;
   };
 
-  // Генерация Markdown для багов
   const generateBugsMarkdown = () => {
     if (!bugs || bugs.length === 0) {
       return '## Баги\n\nБагов не обнаружено.';
@@ -71,7 +67,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
 
     let markdown = '## Найденные баги\n\n';
     
-    // Выделим баги из кэша
     const cachedBugs = bugs.filter(bug => bug.from_cache);
     const newBugs = bugs.filter(bug => !bug.from_cache);
     
@@ -106,7 +101,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
 
-  // Генерация Markdown для уязвимостей
   const generateVulnerabilitiesMarkdown = () => {
     if (!vulnerabilities || vulnerabilities.length === 0) {
       return '## Уязвимости\n\nУязвимостей не обнаружено.';
@@ -114,7 +108,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
 
     let markdown = '## Обнаруженные уязвимости\n\n';
     
-    // Выделим уязвимости из кэша
     const cachedVulns = vulnerabilities.filter(vuln => vuln.from_cache);
     const newVulns = vulnerabilities.filter(vuln => !vuln.from_cache);
     
@@ -163,7 +156,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
 
-  // Генерация Markdown для требований
   const generateRequirementsMarkdown = () => {
     const satisfied = analysisResult.satisfied_requirements || [];
     const unsatisfied = analysisResult.unsatisfied_requirements || [];
@@ -193,7 +185,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
 
-  // Генерация Markdown для рекомендаций
   const generateRecommendationsMarkdown = () => {
     if (!recommendations || recommendations.length === 0) {
       return '## Рекомендации\n\nРекомендаций нет.';
@@ -201,7 +192,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
 
     let markdown = '## Рекомендации по улучшению кода\n\n';
     
-    // Выделим рекомендации из кэша
     const cachedRecs = recommendations.filter(rec => rec.from_cache);
     const newRecs = recommendations.filter(rec => !rec.from_cache);
     
@@ -250,13 +240,11 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
 
-  // Генерация Markdown для обработанных данных
   const generateProcessedDataMarkdown = () => {
     if (!processedData || Object.keys(processedData).length === 0) {
       return '## Данные после предобработки\n\nНет информации о предобработанных данных.';
     }
 
-    // Если предобработка отключена
     if (processedData.preprocessing_disabled) {
       return '## Данные после предобработки\n\n⚠️ **Предобработка данных была отключена**\n\nДанные были использованы в исходном виде без предварительной обработки.';
     }
@@ -290,7 +278,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
   
-  // Генерация Markdown для статистики кэша
   const generateCacheStatsMarkdown = () => {
     if (!cacheStats) {
       return '## Статистика кэша\n\nИнформация о кэше недоступна или кэширование отключено.';
@@ -313,7 +300,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
       markdown += `- **Эффективность кэша**: ${hitRate}%\n\n`;
     }
     
-    // Детальная информация о найденных в кэше элементах
     if (cacheStats.cached_bugs && cacheStats.cached_bugs.length > 0) {
       markdown += `### Найденные в кэше баги\n\n`;
       cacheStats.cached_bugs.forEach((bugId, index) => {
@@ -341,7 +327,6 @@ ${metrics.test_coverage_details ? '### Информация о покрытии 
     return markdown;
   };
 
-  // Генерация Markdown для общего отчета
   const generateSummaryMarkdown = () => {
     const cacheInfo = hasCachedItems 
       ? `\n\n⚡ **Использовались данные из кэша**: Некоторые результаты анализа были получены из кэша, что ускорило обработку.` 
@@ -375,7 +360,6 @@ ${vulnerabilities && vulnerabilities.length > 0 ? '## Критические у�
     `;
   };
 
-  // Получение содержимого для текущей вкладки
   const getTabContent = () => {
     switch (activeTab) {
       case 0:
@@ -399,7 +383,6 @@ ${vulnerabilities && vulnerabilities.length > 0 ? '## Критические у�
     }
   };
 
-  // Компоненты для рендеринга Markdown
   const components = {
     code({ children, className }) {
       const language = className ? className.replace('language-', '') : 'javascript';

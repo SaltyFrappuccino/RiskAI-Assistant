@@ -26,7 +26,6 @@ const ExamplesSelector = ({ onExampleSelect }) => {
   const [selectedIndex, setSelectedIndex] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   
-  // Обработчик выбора примера
   const handleExampleChange = (event) => {
     const index = event.target.value;
     setSelectedIndex(index);
@@ -37,19 +36,16 @@ const ExamplesSelector = ({ onExampleSelect }) => {
     }
   };
 
-  // Обработчик переключения информации о примерах
   const toggleInfo = () => {
     setShowInfo(!showInfo);
   };
 
-  // Описания качества примеров
   const exampleDescriptions = {
     0: 'Хороший пример с полной валидацией входных данных, четкой документацией, хорошим покрытием тестами и следованием лучшим практикам разработки.',
     1: 'Средний пример с базовой валидацией входных данных, пропусками в документации и неполным покрытием тестами.',
     2: 'Плохой пример с минимальной валидацией, использованием print вместо исключений, отсутствием округления, небрежной организацией кода и ошибками в тестах.'
   };
 
-  // Иконки для качества кода
   const qualityIcons = {
     0: '✅',
     1: '⚠️',

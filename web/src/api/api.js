@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Базовый URL API
 const API_URL = 'http://localhost:8082';
 
 /**
@@ -17,7 +16,6 @@ const API_URL = 'http://localhost:8082';
  */
 export const analyzeCode = async (data) => {
   try {
-    // Если предобработка включена, обрабатываем данные перед отправкой
     const dataToSend = data.enable_preprocessing 
       ? await preprocessData(data)
       : data;
@@ -48,7 +46,6 @@ export const preprocessData = async (data) => {
     return response.data;
   } catch (error) {
     console.error('Ошибка при предобработке данных:', error);
-    // В случае ошибки используем оригинальные данные
     return data;
   }
 };

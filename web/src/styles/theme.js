@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-// Основная розовая и фиолетовая цветовая гамма
 const pink = '#FC0474';
 const pinkLight = '#FF4599';
 const pinkDark = '#D1035F';
@@ -11,10 +10,7 @@ const darkBackground = '#0F0F13';
 const darkerBackground = '#080810';
 const panelBackground = '#16161E';
 
-/**
- * Современная тема с градиентами и эффектами
- * для создания стильного интерфейса RiskAI Assistant
- */
+
 const theme = createTheme({
   palette: {
     mode: 'dark',
@@ -102,7 +98,6 @@ const theme = createTheme({
     '0 8px 15px rgba(0, 0, 0, 0.2)',
     '0 12px 22px rgba(0, 0, 0, 0.25)',
     '0 14px 24px rgba(0, 0, 0, 0.3)',
-    // ... остальные тени
   ],
   components: {
     MuiCssBaseline: {

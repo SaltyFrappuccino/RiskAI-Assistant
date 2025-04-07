@@ -22,33 +22,26 @@ import './styles/globalStyles.css';
  * Главный компонент приложения с современным дизайном и анимациями
  */
 const App = () => {
-  // Состояние для хранения результатов анализа
   const [analysisResult, setAnalysisResult] = useState(null);
   
-  // Состояние для отображения загрузки
   const [loading, setLoading] = useState(false);
   
-  // Состояние для отображения уведомлений
   const [notification, setNotification] = useState({
     open: false,
     message: '',
     severity: 'info'
   });
   
-  // Состояние для проверки работоспособности API
   const [apiStatus, setApiStatus] = useState({
     checked: false,
     isOnline: false,
     checking: true
   });
 
-  // Состояние для хранения выбранного примера
   const [selectedExample, setSelectedExample] = useState(null);
   
-  // Состояние для хранения статистики кэша
   const [cacheStats, setCacheStats] = useState(null);
 
-  // Проверка работоспособности API при загрузке приложения
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
@@ -59,7 +52,6 @@ const App = () => {
           checking: false
         });
         
-        // Если API доступно, получаем статистику кэша
         if (response.status === 'ok') {
           fetchCacheStats();
         }
@@ -76,18 +68,15 @@ const App = () => {
     checkApiStatus();
   }, []);
   
-  // Получение статистики кэша
   const fetchCacheStats = async () => {
     try {
       const stats = await getCacheStats();
       setCacheStats(stats);
     } catch (error) {
       console.error('Ошибка при получении статистики кэша:', error);
-      // Не показываем уведомление, чтобы не беспокоить пользователя
     }
   };
 
-  // Функция для отображения уведомлений
   const showNotification = (message, severity = 'info') => {
     setNotification({
       open: true,
@@ -96,7 +85,6 @@ const App = () => {
     });
   };
 
-  // Обработчик закрытия уведомления
   const handleCloseNotification = () => {
     setNotification(prev => ({
       ...prev,
@@ -104,28 +92,24 @@ const App = () => {
     }));
   };
 
-  // Обработчик выбора примера
   const handleExampleSelect = (example) => {
     setSelectedExample(example);
     showNotification(`Пример "${example.title}" загружен`, 'success');
   };
 
-  // Обработчик отправки формы
   const handleAnalyzeSubmit = async (formData) => {
-    // Проверка наличия данных
     if (!formData.code.trim()) {
       showNotification('Необходимо заполнить поле "Код" для анализа', 'warning');
       return;
     }
 
     setLoading(true);
-    setAnalysisResult(null); // Сбрасываем предыдущий результат
+    setAnalysisResult(null);
 
     try {
       const result = await analyzeCode(formData);
       setAnalysisResult(result);
       
-      // Проверяем, есть ли результаты из кэша
       const cacheHits = result.cache_stats?.cache_hits || 0;
       const cacheMessage = cacheHits > 0 
         ? `Анализ завершен. Найдено ${cacheHits} элемент(ов) в кэше.` 
@@ -133,7 +117,6 @@ const App = () => {
       
       showNotification(cacheMessage, 'success');
       
-      // Обновляем статистику кэша
       fetchCacheStats();
     } catch (error) {
       console.error('Ошибка при анализе кода:', error);

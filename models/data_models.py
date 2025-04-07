@@ -4,6 +4,7 @@
 from typing import List, Optional, Dict, Any, Set
 from pydantic import BaseModel, Field
 from datetime import datetime
+from models.agent_schemas import ProblematicRequirement
 
 
 class AnalysisRequest(BaseModel):
@@ -158,7 +159,7 @@ class RequirementsAnalysisResult(BaseModel):
     consistency_score: float = Field(..., description="Оценка непротиворечивости требований")
     testability_score: float = Field(..., description="Оценка проверяемости требований")
     feasibility_score: float = Field(..., description="Оценка реализуемости требований")
-    problematic_requirements: List[Dict[str, str]] = Field(default_factory=list, description="Список проблемных требований с указанием проблем")
+    problematic_requirements: List[ProblematicRequirement] = Field(default_factory=list, description="Список проблемных требований с указанием проблем")
     missing_aspects: List[str] = Field(default_factory=list, description="Список аспектов, которые не покрыты требованиями")
     improvement_suggestions: List[str] = Field(default_factory=list, description="Список предложений по улучшению требований")
     overall_assessment: str = Field(..., description="Общая оценка и заключение о качестве требований")

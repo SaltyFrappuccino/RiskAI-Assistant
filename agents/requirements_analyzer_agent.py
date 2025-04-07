@@ -48,13 +48,15 @@ class RequirementsAnalyzerAgent(CodeAnalysisAgent):
             "guidelines": data.get("guidelines", ""),
         }
         
-        # Вызов LLM через сервис
+        # Вызов LLM через сервис с использованием структурированного вывода
         try:
-            result = self.gigachat_service.call_agent_with_function(
+            # Используем новый метод с Pydantic-моделью для структурированного вывода
+            result = self.gigachat_service.call_with_structured_output(
                 prompt=self.prompt,
                 data=prompt_data,
                 result_schema=self.result_schema
             )
+            
             logger.info("Анализ требований успешно завершен")
             return result
         except Exception as e:

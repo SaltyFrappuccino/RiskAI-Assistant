@@ -122,8 +122,7 @@ const RequirementsReport = ({ requirementsResult }) => {
                 sx={{ 
                   borderLeft: 4, 
                   borderColor: 
-                    req.severity === 'critical' ? 'error.main' : 
-                    req.severity === 'high' ? 'error.light' :
+                    req.severity === 'high' ? 'error.main' : 
                     req.severity === 'medium' ? 'warning.main' : 'info.main'
                 }}
               >
@@ -137,10 +136,10 @@ const RequirementsReport = ({ requirementsResult }) => {
                         {req.requirement}
                       </Typography>
                       <Chip 
-                        label={req.category || req.type || 'Проблема'} 
+                        label={req.type || 'Проблема'} 
                         size="small" 
                         color={
-                          req.severity === 'critical' || req.severity === 'high' ? 'error' : 
+                          req.severity === 'high' ? 'error' : 
                           req.severity === 'medium' ? 'warning' : 'info'
                         }
                         variant="outlined"
@@ -150,7 +149,7 @@ const RequirementsReport = ({ requirementsResult }) => {
                   secondary={
                     <>
                       <Typography variant="body2" sx={{ mt: 1 }}>
-                        {req.description || req.problem}
+                        {req.description}
                       </Typography>
                       {req.recommendation && (
                         <Box sx={{ mt: 1, p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>

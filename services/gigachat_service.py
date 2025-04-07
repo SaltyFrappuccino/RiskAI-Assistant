@@ -162,13 +162,22 @@ class GigaChatService:
         
         for attempt in range(max_attempts):
             try:
+                # Получаем JSON-схему из модели Pydantic
                 schema_json = json.dumps(result_schema.model_json_schema(), ensure_ascii=False, indent=2)
-                schema_info = f"\n\nОтвет должен соответствовать следующей JSON-схеме:\n```json\n{schema_json}\n```\n"
+                
+                # Создаем более подробные инструкции для модели
+                schema_info = f"\n\nОтвет должен строго соответствовать следующей JSON-схеме:\n```json\n{schema_json}\n```\n"
+                schema_info += f"\nВажно! Ответ должен быть в формате JSON с правильными типами данных. Если в схеме указано, что поле должно быть object или array, не возвращай строки."
+                
+                # Проверка, содержит ли промпт пример структуры данных
+                has_example = "```json" in prompt
+                if not has_example:
+                    schema_info += f"\n\nПример правильного формата ответа:\n```json\n{json.dumps(self._create_example_from_schema(result_schema), ensure_ascii=False, indent=2)}\n```"
                 
                 filled_prompt = prompt.format(**data) + schema_info
                 
                 system_message = SystemMessage(content=filled_prompt)
-                human_message = HumanMessage(content="Выполни анализ предоставленных данных и верни результат в формате JSON в соответствии с указанной схемой.")
+                human_message = HumanMessage(content="Выполни анализ предоставленных данных и верни результат в формате JSON в соответствии с указанной схемой. Убедись, что все поля имеют правильный формат и типы данных.")
                 
                 logger.info(f"Вызов GigaChat в текстовом режиме (попытка {attempt+1}/{max_attempts}), ожидаемая схема: {result_schema.__name__}")
                 response = self.giga.invoke([system_message, human_message])
@@ -178,6 +187,50 @@ class GigaChatService:
                 
                 if "error" not in result:
                     logger.info("Успешно получен результат анализа в формате JSON")
+                    
+                    # Проверяем наличие всех обязательных полей
+                    model_fields = result_schema.model_fields
+                    missing_fields = []
+                    
+                    for field_name, field in model_fields.items():
+                        if field.is_required() and field_name not in result:
+                            missing_fields.append(field_name)
+                            # Добавляем значение по умолчанию
+                            if field.annotation == float:
+                                result[field_name] = 0.0
+                            elif field.annotation == int:
+                                result[field_name] = 0
+                            elif field.annotation == str:
+                                result[field_name] = ""
+                            elif field.annotation == list or "List" in str(field.annotation):
+                                result[field_name] = []
+                            elif field.annotation == dict or "Dict" in str(field.annotation):
+                                result[field_name] = {}
+                    
+                    if missing_fields:
+                        logger.warning(f"В ответе модели отсутствуют обязательные поля: {missing_fields}")
+                    
+                    # Проверяем типы данных полей
+                    for field_name, value in result.items():
+                        if field_name in model_fields:
+                            field = model_fields[field_name]
+                            expected_type = field.annotation
+                            
+                            # Преобразование типов при необходимости
+                            if "List" in str(expected_type) and isinstance(value, str):
+                                logger.warning(f"Поле {field_name} ожидается списком, но получена строка. Попытка преобразования.")
+                                try:
+                                    result[field_name] = [value]
+                                except Exception as e:
+                                    logger.error(f"Ошибка при преобразовании поля {field_name}: {e}")
+                            
+                            if "Dict" in str(expected_type) and isinstance(value, str):
+                                logger.warning(f"Поле {field_name} ожидается словарем, но получена строка. Попытка преобразования.")
+                                try:
+                                    result[field_name] = {"value": value}
+                                except Exception as e:
+                                    logger.error(f"Ошибка при преобразовании поля {field_name}: {e}")
+                    
                     return result
                 else:
                     logger.warning(f"Ошибка при извлечении результата: {result.get('error')}")
@@ -199,4 +252,114 @@ class GigaChatService:
                 "test_code_match": 0.0
             },
             "error": f"Не удалось получить ответ от GigaChat после {max_attempts} попыток"
-        } 
+        }
+        
+    def _create_example_from_schema(self, schema_class: Type[BaseModel]) -> Dict[str, Any]:
+        """
+        Создает пример данных на основе схемы Pydantic.
+        
+        Args:
+            schema_class: Класс схемы Pydantic.
+            
+        Returns:
+            Dict[str, Any]: Пример данных.
+        """
+        example = {}
+        
+        for field_name, field in schema_class.model_fields.items():
+            if "float" in str(field.annotation).lower():
+                example[field_name] = 75.5
+            elif "int" in str(field.annotation).lower():
+                example[field_name] = 42
+            elif "str" in str(field.annotation).lower():
+                example[field_name] = f"Пример текста для поля {field_name}"
+            elif "List" in str(field.annotation):
+                if "Dict" in str(field.annotation) or "dict" in str(field.annotation):
+                    example[field_name] = [{"key": "value", "example": "value"}]
+                elif "str" in str(field.annotation).lower():
+                    example[field_name] = ["Пример элемента списка 1", "Пример элемента списка 2"]
+                else:
+                    example[field_name] = ["Пример элемента списка"]
+            elif "Dict" in str(field.annotation) or "dict" in str(field.annotation):
+                example[field_name] = {"key": "value", "example": "value"}
+            else:
+                example[field_name] = "Пример данных"
+                
+        return example
+
+    def call_with_structured_output(self, prompt: str, data: Dict[str, Any], result_schema: Type[BaseModel]) -> Dict[str, Any]:
+        """
+        Вызывает модель с использованием структурированного вывода на основе Pydantic-модели.
+        
+        Args:
+            prompt: Промпт для модели.
+            data: Данные для заполнения промпта.
+            result_schema: Схема ожидаемого результата (Pydantic-класс).
+            
+        Returns:
+            Dict[str, Any]: Результат в виде словаря, соответствующего схеме.
+        """
+        max_attempts = 3
+        base_delay = 2
+        
+        for attempt in range(max_attempts):
+            try:
+                # Заполняем промпт данными
+                filled_prompt = prompt.format(**data)
+                
+                # Создаем structured_llm с использованием схемы Pydantic
+                structured_llm = self.giga.with_structured_output(result_schema)
+                
+                logger.info(f"Вызов GigaChat со структурированным выводом (попытка {attempt+1}/{max_attempts})")
+                
+                # Вызываем модель и получаем структурированный ответ
+                result = structured_llm.invoke(filled_prompt)
+                
+                # Преобразуем Pydantic-объект в словарь
+                result_dict = result.model_dump()
+                
+                logger.info("Успешно получен структурированный ответ")
+                return result_dict
+                
+            except Exception as e:
+                logger.error(f"Ошибка при вызове модели со структурированным выводом (попытка {attempt+1}/{max_attempts}): {e}")
+                
+                if attempt < max_attempts - 1:
+                    delay = base_delay * (2 ** attempt)
+                    logger.info(f"Повторная попытка через {delay} секунд...")
+                    import time
+                    time.sleep(delay)
+        
+        logger.error(f"Все {max_attempts} попытки вызова модели завершились неудачно")
+        
+        # Возвращаем пустой шаблон результата с дефолтными значениями
+        default_result = {}
+        for field_name, field in result_schema.model_fields.items():
+            if field.is_required():
+                if "float" in str(field.annotation).lower():
+                    default_result[field_name] = 0.0
+                elif "int" in str(field.annotation).lower():
+                    default_result[field_name] = 0
+                elif "str" in str(field.annotation).lower():
+                    default_result[field_name] = "Не удалось получить данные"
+                elif "List" in str(field.annotation):
+                    default_result[field_name] = []
+                elif "Dict" in str(field.annotation):
+                    default_result[field_name] = {}
+                else:
+                    default_result[field_name] = None
+        
+        # Если это анализ требований, добавляем специфичные поля
+        if "total_score" in default_result:
+            default_result["total_score"] = 0.0
+            default_result["clarity_score"] = 0.0
+            default_result["completeness_score"] = 0.0
+            default_result["consistency_score"] = 0.0
+            default_result["testability_score"] = 0.0
+            default_result["feasibility_score"] = 0.0
+            default_result["problematic_requirements"] = []
+            default_result["missing_aspects"] = []
+            default_result["improvement_suggestions"] = []
+            default_result["overall_assessment"] = "Не удалось выполнить анализ требований. Пожалуйста, попробуйте еще раз."
+        
+        return default_result 

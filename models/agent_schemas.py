@@ -172,6 +172,17 @@ class FinalReportResult(BaseModel):
     summary: str = Field(..., description="Общее заключение о качестве кода и рекомендации по дальнейшим действиям")
 
 
+class ProblematicRequirement(BaseModel):
+    """
+    Модель для представления проблемного требования.
+    """
+    requirement: str = Field(..., description="Текст требования")
+    description: str = Field(..., description="Описание проблемы")
+    severity: str = Field(..., description="Серьезность проблемы (high, medium, low)")
+    type: str = Field(..., description="Тип проблемы (например, Неоднозначность, Противоречие)")
+    recommendation: Optional[str] = Field(None, description="Рекомендация по исправлению требования")
+
+
 class RequirementsAnalyzerResult(BaseModel):
     """
     Модель для результата анализа требований.
@@ -182,7 +193,7 @@ class RequirementsAnalyzerResult(BaseModel):
     consistency_score: float = Field(..., description="Оценка непротиворечивости требований от 0 до 100")
     testability_score: float = Field(..., description="Оценка проверяемости требований от 0 до 100")
     feasibility_score: float = Field(..., description="Оценка реализуемости требований от 0 до 100")
-    problematic_requirements: List[Dict[str, str]] = Field(default_factory=list, description="Список проблемных требований с указанием проблем")
+    problematic_requirements: List[ProblematicRequirement] = Field(default_factory=list, description="Список проблемных требований с указанием проблем")
     missing_aspects: List[str] = Field(default_factory=list, description="Список аспектов, которые не покрыты требованиями")
     improvement_suggestions: List[str] = Field(default_factory=list, description="Список предложений по улучшению требований")
     overall_assessment: str = Field(..., description="Общая оценка и заключение о качестве требований") 

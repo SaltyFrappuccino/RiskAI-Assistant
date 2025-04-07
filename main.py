@@ -434,25 +434,6 @@ async def analyze_requirements(request: RequirementsAnalysisRequest):
         })
         
         # Преобразуем результат в модель ответа
-        
-        # Обработка problematic_requirements - преобразование строк в словари
-        problematic_requirements = result.get("problematic_requirements", [])
-        processed_problematic_requirements = []
-        
-        for requirement in problematic_requirements:
-            # Если это строка, преобразуем в словарь
-            if isinstance(requirement, str):
-                req_dict = {
-                    "requirement": requirement,
-                    "description": "Проблема с требованием",
-                    "severity": "medium",
-                    "type": "Проблема"
-                }
-                processed_problematic_requirements.append(req_dict)
-            else:
-                # Если это уже словарь, просто добавляем
-                processed_problematic_requirements.append(requirement)
-        
         requirements_analysis_result = RequirementsAnalysisResult(
             total_score=result.get("total_score", 0.0),
             clarity_score=result.get("clarity_score", 0.0),
@@ -460,7 +441,7 @@ async def analyze_requirements(request: RequirementsAnalysisRequest):
             consistency_score=result.get("consistency_score", 0.0),
             testability_score=result.get("testability_score", 0.0),
             feasibility_score=result.get("feasibility_score", 0.0),
-            problematic_requirements=processed_problematic_requirements,
+            problematic_requirements=result.get("problematic_requirements", []),
             missing_aspects=result.get("missing_aspects", []),
             improvement_suggestions=result.get("improvement_suggestions", []),
             overall_assessment=result.get("overall_assessment", ""),

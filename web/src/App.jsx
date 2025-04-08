@@ -141,7 +141,7 @@ const App = () => {
         <Container maxWidth="xl">
           <Paper sx={{ p: 2, mb: 2 }}>
             <Tabs value={currentTab} onChange={handleTabChange} centered>
-              <Tab label="Анализ кода" />
+              <Tab label="Анализ артефактов" />
               <Tab label="Анализ требований" />
             </Tabs>
           </Paper>

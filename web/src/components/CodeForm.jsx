@@ -208,7 +208,7 @@ const CodeForm = ({ onAnalyzeSubmit, loading, disabled, initialData, cacheStats 
     <Paper elevation={3}>
       <Box p={3}>
         <Typography variant="h5" gutterBottom align="center" color="primary">
-          Анализ кода с использованием ИИ
+          Анализ артефактов с использованием ИИ
         </Typography>
         
         <form onSubmit={handleSubmit}>

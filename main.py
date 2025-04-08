@@ -5,11 +5,14 @@ import logging
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List, Dict, Any
+from datetime import datetime
 
 from models.data_models import (
     AnalysisRequest, AnalysisResult, CacheStatistics, 
     RequirementsAnalysisRequest, RequirementsAnalysisResult,
-    DocumentFormatterRequest, DocumentFormatterResult, FormatterMessage
+    DocumentFormatterRequest, DocumentFormatterResult, FormatterMessage,
+    DocumentFormatterContinueRequest
 )
 from agents.analyzer import CodeAnalyzer
 from agents.preprocessor_agent import PreprocessorAgent
@@ -452,26 +455,30 @@ async def format_document(request: DocumentFormatterRequest):
 
 
 @app.post("/format_document/continue", response_model=DocumentFormatterResult)
-async def continue_document_formatting(
-    user_message: str,
-    template_rules: str,
-    document_content: str,
-    conversation_history: list[FormatterMessage],
-    use_cache: bool = True
-):
+async def continue_document_formatting(request: DocumentFormatterContinueRequest):
     """
     Продолжает диалог с форматировщиком документов, отправляя ответ пользователя
     на заданные вопросы.
     """
     try:
-        logger.info(f"Получен запрос на продолжение форматирования, сообщение пользователя: {user_message[:50]}...")
+        logger.info(f"Получен запрос на продолжение форматирования, сообщение пользователя: {request.user_message[:50]}...")
+        
+        # Преобразование conversation_history из JSON в объекты FormatterMessage
+        formatter_history = []
+        for msg in request.conversation_history:
+            formatter_history.append(FormatterMessage(
+                role=msg.get("role", "user"),
+                content=msg.get("content", ""),
+                timestamp=datetime.fromisoformat(msg.get("timestamp", datetime.now().isoformat()))
+                if "timestamp" in msg and msg.get("timestamp") else datetime.now()
+            ))
         
         result = await document_formatter.add_user_message(
-            user_message=user_message,
-            conversation_history=conversation_history,
-            template_rules=template_rules,
-            document_content=document_content,
-            use_cache=use_cache
+            user_message=request.user_message,
+            conversation_history=formatter_history,
+            template_rules=request.template_rules,
+            document_content=request.document_content,
+            use_cache=request.use_cache
         )
         
         logger.info(f"Продолжение форматирования выполнено, требуются ли уточнения: {not result.is_completed}")

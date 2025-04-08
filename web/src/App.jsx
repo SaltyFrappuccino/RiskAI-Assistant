@@ -182,13 +182,23 @@ const App = () => {
     setLoading(true);
 
     try {
+      // Преобразуем объекты FormatterMessage в простые объекты для правильной сериализации
+      const serializedHistory = formatterResult.conversation_history.map(msg => ({
+        role: msg.role,
+        content: msg.content,
+        // Убедимся, что timestamp всегда строка в формате ISO
+        timestamp: typeof msg.timestamp === 'string' ? msg.timestamp : new Date(msg.timestamp).toISOString()
+      }));
+      
       const data = {
         user_message: userMessage,
         template_rules: formatterData.template_rules,
         document_content: formatterData.document_content,
-        conversation_history: formatterResult.conversation_history,
+        conversation_history: serializedHistory,
         use_cache: formatterData.use_cache
       };
+      
+      console.log('Sending data to continue formatting:', JSON.stringify(data)); // Отладочный лог
       
       const result = await continueFormatting(data);
       setFormatterResult(result);

@@ -194,3 +194,14 @@ class DocumentFormatterResult(BaseModel):
     conversation_history: List[FormatterMessage] = Field(default_factory=list, description="История диалога с форматировщиком")
     comments: Optional[str] = Field(None, description="Комментарии форматировщика к результату")
     cache_stats: Optional[CacheStatistics] = Field(None, description="Статистика использования кэша")
+
+
+class DocumentFormatterContinueRequest(BaseModel):
+    """
+    Модель запроса для продолжения диалога с форматировщиком документов.
+    """
+    user_message: str = Field(..., description="Ответ пользователя на вопрос форматировщика")
+    template_rules: str = Field(..., description="Шаблон или набор правил для форматирования документа")
+    document_content: str = Field(..., description="Содержимое документа, которое нужно отформатировать")
+    conversation_history: List[Dict[str, Any]] = Field(..., description="История диалога с форматировщиком")
+    use_cache: Optional[bool] = Field(True, description="Использовать кэш для ускорения форматирования")

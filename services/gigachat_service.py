@@ -300,24 +300,40 @@ class GigaChatService:
         try:
             logger.info("Отправка запроса на диалоговый чат-компплишн")
             
-            # Здесь должен быть вызов API для chat completion
-            # Так как у нас используется langchain_gigachat, преобразуем запрос в его формат
+            # Отсортируем сообщения, чтобы system всегда был первым
+            system_messages = [msg for msg in messages if msg["role"] == "system"]
+            non_system_messages = [msg for msg in messages if msg["role"] != "system"]
+            
+            # Если нет системного сообщения, добавим дефолтное
+            if not system_messages:
+                system_messages = [{"role": "system", "content": "Ты - профессиональный ассистент по форматированию документов."}]
+                
+            # Объединяем сообщения, сначала system, затем остальные
+            sorted_messages = system_messages + non_system_messages
+            
+            # Преобразуем в формат LangChain
             langchain_messages = []
             
-            for msg in messages:
-                if msg["role"] == "system":
-                    langchain_messages.append(SystemMessage(content=msg["content"]))
-                elif msg["role"] == "user":
+            # Добавляем системное сообщение (всегда первое)
+            langchain_messages.append(SystemMessage(content=sorted_messages[0]["content"]))
+            
+            # Добавляем остальные сообщения, чередуя user и assistant
+            user_turn = True
+            for msg in sorted_messages[1:]:
+                if msg["role"] == "user":
                     langchain_messages.append(HumanMessage(content=msg["content"]))
+                    user_turn = False
                 elif msg["role"] == "assistant":
-                    # В langchain_gigachat нет прямого способа добавить сообщение ассистента в историю,
-                    # поэтому мы используем пары system/human
-                    langchain_messages.append(SystemMessage(content=f"Ваше предыдущее сообщение было: {msg['content']}"))
-                    
-            # Добавляем последний запрос
-            if len(langchain_messages) > 0 and not isinstance(langchain_messages[-1], HumanMessage):
+                    # Так как в GigaChat API нет прямого способа добавить сообщение ассистента,
+                    # мы эмулируем диалог парами сообщений
+                    langchain_messages.append(HumanMessage(content=f"Пользователь получил от тебя ответ: \"{msg['content']}\". Теперь отвечай на следующий запрос пользователя."))
+                    user_turn = True
+            
+            # Если последнее сообщение не от пользователя, добавляем запрос на продолжение
+            if not user_turn:
                 langchain_messages.append(HumanMessage(content="Продолжи диалог на основе предыдущих сообщений."))
             
+            logger.info(f"Отправка {len(langchain_messages)} сообщений в GigaChat")
             response = self.giga.invoke(langchain_messages)
             
             # Формируем ответ в формате, совместимом с OpenAI API

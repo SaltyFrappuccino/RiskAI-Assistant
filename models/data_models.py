@@ -163,4 +163,34 @@ class RequirementsAnalysisResult(BaseModel):
     missing_aspects: List[str] = Field(default_factory=list, description="Список аспектов, которые не покрыты требованиями")
     improvement_suggestions: List[str] = Field(default_factory=list, description="Список предложений по улучшению требований")
     overall_assessment: str = Field(..., description="Общая оценка и заключение о качестве требований")
-    cache_stats: Optional[CacheStatistics] = Field(None, description="Статистика использования кэша") 
+    cache_stats: Optional[CacheStatistics] = Field(None, description="Статистика использования кэша")
+
+
+class DocumentFormatterRequest(BaseModel):
+    """
+    Модель запроса для форматирования документа по шаблону/правилам.
+    """
+    template_rules: str = Field(..., description="Шаблон или набор правил для форматирования документа")
+    document_content: str = Field(..., description="Содержимое документа, которое нужно отформатировать")
+    use_cache: Optional[bool] = Field(True, description="Использовать кэш для ускорения форматирования")
+
+
+class FormatterMessage(BaseModel):
+    """
+    Модель для сообщения в диалоге с форматировщиком.
+    """
+    role: str = Field(..., description="Роль отправителя сообщения (user/assistant)")
+    content: str = Field(..., description="Содержимое сообщения")
+    timestamp: datetime = Field(default_factory=datetime.now, description="Время отправки сообщения")
+
+
+class DocumentFormatterResult(BaseModel):
+    """
+    Модель для представления результата форматирования документа.
+    """
+    formatted_content: str = Field(..., description="Отформатированное содержимое документа")
+    is_completed: bool = Field(False, description="Флаг завершенности форматирования")
+    missing_information: List[str] = Field(default_factory=list, description="Список недостающей информации")
+    conversation_history: List[FormatterMessage] = Field(default_factory=list, description="История диалога с форматировщиком")
+    comments: Optional[str] = Field(None, description="Комментарии форматировщика к результату")
+    cache_stats: Optional[CacheStatistics] = Field(None, description="Статистика использования кэша")

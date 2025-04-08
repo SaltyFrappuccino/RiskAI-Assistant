@@ -101,3 +101,41 @@ export const analyzeRequirements = async (data) => {
     throw error;
   }
 }; 
+
+/**
+ * Форматирование документа по шаблону/правилам
+ * @param {Object} data - данные для форматирования
+ * @param {string} data.template_rules - шаблон или правила форматирования
+ * @param {string} data.document_content - содержимое документа для форматирования
+ * @param {boolean} data.use_cache - использование кэша для ускорения форматирования
+ * @returns {Promise} результат форматирования
+ */
+export const formatDocument = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/format_document`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при форматировании документа:", error);
+    throw error;
+  }
+};
+
+/**
+ * Продолжение диалога с форматировщиком документов
+ * @param {Object} data - данные для продолжения форматирования
+ * @param {string} data.user_message - сообщение пользователя
+ * @param {string} data.template_rules - шаблон или правила форматирования
+ * @param {string} data.document_content - содержимое документа для форматирования
+ * @param {Array} data.conversation_history - история диалога
+ * @param {boolean} data.use_cache - использование кэша для ускорения форматирования
+ * @returns {Promise} обновленный результат форматирования
+ */
+export const continueFormatting = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/format_document/continue`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при продолжении форматирования:", error);
+    throw error;
+  }
+};

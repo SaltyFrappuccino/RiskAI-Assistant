@@ -6,7 +6,11 @@ import uvicorn
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
-from models.data_models import AnalysisRequest, AnalysisResult, CacheStatistics, RequirementsAnalysisRequest, RequirementsAnalysisResult
+from models.data_models import (
+    AnalysisRequest, AnalysisResult, CacheStatistics, 
+    RequirementsAnalysisRequest, RequirementsAnalysisResult,
+    DocumentFormatterRequest, DocumentFormatterResult, FormatterMessage
+)
 from agents.analyzer import CodeAnalyzer
 from agents.preprocessor_agent import PreprocessorAgent
 from services.gigachat_service import GigaChatService
@@ -14,6 +18,7 @@ from services.cache_service import CacheService
 from utils.logging_config import setup_logging
 import config
 from agents.requirements_analyzer_agent import RequirementsAnalyzerAgent
+from agents.document_formatter_agent import DocumentFormatterAgent
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -39,7 +44,10 @@ code_analyzer = CodeAnalyzer(cache_service=cache_service)
 
 preprocessor = PreprocessorAgent(gigachat_service)
 
-# Руководства Сбера по написанию требований
+requirements_analyzer = RequirementsAnalyzerAgent(gigachat_service)
+
+document_formatter = DocumentFormatterAgent(gigachat_service, cache_service=cache_service)
+
 sber_guidelines = """
 Общий набор правил для описания требований в Confluence (Сбер)
 Структурировано, детально, с акцентом на однозначность, проверяемость и удобство совместной работы.
@@ -398,67 +406,80 @@ async def health_check():
 @app.post("/analyze_requirements", response_model=RequirementsAnalysisResult)
 async def analyze_requirements(request: RequirementsAnalysisRequest):
     """
-    Анализирует требования на их состоятельность и компетентность.
-
-    Args:
-        request: Запрос на анализ требований с требованиями и опциональными руководствами.
-
-    Returns:
-        RequirementsAnalysisResult: Результат анализа требований.
+    Анализирует требования на соответствие стандартам.
     """
-    logger.info("Получен запрос на анализ требований")
-
     try:
-        # Использование кэша, если включено
-        if request.use_cache and cache_service:
-            # TODO: Реализовать кэширование результатов анализа требований
-            pass
-
-        if not request.requirements:
-            logger.warning("Требования не предоставлены")
-            raise HTTPException(
-                status_code=400, 
-                detail="Необходимо предоставить требования для анализа"
-            )
-
-        # Создаем сервис GigaChat
-        gigachat_service = GigaChatService()
+        logger.info(f"Получен запрос на анализ требований, длина требований: {len(request.requirements)} символов")
         
-        # Создаем агента для анализа требований
-        requirements_analyzer = RequirementsAnalyzerAgent(gigachat_service)
+        # Выбор руководства для анализа
+        guidelines = request.guidelines or config.DEFAULT_REQUIREMENTS_GUIDELINES
         
-        # Вызываем анализ требований
-        result = requirements_analyzer.analyze({
-            "requirements": request.requirements,
-            "guidelines": request.guidelines or sber_guidelines,
-        })
-        
-        # Преобразуем результат в модель ответа
-        requirements_analysis_result = RequirementsAnalysisResult(
-            total_score=result.get("total_score", 0.0),
-            clarity_score=result.get("clarity_score", 0.0),
-            completeness_score=result.get("completeness_score", 0.0),
-            consistency_score=result.get("consistency_score", 0.0),
-            testability_score=result.get("testability_score", 0.0),
-            feasibility_score=result.get("feasibility_score", 0.0),
-            problematic_requirements=result.get("problematic_requirements", []),
-            missing_aspects=result.get("missing_aspects", []),
-            improvement_suggestions=result.get("improvement_suggestions", []),
-            overall_assessment=result.get("overall_assessment", ""),
+        result = await requirements_analyzer.analyze_requirements(
+            requirements=request.requirements,
+            guidelines=guidelines,
+            use_cache=request.use_cache
         )
-
-        logger.info("Анализ требований успешно выполнен")
-        return requirements_analysis_result
-
+        
+        logger.info(f"Анализ требований успешно выполнен, общий балл: {result.total_score}")
+        return result
     except Exception as e:
-        logger.error(f"Ошибка при анализе требований: {str(e)}")
-        raise HTTPException(
-            status_code=500, 
-            detail=f"Произошла ошибка при анализе требований: {str(e)}"
+        logger.error(f"Ошибка при анализе требований: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/format_document", response_model=DocumentFormatterResult)
+async def format_document(request: DocumentFormatterRequest):
+    """
+    Форматирует документ в соответствии с заданным шаблоном/правилами.
+    
+    При необходимости, запрашивает дополнительную информацию у пользователя через возврат
+    соответствующего статуса и вопросов.
+    """
+    try:
+        logger.info(f"Получен запрос на форматирование документа, длина документа: {len(request.document_content)} символов")
+        
+        result = await document_formatter.format_document(
+            template_rules=request.template_rules,
+            document_content=request.document_content,
+            use_cache=request.use_cache
         )
+        
+        logger.info(f"Форматирование выполнено, требуются ли уточнения: {not result.is_completed}")
+        return result
+    except Exception as e:
+        logger.error(f"Ошибка при форматировании документа: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/format_document/continue", response_model=DocumentFormatterResult)
+async def continue_document_formatting(
+    user_message: str,
+    template_rules: str,
+    document_content: str,
+    conversation_history: list[FormatterMessage],
+    use_cache: bool = True
+):
+    """
+    Продолжает диалог с форматировщиком документов, отправляя ответ пользователя
+    на заданные вопросы.
+    """
+    try:
+        logger.info(f"Получен запрос на продолжение форматирования, сообщение пользователя: {user_message[:50]}...")
+        
+        result = await document_formatter.add_user_message(
+            user_message=user_message,
+            conversation_history=conversation_history,
+            template_rules=template_rules,
+            document_content=document_content,
+            use_cache=use_cache
+        )
+        
+        logger.info(f"Продолжение форматирования выполнено, требуются ли уточнения: {not result.is_completed}")
+        return result
+    except Exception as e:
+        logger.error(f"Ошибка при продолжении форматирования документа: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":
-    port = config.PORT
-    logger.info(f"Запуск сервера на порту {port}")
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False) 
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)

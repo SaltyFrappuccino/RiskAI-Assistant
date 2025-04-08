@@ -2741,3 +2741,187 @@ problematic_requirements.1
 2025-04-08 04:15:39,796 - services.gigachat_service - INFO - Успешно получен структурированный ответ
 2025-04-08 04:15:39,796 - agents.requirements_analyzer_agent - INFO - Анализ требований успешно завершен
 2025-04-08 04:15:39,797 - main - INFO - Анализ требований успешно выполнен
+2025-04-08 04:52:15,072 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 04:52:15,075 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:52:15,329 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:52:15,337 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 04:52:15,338 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 04:52:15,339 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 04:52:15,339 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 04:52:15,340 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 04:52:15,341 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 04:52:15,341 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:52:15,342 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:52:15,342 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 04:52:15,343 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 04:52:15,355 - __main__ - INFO - Запуск сервера на порту 8080
+2025-04-08 04:52:15,434 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 04:52:15,435 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:52:15,436 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:52:15,444 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 04:52:15,445 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 04:52:15,446 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 04:52:15,446 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 04:52:15,447 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 04:52:15,448 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 04:52:15,448 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:52:15,449 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:52:15,450 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 04:52:15,450 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:00:49,237 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:00:49,239 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:00:49,466 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:00:49,474 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:00:49,475 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:00:49,476 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:00:49,477 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:00:49,478 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:00:49,478 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:00:49,479 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:00:49,479 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:00:49,480 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:00:49,481 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:02:11,315 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:02:11,317 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:02:11,519 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:02:11,527 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:02:11,527 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:02:11,528 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:02:11,528 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:02:11,529 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:02:11,530 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:02:11,530 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:02:11,531 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:02:11,531 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:02:11,531 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:04:19,983 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:04:19,985 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:04:20,203 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:04:20,211 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:04:20,213 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:04:20,213 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:04:20,214 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:04:20,214 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:04:20,215 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:04:20,215 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:04:20,216 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:04:20,216 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:04:20,217 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:04:25,175 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:04:25,177 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:04:25,426 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:04:25,435 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:04:25,436 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:04:25,436 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:04:25,437 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:04:25,437 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:04:25,438 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:04:25,438 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:04:25,439 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:04:25,440 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:04:25,440 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:04:25,567 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:04:25,568 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:04:25,569 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:04:25,577 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:04:25,578 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:04:25,578 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:04:25,579 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:04:25,579 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:04:25,580 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:04:25,580 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:04:25,581 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:04:25,582 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:04:25,583 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:04:26,415 - main - INFO - Запрос на проверку работоспособности API
+2025-04-08 05:04:26,430 - main - INFO - Запрос на проверку работоспособности API
+2025-04-08 05:04:26,448 - main - INFO - Запрос на получение статистики кэша
+2025-04-08 05:04:26,747 - main - INFO - Запрос на получение статистики кэша
+2025-04-08 05:04:46,118 - main - INFO - Получен запрос на форматирование документа, длина документа: 481 символов
+2025-04-08 05:04:46,119 - services.gigachat_service - INFO - Отправка запроса на диалоговый чат-компплишн
+2025-04-08 05:04:46,538 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-04-08 05:04:50,568 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 05:04:50,581 - services.gigachat_service - INFO - Успешно получен ответ от модели
+2025-04-08 05:04:50,582 - main - ERROR - Ошибка при форматировании документа: 'dict' object has no attribute 'choices'
+Traceback (most recent call last):
+  File "C:\Users\SaltyFrappuccino\repos\RiskAI-Assistant\main.py", line 441, in format_document
+    result = await document_formatter.format_document(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\SaltyFrappuccino\repos\RiskAI-Assistant\agents\document_formatter_agent.py", line 98, in format_document
+    assistant_message = response.choices[0].message.content
+                        ^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'choices'
+2025-04-08 05:05:31,697 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:05:31,699 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:05:31,943 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:05:31,951 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:05:31,952 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:05:31,952 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:05:31,953 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:05:31,954 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:05:31,955 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:05:31,956 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:05:31,957 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:05:31,958 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:05:31,958 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:05:32,045 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:05:32,046 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:05:32,046 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:05:32,054 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:05:32,055 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:05:32,056 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:05:32,057 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:05:32,057 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:05:32,058 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:05:32,058 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:05:32,059 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:05:32,059 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:05:32,060 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:05:57,833 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:05:57,835 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:05:58,088 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:05:58,095 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:05:58,096 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:05:58,097 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:05:58,097 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:05:58,098 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:05:58,098 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:05:58,099 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:05:58,099 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:05:58,100 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:05:58,100 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:06:02,800 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:06:02,802 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:06:03,098 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:06:03,109 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:06:03,110 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:06:03,111 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:06:03,111 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:06:03,112 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:06:03,112 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:06:03,113 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:06:03,113 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:06:03,114 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:06:03,114 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:06:03,227 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 05:06:03,229 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:06:03,230 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:06:03,241 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 05:06:03,241 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 05:06:03,242 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 05:06:03,243 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 05:06:03,244 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 05:06:03,244 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 05:06:03,245 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 05:06:03,246 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 05:06:03,247 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 05:06:03,247 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 05:06:11,792 - main - INFO - Получен запрос на форматирование документа, длина документа: 481 символов
+2025-04-08 05:06:11,793 - services.gigachat_service - INFO - Отправка запроса на диалоговый чат-компплишн
+2025-04-08 05:06:12,053 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-04-08 05:06:15,880 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 05:06:15,882 - services.gigachat_service - INFO - Успешно получен ответ от модели
+2025-04-08 05:06:15,883 - main - INFO - Форматирование выполнено, требуются ли уточнения: True

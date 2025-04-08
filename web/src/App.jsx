@@ -8,8 +8,10 @@ import ExamplesSelector from './components/ExamplesSelector';
 import AnalysisReport from './components/AnalysisReport';
 import RequirementsForm from './components/RequirementsForm';
 import RequirementsReport from './components/RequirementsReport';
+import DocumentFormatterForm from './components/DocumentFormatterForm';
+import DocumentFormatterReport from './components/DocumentFormatterReport';
 import Header from './components/Header';
-import { analyzeCode, checkApiHealth, getCacheStats, analyzeRequirements } from './api/api';
+import { analyzeCode, checkApiHealth, getCacheStats, analyzeRequirements, formatDocument, continueFormatting } from './api/api';
 import './styles/globalStyles.css';
 import CodeForm from './components/CodeForm';
 
@@ -19,6 +21,7 @@ import CodeForm from './components/CodeForm';
 const App = () => {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [requirementsResult, setRequirementsResult] = useState(null);
+  const [formatterResult, setFormatterResult] = useState(null);
   
   const [loading, setLoading] = useState(false);
   
@@ -35,6 +38,12 @@ const App = () => {
   const [cacheStats, setCacheStats] = useState(null);
 
   const [currentTab, setCurrentTab] = useState(0);
+  
+  const [formatterData, setFormatterData] = useState({
+    template_rules: '',
+    document_content: '',
+    use_cache: true
+  });
 
   useEffect(() => {
     const checkApiStatus = async () => {
@@ -133,6 +142,73 @@ const App = () => {
     }
   };
 
+  const handleFormatterSubmit = async (formData) => {
+    if (!formData.template_rules.trim() || !formData.document_content.trim()) {
+      showNotification('Необходимо заполнить поля "Шаблон/Правила" и "Документ" для форматирования', 'warning');
+      return;
+    }
+
+    setLoading(true);
+    setFormatterResult(null);
+    setFormatterData(formData);
+
+    try {
+      const result = await formatDocument(formData);
+      setFormatterResult(result);
+      
+      const isCompleted = result.is_completed;
+      const message = isCompleted 
+        ? 'Форматирование документа успешно завершено' 
+        : 'Для завершения форматирования ответьте на вопросы ассистента';
+      
+      showNotification(message, 'success');
+    } catch (error) {
+      console.error('Ошибка при форматировании документа:', error);
+      showNotification(
+        'Ошибка при форматировании документа. ' + 
+        (error.response ? error.response.data.detail || error.message : error.message),
+        'error'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleContinueFormatting = async (userMessage) => {
+    if (!userMessage.trim() || !formatterResult) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const data = {
+        user_message: userMessage,
+        template_rules: formatterData.template_rules,
+        document_content: formatterData.document_content,
+        conversation_history: formatterResult.conversation_history,
+        use_cache: formatterData.use_cache
+      };
+      
+      const result = await continueFormatting(data);
+      setFormatterResult(result);
+      
+      const isCompleted = result.is_completed;
+      if (isCompleted) {
+        showNotification('Форматирование документа успешно завершено', 'success');
+      }
+    } catch (error) {
+      console.error('Ошибка при продолжении форматирования:', error);
+      showNotification(
+        'Ошибка при продолжении форматирования. ' + 
+        (error.response ? error.response.data.detail || error.message : error.message),
+        'error'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -143,6 +219,7 @@ const App = () => {
             <Tabs value={currentTab} onChange={handleTabChange} centered>
               <Tab label="Анализ артефактов" />
               <Tab label="Анализ требований" />
+              <Tab label="Форматирование документов" />
             </Tabs>
           </Paper>
           
@@ -213,6 +290,7 @@ const App = () => {
                   )}
                 </>
               )}
+              
               {currentTab === 1 && (
                 <>
                   <RequirementsForm 
@@ -221,6 +299,56 @@ const App = () => {
                     disabled={apiStatus !== 'online'} 
                   />
                   {requirementsResult && <RequirementsReport requirementsResult={requirementsResult} />}
+                </>
+              )}
+              
+              {currentTab === 2 && (
+                <>
+                  <Grow in={true} timeout={800}>
+                    <div>
+                      <DocumentFormatterForm
+                        onFormatterSubmit={handleFormatterSubmit}
+                        loading={loading}
+                        disabled={apiStatus !== 'online'}
+                      />
+                    </div>
+                  </Grow>
+                  
+                  {loading && currentTab === 2 && (
+                    <Box sx={{ 
+                      display: 'flex', 
+                      justifyContent: 'center',
+                      my: 4,
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}>
+                      <CircularProgress 
+                        color="primary" 
+                        size={60} 
+                        thickness={4} 
+                        sx={{ 
+                          boxShadow: '0 0 20px rgba(252, 4, 116, 0.3)',
+                          borderRadius: '50%',
+                          p: 1
+                        }} 
+                      />
+                      <Box sx={{ mt: 2, color: 'text.secondary', fontStyle: 'italic' }}>
+                        {formatterResult ? 'Обрабатываем ваш ответ...' : 'Форматируем документ...'}
+                      </Box>
+                    </Box>
+                  )}
+                  
+                  {formatterResult && (
+                    <Grow in={true} timeout={1000}>
+                      <div>
+                        <DocumentFormatterReport 
+                          formatterResult={formatterResult} 
+                          onContinueFormatting={handleContinueFormatting} 
+                          loading={loading}
+                        />
+                      </div>
+                    </Grow>
+                  )}
                 </>
               )}
             </Box>
@@ -249,4 +377,4 @@ const App = () => {
   );
 };
 
-export default App; 
+export default App;

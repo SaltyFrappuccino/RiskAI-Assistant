@@ -287,17 +287,83 @@ class GigaChatService:
                 
         return example
 
-    def call_with_structured_output(self, prompt: str, data: Dict[str, Any], result_schema: Type[BaseModel]) -> Dict[str, Any]:
+    async def chat_completion(self, messages: List[Dict[str, str]]) -> Any:
         """
-        Вызывает модель с использованием структурированного вывода на основе Pydantic-модели.
+        Асинхронный метод для работы с диалоговым интерфейсом.
         
         Args:
-            prompt: Промпт для модели.
-            data: Данные для заполнения промпта.
-            result_schema: Схема ожидаемого результата (Pydantic-класс).
+            messages: Список сообщений диалога в формате [{"role": "system", "content": "..."}, ...]
             
         Returns:
-            Dict[str, Any]: Результат в виде словаря, соответствующего схеме.
+            Any: Результат диалога с моделью
+        """
+        try:
+            logger.info("Отправка запроса на диалоговый чат-компплишн")
+            
+            # Здесь должен быть вызов API для chat completion
+            # Так как у нас используется langchain_gigachat, преобразуем запрос в его формат
+            langchain_messages = []
+            
+            for msg in messages:
+                if msg["role"] == "system":
+                    langchain_messages.append(SystemMessage(content=msg["content"]))
+                elif msg["role"] == "user":
+                    langchain_messages.append(HumanMessage(content=msg["content"]))
+                elif msg["role"] == "assistant":
+                    # В langchain_gigachat нет прямого способа добавить сообщение ассистента в историю,
+                    # поэтому мы используем пары system/human
+                    langchain_messages.append(SystemMessage(content=f"Ваше предыдущее сообщение было: {msg['content']}"))
+                    
+            # Добавляем последний запрос
+            if len(langchain_messages) > 0 and not isinstance(langchain_messages[-1], HumanMessage):
+                langchain_messages.append(HumanMessage(content="Продолжи диалог на основе предыдущих сообщений."))
+            
+            response = self.giga.invoke(langchain_messages)
+            
+            # Формируем ответ в формате, совместимом с OpenAI API
+            result = {
+                "choices": [
+                    {
+                        "message": {
+                            "role": "assistant",
+                            "content": response.content
+                        },
+                        "finish_reason": "stop",
+                        "index": 0
+                    }
+                ]
+            }
+            
+            logger.info("Успешно получен ответ от модели")
+            return result
+            
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении chat completion: {e}")
+            # Возвращаем минимальный формат ответа с сообщением об ошибке
+            return {
+                "choices": [
+                    {
+                        "message": {
+                            "role": "assistant",
+                            "content": f"Произошла ошибка при обработке запроса: {str(e)}"
+                        },
+                        "finish_reason": "error",
+                        "index": 0
+                    }
+                ]
+            }
+
+    def call_with_structured_output(self, prompt: str, data: Dict[str, Any], result_schema: Type[BaseModel]) -> Dict[str, Any]:
+        """
+        Вызов модели с ожиданием структурированного вывода в соответствии с заданной схемой.
+        
+        Args:
+            prompt: Промпт с инструкциями для модели.
+            data: Данные для заполнения промпта.
+            result_schema: Схема ожидаемого результата.
+            
+        Returns:
+            Dict[str, Any]: Структурированный результат работы модели.
         """
         max_attempts = 3
         base_delay = 2

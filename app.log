@@ -2596,3 +2596,148 @@ problematic_requirements.1
 2025-04-08 03:43:40,350 - services.gigachat_service - INFO - Успешно получен структурированный ответ
 2025-04-08 03:43:40,351 - agents.requirements_analyzer_agent - INFO - Анализ требований успешно завершен
 2025-04-08 03:43:40,352 - main - INFO - Анализ требований успешно выполнен
+2025-04-08 03:51:02,134 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:51:02,136 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:51:02,389 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:51:02,401 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:51:02,402 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:51:02,402 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:51:02,403 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:51:02,403 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:51:02,404 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:51:02,404 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:51:02,405 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:51:02,406 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:51:02,406 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:51:02,418 - __main__ - INFO - Запуск сервера на порту 8080
+2025-04-08 03:51:02,490 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 03:51:02,491 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:51:02,492 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:51:02,501 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 03:51:02,502 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 03:51:02,502 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 03:51:02,503 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 03:51:02,504 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 03:51:02,504 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 03:51:02,505 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:51:02,505 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:51:02,506 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 03:51:02,506 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 03:51:21,448 - main - INFO - Получен запрос на анализ требований
+2025-04-08 03:51:21,449 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 03:51:21,450 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 03:51:21,450 - agents.requirements_analyzer_agent - INFO - Запуск анализа требований
+2025-04-08 03:51:21,451 - agents.requirements_analyzer_agent - INFO - Обнаружен большой текст требований (61280 символов), применяем RAG
+2025-04-08 03:51:21,454 - agents.rag_processor - INFO - Текст разбит на 18 частей
+2025-04-08 03:51:21,455 - agents.rag_processor - INFO - Анализ части 1 из 18
+2025-04-08 03:51:21,466 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:51:21,773 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-04-08 03:51:32,222 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:51:32,243 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:51:32,244 - agents.rag_processor - INFO - Анализ части 2 из 18
+2025-04-08 03:51:32,250 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:51:40,532 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:51:40,535 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:51:40,536 - agents.rag_processor - INFO - Анализ части 3 из 18
+2025-04-08 03:51:40,544 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:51:45,192 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:51:45,194 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:51:45,195 - agents.rag_processor - INFO - Анализ части 4 из 18
+2025-04-08 03:51:45,201 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:51:49,583 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:51:49,586 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:51:49,587 - agents.rag_processor - INFO - Анализ части 5 из 18
+2025-04-08 03:51:49,592 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:51:58,917 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:51:58,944 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:51:58,945 - agents.rag_processor - INFO - Анализ части 6 из 18
+2025-04-08 03:51:58,952 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:05,640 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:05,642 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:05,643 - agents.rag_processor - INFO - Анализ части 7 из 18
+2025-04-08 03:52:05,649 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:08,781 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:08,784 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:08,785 - agents.rag_processor - INFO - Анализ части 8 из 18
+2025-04-08 03:52:08,794 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:12,118 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:12,121 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:12,122 - agents.rag_processor - INFO - Анализ части 9 из 18
+2025-04-08 03:52:12,130 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:21,879 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:21,897 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:21,898 - agents.rag_processor - INFO - Анализ части 10 из 18
+2025-04-08 03:52:21,905 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:28,931 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:28,934 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:28,935 - agents.rag_processor - INFO - Анализ части 11 из 18
+2025-04-08 03:52:28,940 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:36,441 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:36,444 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:36,445 - agents.rag_processor - INFO - Анализ части 12 из 18
+2025-04-08 03:52:36,453 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:43,997 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:44,000 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:44,000 - agents.rag_processor - INFO - Анализ части 13 из 18
+2025-04-08 03:52:44,006 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:51,528 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:51,530 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:51,531 - agents.rag_processor - INFO - Анализ части 14 из 18
+2025-04-08 03:52:51,539 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:52:57,394 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:52:57,397 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:52:57,398 - agents.rag_processor - INFO - Анализ части 15 из 18
+2025-04-08 03:52:57,404 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:53:02,161 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:53:02,164 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:53:02,165 - agents.rag_processor - INFO - Анализ части 16 из 18
+2025-04-08 03:53:02,170 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:53:09,871 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:53:09,874 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:53:09,875 - agents.rag_processor - INFO - Анализ части 17 из 18
+2025-04-08 03:53:09,880 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:53:16,916 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:53:16,919 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:53:16,919 - agents.rag_processor - INFO - Анализ части 18 из 18
+2025-04-08 03:53:16,924 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 03:53:27,134 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 03:53:27,154 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 03:53:27,155 - main - ERROR - Ошибка при анализе требований: sequence item 0: expected str instance, list found
+2025-04-08 04:11:51,495 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 04:11:51,496 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:11:51,804 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:11:51,812 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 04:11:51,813 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 04:11:51,813 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 04:11:51,814 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 04:11:51,815 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 04:11:51,815 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 04:11:51,816 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:11:51,817 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:11:51,817 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 04:11:51,818 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 04:11:51,829 - __main__ - INFO - Запуск сервера на порту 8080
+2025-04-08 04:11:51,918 - root - INFO - Логирование настроено с уровнем INFO
+2025-04-08 04:11:51,919 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:11:51,919 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:11:51,926 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша bugs
+2025-04-08 04:11:51,927 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша vulnerabilities
+2025-04-08 04:11:51,928 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша recommendations
+2025-04-08 04:11:51,929 - services.cache_service - INFO - Удалено 0 устаревших записей из кэша requirements
+2025-04-08 04:11:51,930 - services.cache_service - INFO - Сервис кэширования инициализирован. Директория кэша: cache
+2025-04-08 04:11:51,930 - agents.analyzer - INFO - Инициализация CodeAnalyzer
+2025-04-08 04:11:51,931 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:11:51,931 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:11:51,932 - agents.analyzer - INFO - Инициализация агентов
+2025-04-08 04:11:51,933 - agents.analyzer - INFO - Агенты успешно инициализированы
+2025-04-08 04:15:30,039 - main - INFO - Получен запрос на анализ требований
+2025-04-08 04:15:30,040 - services.gigachat_service - INFO - Инициализация GigaChat клиента
+2025-04-08 04:15:30,041 - services.gigachat_service - INFO - GigaChat клиент успешно инициализирован
+2025-04-08 04:15:30,042 - agents.requirements_analyzer_agent - INFO - Запуск анализа требований
+2025-04-08 04:15:30,042 - agents.requirements_analyzer_agent - INFO - Размер текста требований (3850 символов) позволяет анализировать его целиком
+2025-04-08 04:15:30,071 - services.gigachat_service - INFO - Вызов GigaChat со структурированным выводом (попытка 1/3)
+2025-04-08 04:15:32,533 - httpx - INFO - HTTP Request: POST https://ngw.devices.sberbank.ru:9443/api/v2/oauth "HTTP/1.1 200 OK"
+2025-04-08 04:15:39,793 - httpx - INFO - HTTP Request: POST https://gigachat.devices.sberbank.ru/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-08 04:15:39,796 - services.gigachat_service - INFO - Успешно получен структурированный ответ
+2025-04-08 04:15:39,796 - agents.requirements_analyzer_agent - INFO - Анализ требований успешно завершен
+2025-04-08 04:15:39,797 - main - INFO - Анализ требований успешно выполнен

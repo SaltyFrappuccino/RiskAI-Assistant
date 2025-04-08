@@ -14,6 +14,7 @@ from agents.best_practices_agent import BestPracticesAgent
 from agents.bug_detector_agent import BugDetectorAgent
 from agents.vulnerability_detector_agent import VulnerabilityDetectorAgent
 from agents.final_report_agent import FinalReportAgent
+from agents.rag_processor import RAGProcessor
 import config
 
 logger = logging.getLogger(__name__)
@@ -34,6 +35,7 @@ class CodeAnalyzer:
         logger.info("Инициализация CodeAnalyzer")
         self.gigachat_service = GigaChatService()
         self.cache_service = cache_service
+        self.rag_processor = RAGProcessor(self.gigachat_service)
         self._init_agents()
     
     def _init_agents(self):
@@ -97,36 +99,82 @@ class CodeAnalyzer:
             cached_vulnerabilities = []
             cached_recommendations = []
         
+        # Проверяем размеры текстов для применения RAG
+        large_text_threshold = 5000  # Порог для применения RAG (5000 символов)
+        
         logger.info("Запуск агента проверки соответствия кода требованиям")
-        code_requirements_result = self.code_requirements_agent.analyze(data)
+        code_requirements_data = self._prepare_data_for_agent(data, "code_requirements")
+        code_requirements_result = self._run_agent_with_rag_support(
+            self.code_requirements_agent, 
+            code_requirements_data,
+            "requirements", 
+            "code"
+        )
         
         logger.info("Запуск агента проверки соответствия тест-кейсов требованиям")
-        test_requirements_result = self.test_requirements_agent.analyze(data)
+        test_requirements_data = self._prepare_data_for_agent(data, "test_requirements")
+        test_requirements_result = self._run_agent_with_rag_support(
+            self.test_requirements_agent, 
+            test_requirements_data,
+            "requirements", 
+            "test_cases"
+        )
         
         logger.info("Запуск агента проверки соответствия тест-кейсов коду")
-        test_code_result = self.test_code_agent.analyze(data)
+        test_code_data = self._prepare_data_for_agent(data, "test_code")
+        test_code_result = self._run_agent_with_rag_support(
+            self.test_code_agent, 
+            test_code_data,
+            "code", 
+            "test_cases"
+        )
         
         logger.info("Запуск агента проверки кода на соответствие лучшим практикам")
-        best_practices_result = self.best_practices_agent.analyze(data)
+        best_practices_data = self._prepare_data_for_agent(data, "best_practices")
+        best_practices_result = self._run_agent_with_rag_support(
+            self.best_practices_agent, 
+            best_practices_data,
+            "code"
+        )
         
         if use_cache and cached_bugs:
             logger.info(f"Используем {len(cached_bugs)} кэшированных багов")
-            bug_detector_result = self.bug_detector_agent.analyze(data)
+            bug_detector_data = self._prepare_data_for_agent(data, "bug_detector")
+            bug_detector_result = self._run_agent_with_rag_support(
+                self.bug_detector_agent, 
+                bug_detector_data,
+                "code"
+            )
             bug_detector_result["bugs"] = self._merge_bugs(bug_detector_result.get("bugs", []), cached_bugs)
         else:
             logger.info("Запуск агента обнаружения багов")
-            bug_detector_result = self.bug_detector_agent.analyze(data)
+            bug_detector_data = self._prepare_data_for_agent(data, "bug_detector")
+            bug_detector_result = self._run_agent_with_rag_support(
+                self.bug_detector_agent, 
+                bug_detector_data,
+                "code"
+            )
         
         if use_cache and cached_vulnerabilities:
             logger.info(f"Используем {len(cached_vulnerabilities)} кэшированных уязвимостей")
-            vulnerability_detector_result = self.vulnerability_detector_agent.analyze(data)
+            vulnerability_detector_data = self._prepare_data_for_agent(data, "vulnerability_detector")
+            vulnerability_detector_result = self._run_agent_with_rag_support(
+                self.vulnerability_detector_agent, 
+                vulnerability_detector_data,
+                "code"
+            )
             vulnerability_detector_result["vulnerabilities"] = self._merge_vulnerabilities(
                 vulnerability_detector_result.get("vulnerabilities", []), 
                 cached_vulnerabilities
             )
         else:
             logger.info("Запуск агента обнаружения уязвимостей")
-            vulnerability_detector_result = self.vulnerability_detector_agent.analyze(data)
+            vulnerability_detector_data = self._prepare_data_for_agent(data, "vulnerability_detector")
+            vulnerability_detector_result = self._run_agent_with_rag_support(
+                self.vulnerability_detector_agent, 
+                vulnerability_detector_data,
+                "code"
+            )
         
         report_data = {
             "code_requirements_result": code_requirements_result,
@@ -182,6 +230,163 @@ class CodeAnalyzer:
                 metrics=Metrics(code_requirements_match=0.0, test_requirements_match=0.0, test_code_match=0.0),
                 summary=f"Ошибка при формировании отчета: {str(e)}",
             )
+    
+    def _prepare_data_for_agent(self, original_data: Dict[str, Any], agent_type: str) -> Dict[str, Any]:
+        """
+        Подготовка данных для агента, копируя только необходимые поля.
+        
+        Args:
+            original_data: Исходные данные.
+            agent_type: Тип агента.
+            
+        Returns:
+            Dict[str, Any]: Подготовленные данные для агента.
+        """
+        # Базовые поля, которые нужны для всех агентов
+        agent_data = {
+            "story": original_data.get("story", ""),
+            "requirements": original_data.get("requirements", ""),
+            "code": original_data.get("code", ""),
+            "test_cases": original_data.get("test_cases", ""),
+        }
+        
+        # Можно добавить специфичные поля для разных типов агентов
+        return agent_data
+    
+    def _run_agent_with_rag_support(self, agent, data: Dict[str, Any], *fields_to_check) -> Dict[str, Any]:
+        """
+        Запуск агента с поддержкой RAG для больших текстов.
+        
+        Args:
+            agent: Агент для анализа.
+            data: Данные для анализа.
+            fields_to_check: Имена полей для проверки на размер.
+            
+        Returns:
+            Dict[str, Any]: Результат анализа.
+        """
+        large_text_threshold = 5000  # Порог для применения RAG (5000 символов)
+        needs_rag = False
+        
+        # Проверяем, нужно ли применять RAG
+        for field in fields_to_check:
+            if field in data and len(data[field]) > large_text_threshold:
+                logger.info(f"Обнаружен большой текст в поле {field} ({len(data[field])} символов)")
+                needs_rag = True
+                break
+        
+        if needs_rag:
+            logger.info(f"Применяем RAG для анализа с агентом {agent.__class__.__name__}")
+            
+            # Используем RAG для каждого большого поля
+            for field in fields_to_check:
+                if field in data and len(data[field]) > large_text_threshold:
+                    # Подготавливаем копию данных для RAG, заменяя большое поле на часть
+                    rag_results = []
+                    
+                    # Разбиваем текст на части и анализируем каждую часть
+                    chunks = self.rag_processor.process_large_text(data[field], 4000)
+                    logger.info(f"Поле {field} разбито на {len(chunks)} частей")
+                    
+                    # Для каждого чанка выполняем анализ
+                    chunk_results = []
+                    for i, chunk in enumerate(chunks):
+                        logger.info(f"Анализ части {i+1} из {len(chunks)} поля {field}")
+                        
+                        # Создаем копию данных с текущим чанком
+                        chunk_data = data.copy()
+                        chunk_data[field] = chunk
+                        chunk_data["chunk_info"] = f"Это часть {i+1} из {len(chunks)} всего текста поля {field}."
+                        chunk_data["is_chunk"] = True
+                        
+                        # Анализируем чанк
+                        try:
+                            result = agent.analyze(chunk_data)
+                            chunk_results.append(result)
+                        except Exception as e:
+                            logger.error(f"Ошибка при анализе части {i+1} поля {field}: {e}")
+                    
+                    # Объединяем результаты всех частей
+                    if chunk_results:
+                        try:
+                            result = self._merge_rag_results(chunk_results)
+                            logger.info(f"Успешно объединены результаты анализа {len(chunk_results)} частей поля {field}")
+                            return result
+                        except Exception as e:
+                            logger.error(f"Ошибка при объединении результатов: {e}")
+                            # Если не удалось объединить результаты, возвращаем результат первой части
+                            if chunk_results:
+                                return chunk_results[0]
+            
+            # Если была ошибка и не удалось применить RAG, используем обычный анализ
+            logger.warning("Не удалось применить RAG, используем обычный анализ")
+            return agent.analyze(data)
+        else:
+            # Если не нужен RAG, используем обычный анализ
+            return agent.analyze(data)
+    
+    def _merge_rag_results(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Объединение результатов анализа отдельных частей.
+        
+        Args:
+            results: Список результатов анализа отдельных частей.
+            
+        Returns:
+            Dict[str, Any]: Объединенный результат.
+        """
+        if not results:
+            return {}
+        
+        # Создаем пустой результат
+        merged_result = {}
+        
+        # Получаем ключи из первого результата
+        keys = results[0].keys()
+        
+        for key in keys:
+            # Обрабатываем разные типы данных по-разному
+            values = [result.get(key) for result in results if key in result]
+            
+            if not values:
+                continue
+                
+            # Проверяем тип значения
+            first_value = values[0]
+            
+            # Обработка числовых значений (вычисляем среднее)
+            if isinstance(first_value, (int, float)):
+                merged_result[key] = sum(values) / len(values)
+            
+            # Обработка строковых значений (объединяем)
+            elif isinstance(first_value, str):
+                merged_result[key] = "\n\n".join(values)
+            
+            # Обработка списков (объединяем)
+            elif isinstance(first_value, list):
+                merged_list = []
+                for value_list in values:
+                    merged_list.extend(value_list)
+                merged_result[key] = merged_list
+            
+            # Обработка словарей (рекурсивно объединяем)
+            elif isinstance(first_value, dict):
+                merged_dict = {}
+                for value_dict in values:
+                    for k, v in value_dict.items():
+                        if k not in merged_dict:
+                            merged_dict[k] = v
+                        elif isinstance(v, list) and isinstance(merged_dict[k], list):
+                            merged_dict[k].extend(v)
+                        elif isinstance(v, (int, float)) and isinstance(merged_dict[k], (int, float)):
+                            merged_dict[k] = (merged_dict[k] + v) / 2
+                merged_result[key] = merged_dict
+            
+            # По умолчанию берем значение из первого результата
+            else:
+                merged_result[key] = first_value
+        
+        return merged_result
     
     def _merge_bugs(self, detected_bugs: List[Dict[str, Any]], cached_bugs: List[Bug]) -> List[Dict[str, Any]]:
         """
